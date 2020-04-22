@@ -37,6 +37,8 @@ mongoose
 
 //Routes
 require("./routes/api/users")(app)
+require("./routes/api/posts")(app)
+
 
 if (process.env.NODE_ENV === 'production') {
   // set static folder
