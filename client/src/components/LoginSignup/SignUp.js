@@ -24,26 +24,7 @@ export class SignUp extends Component {
       lastName: this.state.lastName,
       email: this.state.email,
       password: this.state.password,
-      katakana: {
-        multipleChoice: {
-          current: 0,
-          highest: 0
-        },
-        fillInTheBlank: {
-          current: 0,
-          highest: 0
-        }
-      },
-      hiragana: {
-        multipleChoice: {
-          current: 0,
-          highest: 0
-        },
-        fillInTheBlank: {
-          current: 0,
-          highest: 0
-        }
-      }
+      
     };
 
     axios
@@ -73,10 +54,10 @@ export class SignUp extends Component {
           <i className="material-icons back-button">arrow_back</i>
         </Link>
         <div>
-          <h1>Sign Up</h1>
-          <div className="row">
-            <form className="col s12" onSubmit={this.onSubmit}>
-                <div className="input-field col s6">
+          <h3>Sign Up</h3>
+            <form  onSubmit={this.onSubmit}>
+                <div>
+                <label htmlFor="last_name">First Name</label>
                   <input
                     placeholder="First Name"
                     id="first_name"
@@ -85,9 +66,9 @@ export class SignUp extends Component {
                     name="firstName"
                     onChange={this.onChange}
                   />
-                  <label htmlFor="last_name">First Name</label>
+                 
                 </div>
-                <div className="input-field col s6">
+                <div>
                   <input
                     placeholder="Last Name"
                     id="first_name"
@@ -99,8 +80,7 @@ export class SignUp extends Component {
                   <label htmlFor="first_name">Last Name</label>
                 </div>
 
-              <div className="row">
-                <div className="input-field col s12">
+                <div>
                   <input
                     placeholder="Email"
                     id="email"
@@ -111,10 +91,8 @@ export class SignUp extends Component {
                   />
                   <label htmlFor="email">Email</label>
                 </div>
-              </div>
 
-              <div className="row">
-                <div className="input-field col s12">
+                <div>
                   <input
                     placeholder="Password"
                     id="password"
@@ -125,19 +103,20 @@ export class SignUp extends Component {
                   />
                   <label htmlFor="password">Password</label>
                 </div>
-                <div className="row">
                   <button
-                    className="btn waves-effect waves-light"
                     type="submit"
                     name="action"
                   >
                     Submit
                     <i className="material-icons right">send</i>
                   </button>
-                </div>
-              </div>
+                  <p>
+                  Already have an account?{" "}
+                  <span onClick={this.props.formSwitch} href="/SignUp" style={styles.signupLink}>
+                    Click here to log in!
+                  </span>
+                </p>
             </form>
-          </div>
         </div>
       </div>
     );

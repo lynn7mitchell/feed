@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
 import axios from "axios";
-import authenticate from "../utils/Authenticate";
-import setAuthToken from "../utils/setAuthtoken";
+import authenticate from "../../utils/Authenticate";
+import setAuthToken from "../../utils/setAuthtoken";
+import "./login-signup.css";
 
 export class Login extends Component {
   constructor() {
@@ -11,7 +12,7 @@ export class Login extends Component {
       redirect: false,
       email: "",
       password: "",
-      errors: {}
+      errors: {},
     };
   }
   componentDidMount() {
@@ -19,29 +20,28 @@ export class Login extends Component {
 
     if (authenticate(token)) {
       this.setState({
-        redirect: true
+        redirect: true,
       });
     }
   }
 
-  onChange = e => {
+  onChange = (e) => {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
 
     const newUser = {
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
     };
-
 
     axios
       .post("/api/user/login", newUser)
-      .then(response => {
+      .then((response) => {
         if (response.data.token) {
           const { token } = response.data;
 
@@ -50,12 +50,12 @@ export class Login extends Component {
         }
         this.setState({
           redirect: true,
-          errors: {}
+          errors: {},
         });
       })
-      .catch(err =>
+      .catch((err) =>
         this.setState({
-          errors: err.response.data
+          errors: err.response.data,
         })
       );
   };
@@ -64,20 +64,20 @@ export class Login extends Component {
       logo: {
         display: "block",
         margin: "0 auto",
-        width: "28vw"
+        width: "28vw",
       },
       error: {
         color: "#cc0000",
         fontSize: "0.8rem",
-        margin: 0
+        margin: 0,
       },
       main: {
         textAlign: "center",
-        marginTop: "25vh"
+        marginTop: "25vh",
       },
       signupLink: {
-        color: "#26a69a"
-      }
+        color: "#26a69a",
+      },
     };
 
     const { errors } = this.state;
@@ -87,58 +87,57 @@ export class Login extends Component {
     }
     return (
       <div style={styles.main}>
-        <Link to={{ pathname: "/" }}>
-          <i className="material-icons back-button">arrow_back</i>
-        </Link>
         <div className="container">
-          <h1>Log In</h1>
+          <h3>LOG IN</h3>
           <div className="row">
             <form onSubmit={this.onSubmit}>
-              
-                  <input
-                    id="email"
-                    type="email"
-                    className="validate"
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.onChange}
-                  />
-                  <label htmlFor="email">Email</label>
-                
-                {errors.user && <div style={styles.error}>{errors.user}</div>}
-          
+              <div>
+                <input
+                  placeholder="Email"
+                  id="email"
+                  type="email"
+                  className="form-field"
+                  name="email"
+                  value={this.state.email}
+                  onChange={this.onChange}
+                />
 
-              
-                  <input
-                    id="password"
-                    type="password"
-                    className="validate"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.onChange}
-                  />
-                  <label htmlFor="password">Password</label>
+                {errors.user && <div style={styles.error}>{errors.user}</div>}
+              </div>
+
+              <div>
+                <input
+                  placeholder="Password"
+                  id="password"
+                  type="password"
+                  className="form-field"
+                  name="password"
+                  value={this.state.password}
+                  onChange={this.onChange}
+                />
+
                 {errors.password && (
                   <div style={styles.error}>{errors.password}</div>
                 )}
-                <button
-                  type="submit"
-                  name="action"
+              </div>
+              <button type="submit" name="action">
+                LOG IN
+              </button>
+              <p>
+                Don't have an account?{" "}
+                <span
+                  onClick={this.props.formSwitch}
+                  href="/SignUp"
+                  style={styles.signupLink}
                 >
-                  Submit
-                  <i className="material-icons right">send</i>
-                </button>
-                <p>
-                  Don't have an account?{" "}
-                  <a href="/SignUp" style={styles.signupLink}>
-                    Click here to sign up!
-                  </a>
-                </p>
-              <div className="row">
+                  Click here to sign up!
+                </span>
+              </p>
+              {/* <div className="row">
                 <p>Demo Login:</p>
                 <p>Email: test@gmail.com</p>
                 <p>Password: test</p>
-              </div>
+              </div> */}
             </form>
           </div>
         </div>

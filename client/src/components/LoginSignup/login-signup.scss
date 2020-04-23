@@ -1,0 +1,50 @@
+body {
+}
+.container {
+  position: absolute;
+  top: -5%;
+  right: 5vw;
+  background: #1f1f1f;
+  width: 35vw;
+  height: 80vh;
+  border-radius: 10px;
+}
+h3 {
+  font-weight: 800;
+  font-size: 40px;
+  padding-top: 10%;
+}
+
+form {
+  label {
+    margin-right: 10px;
+  }
+  .form-field {
+    color: #e6e6e6;
+    font-size: 16px;
+    border: 0;
+    background: transparent;
+    border-bottom: 1px solid #e6e6e6;
+    margin-bottom: 10%;
+    width: 80%;
+  }
+  .form-field::placeholder {
+    color: #e6e6e6;
+    font-family: "Lato";
+    font-weight: 200;
+    font-size: 16px;
+  }
+  .form-field:focus {
+    border-bottom: 1.5px solid #a451ad;
+  }
+  button {
+    background: #a451ad;
+    border: 0;
+    border-radius: 10px;
+    width: 80%;
+    height: 5vh;
+    color: #e6e6e6;
+    font-family: "Lato";
+    font-weight: 700;
+  }
+}

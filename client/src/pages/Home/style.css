@@ -1,17 +1,30 @@
 body {
-  color: #e6e6e6; }
-
-h1 {
-  font-weight: 800;
-  margin: 0;
-  font-size: 82px;
-  margin-top: 18vh;
-  margin-left: 3vw; }
-
-h2 {
-  font-weight: 600;
-  font-style: italic;
-  font-size: 37px;
-  margin-left: 3vw; }
+  color: #e6e6e6;
+  position: relative; }
+  body h1 {
+    font-weight: 800;
+    margin: 0;
+    font-size: 82px;
+    margin-top: 18vh;
+    padding-top: 2vh;
+    margin-left: 3vw; }
+  body h2 {
+    font-weight: 600;
+    font-style: italic;
+    font-size: 37px;
+    margin-left: 3vw; }
+  body .form-switch-button {
+    background: #3F5EFB;
+    border: 0;
+    border-radius: 10px;
+    width: 10%;
+    height: 8vh;
+    color: #e6e6e6;
+    font-family: 'Lato';
+    font-weight: 700;
+    font-size: 16px;
+    position: absolute;
+    top: -15vh;
+    right: 5vw; }
 
 /*# sourceMappingURL=style.css.map */
