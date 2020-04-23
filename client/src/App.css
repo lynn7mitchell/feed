@@ -10,7 +10,9 @@
 html {
   height: 100vh;
 }
-
+body{
+  background: url('./img/SVG/background.svg') no-repeat #121212;
+}
 h1 {
   font-weight: 300;
   font-size: 74px;

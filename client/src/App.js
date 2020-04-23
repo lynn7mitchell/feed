@@ -7,7 +7,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
 
-import Home from "./pages/Home";
+import Home from "./pages/Home/Home";
 
 export class App extends Component {
   render() {
