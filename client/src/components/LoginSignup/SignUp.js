@@ -1,22 +1,23 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import "./login-signup.css";
 
 export class SignUp extends Component {
   state = {
     firstName: "",
     lastName: "",
     email: "",
-    password: ""
+    password: "",
   };
 
-  onChange = e => {
+  onChange = (e) => {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
 
     const newUser = {
@@ -24,15 +25,14 @@ export class SignUp extends Component {
       lastName: this.state.lastName,
       email: this.state.email,
       password: this.state.password,
-      
     };
 
     axios
       .post("api/user", newUser)
       .then(console.log("Thanks for signing up"))
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
 
-      alert("Thank you for signing up!")
+    alert("Thank you for signing up!");
   };
 
   render() {
@@ -40,83 +40,84 @@ export class SignUp extends Component {
       logo: {
         display: "block",
         margin: "0 auto",
-        paddingBottom: "15px",
-        width: "28vw"
+        width: "28vw",
+      },
+      error: {
+        color: "#cc0000",
+        fontSize: "0.8rem",
+        margin: 0,
       },
       main: {
         textAlign: "center",
-        marginTop: "25vh"
-      }
+        marginTop: "25vh",
+      },
+      signupLink: {
+        color: "#26a69a",
+      },
     };
     return (
       <div style={styles.main}>
-        <Link to={{ pathname: "/" }}>
-          <i className="material-icons back-button">arrow_back</i>
-        </Link>
-        <div>
-          <h3>Sign Up</h3>
-            <form  onSubmit={this.onSubmit}>
-                <div>
-                <label htmlFor="last_name">First Name</label>
-                  <input
-                    placeholder="First Name"
-                    id="first_name"
-                    type="text"
-                    className="validate"
-                    name="firstName"
-                    onChange={this.onChange}
-                  />
-                 
-                </div>
-                <div>
-                  <input
-                    placeholder="Last Name"
-                    id="first_name"
-                    type="text"
-                    className="validate"
-                    name="lastName"
-                    onChange={this.onChange}
-                  />
-                  <label htmlFor="first_name">Last Name</label>
-                </div>
+        <div className="container">
+          <div>
+            <h3>SIGN UP</h3>
+            <form onSubmit={this.onSubmit}>
+              <div>
+                <input
+                  placeholder="First Name"
+                  id="first_name"
+                  type="text"
+                  className="form-field"
+                  name="firstName"
+                  onChange={this.onChange}
+                />
+              </div>
+              <div>
+                <input
+                  placeholder="Last Name"
+                  id="first_name"
+                  type="text"
+                  className="form-field"
+                  name="lastName"
+                  onChange={this.onChange}
+                />
+              </div>
 
-                <div>
-                  <input
-                    placeholder="Email"
-                    id="email"
-                    type="email"
-                    className="validate"
-                    name="email"
-                    onChange={this.onChange}
-                  />
-                  <label htmlFor="email">Email</label>
-                </div>
+              <div>
+                <input
+                  placeholder="Email"
+                  id="email"
+                  type="email"
+                  className="form-field"
+                  name="email"
+                  onChange={this.onChange}
+                />
+              </div>
 
-                <div>
-                  <input
-                    placeholder="Password"
-                    id="password"
-                    type="password"
-                    className="validate"
-                    name="password"
-                    onChange={this.onChange}
-                  />
-                  <label htmlFor="password">Password</label>
-                </div>
-                  <button
-                    type="submit"
-                    name="action"
-                  >
-                    Submit
-                    <i className="material-icons right">send</i>
-                  </button>
-                  <p>
-                  Already have an account?{" "}
-                  <span onClick={this.props.formSwitch} href="/SignUp" style={styles.signupLink}>
-                    Click here to log in!
-                  </span>
-                </p>
+              <div>
+                <input
+                  placeholder="Password"
+                  id="password"
+                  type="password"
+                  className="form-field"
+                  name="password"
+                  onChange={this.onChange}
+                />
+              </div>
+              <button type="submit" name="action">
+                SIGN UP
+              </button>
+              <p>
+                Already have an account?{" "}
+                <span
+                  onClick={this.props.formSwitch}
+                  href="/SignUp"
+                  className="signup-link"
+                >
+                  Click here to log in!
+                </span>
+              </p>
             </form>
+          </div>
         </div>
       </div>
     );

@@ -128,8 +128,8 @@ export class Login extends Component {
                 <span
                   onClick={this.props.formSwitch}
                   href="/SignUp"
-                  style={styles.signupLink}
-                >
+                  className="signup-link"
+                  >
                   Click here to sign up!
                 </span>
               </p>

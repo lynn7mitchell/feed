@@ -12,6 +12,13 @@ h3 {
   font-size: 40px;
   padding-top: 10%; }
 
+.main {
+  text-align: "center";
+  margin-top: "25vh"; }
+
+.signup-link {
+  color: #a451ad; }
+
 form label {
   margin-right: 10px; }
 form .form-field {
