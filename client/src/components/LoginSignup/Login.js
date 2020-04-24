@@ -73,7 +73,6 @@ export class Login extends Component {
       },
       main: {
         textAlign: "center",
-        marginTop: "25vh",
       },
       signupLink: {
         color: "#26a69a",
