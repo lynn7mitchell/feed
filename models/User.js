@@ -21,7 +21,7 @@ var UserSchema = new Schema({
   bio: {
     type: String,
   },
-  posts: {
+  posts: [{
     postType: {
       type: String,
     },
@@ -45,7 +45,7 @@ var UserSchema = new Schema({
     reposts: {
       type: Number,
     },
-  },
+  }],
   following: [{ userId: String }],
   followers: [{ userId: String }],
 });

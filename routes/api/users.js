@@ -12,10 +12,7 @@ module.exports = function (app) {
     });
   });
 
-  app.get(
-    "/users/test",
-    passport.authenticate("jwt", { session: false }),
-    (req, res) => {
+  app.get("/users/test",passport.authenticate("jwt", { session: false }),(req, res) => {
       res.json({
         msg: "users routes works!",
       });

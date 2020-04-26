@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 var PostSchema = new Schema({
-  userId: {
+  author: {
     type: String,
     required: true,
   },
@@ -12,22 +12,28 @@ var PostSchema = new Schema({
   text: {
     type: String,
   },
-  comments: {
+  comments: [{
     commentType: {
+      type: String,
+    },
+    text:{
       type: String,
     },
     likes: {
       type: Number,
+      default: 0
     },
-  },
+  }],
   likes: {
     type: Number,
+    default: 0
   },
   shareLink: {
     type: String,
   },
   reposts: {
     type: Number,
+    default: 0
   },
 });
 

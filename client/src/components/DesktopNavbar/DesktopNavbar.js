@@ -7,7 +7,7 @@ export default function DesktopNavbar() {
       <h4>FEED</h4>
       <div><input type="text" placeholder="Search"/></div>
       <div className="nav-icons">
-        <i class="material-icons">person</i>
+        <i class="material-icons">account_circle</i>
         <i class="material-icons">notifications</i>
         <i class="material-icons">sms</i>
         <i class="material-icons">settings</i>
