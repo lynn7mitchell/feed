@@ -5,7 +5,7 @@ import PrivateRoute from "./utils/PrivateRoute";
 import NoMatch from "./pages/NoMatch";
 // import Login from "./pages/Login";
 // import SignUp from "./components/SignUp";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/Dashboard/Dashboard";
 
 import Home from "./pages/Home/Home";
 

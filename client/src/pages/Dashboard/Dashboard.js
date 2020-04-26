@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import setAuthToken from "../utils/setAuthtoken";
+import './dashboard.css'
+import DesktopNavbar from "../../components/DesktopNavbar/DesktopNavbar"
+import setAuthToken from "../../utils/setAuthtoken";
 import axios from "axios";
 
 export class Dashboard extends Component {
@@ -32,6 +34,7 @@ export class Dashboard extends Component {
   render() {
     return (
       <div>
+        <DesktopNavbar/>
         {/* <i className="material-icons account-icon">account_circle</i> */}
         <Link to="/">
           <button className="logout-button" onClick={this.handleLogout}>
