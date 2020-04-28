@@ -1,6 +1,24 @@
 body {
   color: #e6e6e6;
   position: relative;
-  background: #121212 !important; }
+  background: #121212 !important;
+  position: relative;
+  height: 100vh; }
+  body .floating-add-post-button {
+    position: absolute;
+    bottom: 20vh;
+    right: 14vw;
+    background: #4160fb;
+    border: 0;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    color: #e6e6e6;
+    font-family: "Lato";
+    font-weight: 700; }
+  body #post-text {
+    background: #000;
+    border: none; }
 
 /*# sourceMappingURL=dashboard.css.map */
