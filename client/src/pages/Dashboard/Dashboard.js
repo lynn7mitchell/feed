@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./dashboard.css";
 import DesktopNavbar from "../../components/DesktopNavbar/DesktopNavbar";
-import AddPostModal from "../../components/AddPostModal/AddPostModal";
+import AddPostForm from "../../components/AddPostForm/AddPostForm";
 import setAuthToken from "../../utils/setAuthtoken";
 import axios from "axios";
 
@@ -47,18 +47,18 @@ export class Dashboard extends Component {
 
   render() {
     return (
-      <div>
-        <DesktopNavbar />
-        <AddPostModal/>
+      <div className="dashboard">
+        <DesktopNavbar/>
+        <AddPostForm/>
         {/* <i className="material-icons account-icon">account_circle</i> */}
         <Link to="/">
           <button className="logout-button" onClick={this.handleLogout}>
             Log Out
           </button>
         </Link>
-        <button className="floating-add-post-button" onClick={(e)=>{this.startNewPost(e)}}>
+        {/* <button className="floating-add-post-button" onClick={(e)=>{this.startNewPost(e)}}>
           <i className="material-icons">add</i>
-        </button>
+        </button> */}
       </div>
     );
   }

@@ -1,0 +1,35 @@
+.form-container {
+  padding-top: 5%; }
+  .form-container .post-form {
+    position: relative;
+    width: 50vw;
+    height: 30vh;
+    margin: 0 auto;
+    background: #1f1f1f;
+    margin-bottom: 15vh;
+    border: 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 12px;
+    flex-wrap: wrap; }
+    .form-container .post-form #post-form-text {
+      margin-top: 1%;
+      background: transparent;
+      height: 115px;
+      width: 600px;
+      border: none;
+      outline: none;
+      resize: none;
+      color: #e6e6e6; }
+    .form-container .post-form #post-form-text::placeholder {
+      color: #e6e6e6; }
+    .form-container .post-form button {
+      background: #7657d1;
+      position: absolute;
+      right: 10px;
+      bottom: 0;
+      margin-bottom: 10px;
+      width: 80px; }
+
+/*# sourceMappingURL=addPostForm.css.map */
