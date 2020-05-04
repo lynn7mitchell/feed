@@ -4,12 +4,14 @@ import axios from "axios";
 import "./login-signup.css";
 
 export class SignUp extends Component {
-  state = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-  };
+  constructor() {
+    super();
+    this.state = {
+      email: "",
+      password: "",
+      errors: {},
+    };
+  }
 
   onChange = (e) => {
     this.setState({
@@ -21,18 +23,29 @@ export class SignUp extends Component {
     e.preventDefault();
 
     const newUser = {
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
+      username: this.state.username,
       email: this.state.email,
       password: this.state.password,
     };
 
     axios
       .post("api/user", newUser)
-      .then(console.log("Thanks for signing up"))
-      .catch((err) => console.log(err));
+      .then((res) =>{
+        this.setState({
+          errors: {
+            errors: 'none'
+          },
+        })
+        alert("Thanks for signing up!")
+      })
+      .catch((err) =>
+        this.setState({
+          errors: err.response.data,
+        })
+      );
 
-    alert("Thank you for signing up!");
+     
+
   };
 
   render() {
@@ -54,34 +67,27 @@ export class SignUp extends Component {
         color: "#26a69a",
       },
     };
+    const { errors } = this.state;
     return (
       <div style={styles.main}>
         <div className="container">
           <div>
             <h3>SIGN UP</h3>
             <form onSubmit={this.onSubmit}>
-              <div>
+              
+              {/* <div>
                 <input
-                  placeholder="First Name"
-                  id="first_name"
+                  placeholder="Username"
+                  id="username"
                   type="text"
                   className="form-field"
-                  name="firstName"
+                  name="username"
                   onChange={this.onChange}
                 />
-              </div>
-              <div>
-                <input
-                  placeholder="Last Name"
-                  id="first_name"
-                  type="text"
-                  className="form-field"
-                  name="lastName"
-                  onChange={this.onChange}
-                />
-              </div>
+              </div> */}
 
               <div>
+              {errors.email && <div style={styles.error}>{errors.email}</div>}
                 <input
                   placeholder="Email"
                   id="email"
@@ -91,7 +97,7 @@ export class SignUp extends Component {
                   onChange={this.onChange}
                 />
               </div>
-
+             
               <div>
                 <input
                   placeholder="Password"
@@ -102,6 +108,7 @@ export class SignUp extends Component {
                   onChange={this.onChange}
                 />
               </div>
+              
               <button type="submit" name="action">
                 SIGN UP
               </button>

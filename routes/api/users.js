@@ -12,7 +12,10 @@ module.exports = function (app) {
     });
   });
 
-  app.get("/users/test",passport.authenticate("jwt", { session: false }),(req, res) => {
+  app.get(
+    "/users/test",
+    passport.authenticate("jwt", { session: false }),
+    (req, res) => {
       res.json({
         msg: "users routes works!",
       });
@@ -35,6 +38,17 @@ module.exports = function (app) {
     }
   );
 
+  app.get(
+    "/api/allUsers",
+    passport.authenticate("jwt", { session: false }),
+    (req, res) => {
+      db.User.find({})
+      .then((users) => {
+        res.status(200).json(users)
+      })
+      .catch((err) => console.log(err));
+    }
+  );
   //Create new user POST ROUTE
 
   app.post("/api/user", (req, res) => {
@@ -47,6 +61,7 @@ module.exports = function (app) {
         const newUser = {
           firstName: req.body.firstName,
           lastName: req.body.lastName,
+          username: req.body.username,
           email: req.body.email,
           password: req.body.password,
           bio: req.body.bio,
@@ -57,7 +72,7 @@ module.exports = function (app) {
         console.log(newUser);
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(newUser.password, salt, (err, hash) => {
-            // if (err) throw err;
+            if (err) throw err;
             newUser.password = hash;
 
             db.User.create(newUser)
