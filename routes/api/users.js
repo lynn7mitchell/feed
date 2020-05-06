@@ -52,10 +52,10 @@ module.exports = function (app) {
   //Create new user POST ROUTE
 
   app.post("/api/user", (req, res) => {
-    db.User.findOne({ email: req.body.email }).then((user) => {
+    db.User.findOne({$or:[{email: req.body.email },{ username: req.body.username }]}).then((user) => {
       if (user) {
         return res.status(400).json({
-          email: "This email already exists",
+          email: "This email or username already exists",
         });
       } else {
         const newUser = {

@@ -74,8 +74,8 @@ export class SignUp extends Component {
           <div>
             <h3>SIGN UP</h3>
             <form onSubmit={this.onSubmit}>
-              
-              {/* <div>
+               {errors.email && <div style={styles.error}>{errors.email}</div>}
+              <div>
                 <input
                   placeholder="Username"
                   id="username"
@@ -84,10 +84,10 @@ export class SignUp extends Component {
                   name="username"
                   onChange={this.onChange}
                 />
-              </div> */}
+              </div>
 
               <div>
-              {errors.email && <div style={styles.error}>{errors.email}</div>}
+             
                 <input
                   placeholder="Email"
                   id="email"
