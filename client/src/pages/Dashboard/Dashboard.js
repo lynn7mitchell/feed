@@ -48,7 +48,7 @@ export class Dashboard extends Component {
   render() {
     return (
       <div className="dashboard">
-        <DesktopNavbar/>
+        <DesktopNavbar user={this.state.user}/>
         <AddPostForm/>
         {/* <i className="material-icons account-icon">account_circle</i> */}
         <Link to="/">

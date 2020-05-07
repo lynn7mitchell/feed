@@ -39,6 +39,21 @@ module.exports = function (app) {
   );
 
   app.get(
+    "/api/notCurrentUser",
+    passport.authenticate("jwt", { session: false }),
+    (req, res) => {
+      console.log(req.query.username)
+      db.User.findOne({username: req.query.username})
+        .then((user) => {
+          if (user) {
+            res.status(200).json(user);
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+  );
+
+  app.get(
     "/api/allUsers",
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
