@@ -9,6 +9,7 @@ export class SignUp extends Component {
     this.state = {
       email: "",
       password: "",
+      confirmPassword: "",
       errors: {},
     };
   }
@@ -21,6 +22,11 @@ export class SignUp extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
+
+    if(this.state.password != this.state.confirmPassword){
+      this.setState({errors: {password:"passwords do not match"}})
+      return this.state.errors
+    }
 
     const newUser = {
       username: this.state.username,
@@ -75,6 +81,7 @@ export class SignUp extends Component {
             <h3>SIGN UP</h3>
             <form onSubmit={this.onSubmit}>
                {errors.email && <div style={styles.error}>{errors.email}</div>}
+               {errors.password && <div style={styles.error}>{errors.password}</div>}
               <div>
                 <input
                   placeholder="Username"
@@ -109,6 +116,16 @@ export class SignUp extends Component {
                 />
               </div>
               
+              <div>
+                <input
+                  placeholder="Confirm Password"
+                  id="confirm-password"
+                  type="password"
+                  className="form-field"
+                  name="confirmPassword"
+                  onChange={this.onChange}
+                />
+              </div>
               <button type="submit" name="action">
                 SIGN UP
               </button>
