@@ -35,7 +35,7 @@ export class Home extends Component {
       LSbutton= <button className="form-switch-button" onClick={this.state.formSwitch}>LOG IN</button>
     }
     return (
-      <div>
+      <div className="home">
         {LSbutton}
         <h1>FEED</h1>
         <h2>Giving YOU more control of your feed</h2>

@@ -1,8 +1,35 @@
+.profile-container {
+  background: #121212; }
+
 .profile {
   color: #e6e6e6;
   position: relative;
   background: #121212;
   position: relative;
-  height: 100vh; }
+  padding-top: 10vh;
+  height: 100vh;
+  width: 80vw;
+  margin: 0 auto; }
+  .profile .header {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    justify-items: center;
+    align-items: center; }
+    .profile .header .user-info div {
+      margin-bottom: 10px; }
+    .profile .header .user-info .name h4 {
+      font-size: 30px;
+      margin-bottom: 0;
+      margin-top: 0; }
+    .profile .header .user-info .follow {
+      display: flex; }
+      .profile .header .user-info .follow span {
+        margin-right: 8px; }
+  .profile .user-image .material-icons {
+    font-size: 145px; }
+  .profile .content-headers {
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 5vh; }
 
 /*# sourceMappingURL=profile.css.map */
