@@ -103,6 +103,7 @@ export default function Profile() {
         <h5 id="favorites" onClick={(e) => {handleTabContent(e)}}>FAVORITES</h5>
         <h5 id="tagged" onClick={(e) => {handleTabContent(e)}}>TAGGED</h5>
       </div>
+      <hr/>
     </div>
        {/* image / followers/ following / bio */}
     {/* content (tabs)*/}

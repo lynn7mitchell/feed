@@ -6,7 +6,7 @@
   position: relative;
   background: #121212;
   position: relative;
-  padding-top: 10vh;
+  padding-top: 15vh;
   height: 100vh;
   width: 80vw;
   margin: 0 auto;
@@ -45,5 +45,11 @@
     display: flex;
     justify-content: space-evenly;
     padding-top: 5vh;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  hr{
+      margin-top: 0;
+      border: .5px solid #e6e6e6;
   }
 }
