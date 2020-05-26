@@ -16,7 +16,7 @@ export default function Profile() {
   const [followingCount, setFollowingCount] = useState()
   const [followerCount, setFollowerCount] = useState()
   const [currentTabContent, setCurrentTabContent] = useState()
-
+  const [loading, setLoading] = useState(true)
 
 
   useEffect(() => {
@@ -45,12 +45,13 @@ export default function Profile() {
       setFollowerCount(res.data.followers.length)
       setFollowingCount(res.data.following.length)
 
+      setLoading(false)
       
     
     })
     .catch((err) => console.log(err));
 
-   
+  
   }, []);
 
 
@@ -73,7 +74,9 @@ export default function Profile() {
         console.log("How?")
     }
   }
-
+  if(loading){
+    return (<div className="profile-container"><div className="profile">Loading...</div></div>)
+  }else
   return (
     <div className="profile-container">
     <DesktopNavbar user={currentUser}/>
