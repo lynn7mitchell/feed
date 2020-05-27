@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './addPostForm.css'
 import Axios from 'axios';
 
-export default function AddPostForm() {
+export default function AddPostForm(user) {
 
     const [formText, setFormText] = useState('');
     const [err, setErr]=useState({})
@@ -11,6 +11,7 @@ export default function AddPostForm() {
         e.preventDefault()
         
         const newPost = {
+            author: user.user.username,
             text: formText
         }
 

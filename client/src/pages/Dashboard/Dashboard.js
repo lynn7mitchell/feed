@@ -49,7 +49,7 @@ export class Dashboard extends Component {
     return (
       <div className="dashboard">
         <DesktopNavbar user={this.state.user}/>
-        <AddPostForm/>
+        <AddPostForm user={this.state.user}/>
         {/* <i className="material-icons account-icon">account_circle</i> */}
         <Link to="/">
           <button className="logout-button" onClick={this.handleLogout}>

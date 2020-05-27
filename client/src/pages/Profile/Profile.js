@@ -5,6 +5,8 @@ import './profile.css'
 import axios from "axios";
 
 import DesktopNavbar from "../../components/DesktopNavbar/DesktopNavbar";
+import PostCard from "../../components/PostCard/PostCard";
+
 
 export default function Profile() {
   const { id } = useParams();
@@ -59,7 +61,11 @@ export default function Profile() {
 
     switch(e.target.id){
       case 'posts':
-        setCurrentTabContent('posts')
+        setCurrentTabContent(<div>
+
+         <PostCard profileUser={profileUser}/>
+
+        </div>)
         break;
       case 'media':
         setCurrentTabContent('media')
