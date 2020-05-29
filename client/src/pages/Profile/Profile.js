@@ -19,6 +19,7 @@ export default function Profile() {
   const [followerCount, setFollowerCount] = useState()
   const [currentTabContent, setCurrentTabContent] = useState()
   const [loading, setLoading] = useState(true)
+  const [posts, setPosts] = useState([])
 
 
   useEffect(() => {
@@ -47,13 +48,27 @@ export default function Profile() {
       setFollowerCount(res.data.followers.length)
       setFollowingCount(res.data.following.length)
 
+      axios.get('/postsById', {
+        params: {
+          author: res.data._id
+        }
+      })
+    .then((res) => {
+      console.log('posts', res.data)
+       setPosts(res.data)
+       })
+       .catch((err) => console.log(err.response));
+    
+
       setLoading(false)
+
+      
       
     
     })
     .catch((err) => console.log(err));
 
-  
+   
   }, []);
 
 
@@ -63,7 +78,7 @@ export default function Profile() {
       case 'posts':
         setCurrentTabContent(<div>
 
-         <PostCard profileUser={profileUser}/>
+         <PostCard userPosts={posts}/>
 
         </div>)
         break;

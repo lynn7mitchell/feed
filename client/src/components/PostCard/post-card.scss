@@ -4,14 +4,28 @@
     border-radius: 10px;
     width: 50%;
     margin: 0 auto;
+    margin-bottom: 10px;
+    position: relative;
+    .delete-button{
+        position: absolute;
+        font-size: 18px;
+        right: 10px;
+        top: 10px;
+    }
     .basic-info{
         display: flex;
         align-items: center;
        
         h5{
             padding-left: 5px;
+           
         }
 
+    }
+    .content{
+        width: 90%;
+        padding-bottom: 15px;
+        
     }
 
     .action-icons{
