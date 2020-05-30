@@ -57,6 +57,18 @@ module.exports = function (app) {
       }).catch((err) => console.log(err));
     })
 
+    app.delete("/deletePost/:id", (req, res) => {
+      db.Post.findOneAndDelete({ _id: req.params.id })
+        .then(() => {
+          res.json({
+            success: true
+          });
+        })
+        .catch(err => {
+          throw err;
+        });
+    });
+  
   
   };
   
