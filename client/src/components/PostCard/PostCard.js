@@ -7,7 +7,7 @@ export default function PostCard(props) {
   const [currentUser, setCurrentUser] = useState({});
 
   useEffect(() => {
-    setPosts(props.userPosts);
+    setPosts(props.userPosts.reverse());
     setCurrentUser(props.currentLoggedInUser);
      
 

@@ -60,13 +60,19 @@ export default function Profile() {
           .then((res) => {
             console.log("posts", res.data);
             setPosts(res.data);
+            setCurrentTabContent(
+              <div>
+                <PostCard userPosts={res.data} currentLoggedInUser={currentUser} />
+              </div>
+            );
           })
           .catch((err) => console.log(err.response));
-
         // setLoading is set to True by default
         setLoading(false);
       })
       .catch((err) => console.log(err));
+
+     
   }, []);
 
 
@@ -79,6 +85,8 @@ export default function Profile() {
             <PostCard userPosts={posts} currentLoggedInUser={currentUser} />
           </div>
         );
+        console.log(currentTabContent)
+
         break;
       case "media":
         setCurrentTabContent("media");
@@ -104,6 +112,7 @@ export default function Profile() {
     );
   } else
     return (
+      
       <div className="profile-container">
         <DesktopNavbar user={currentUser} />
         <div className="profile">
