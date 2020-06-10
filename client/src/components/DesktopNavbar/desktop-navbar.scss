@@ -1,3 +1,44 @@
+// MEDIA QUERY MIXINS
+ 
+// Small tablets and large smartphones (landscape view)
+$screen-sm-min: 576px;
+ 
+// Small tablets (portrait view)
+$screen-md-min: 768px;
+ 
+// Tablets and small desktops
+$screen-lg-min: 992px;
+ 
+// Large tablets and desktops
+$screen-xl-min: 1200px;
+ 
+// Small devices
+@mixin sm {
+  @media (max-width: #{$screen-sm-min}) {
+    @content;
+  }
+}
+ 
+// Medium devices
+@mixin md {
+  @media (max-width: #{$screen-md-min}) {
+    @content;
+  }
+}
+ 
+// Large devices
+@mixin lg {
+  @media (max-width: #{$screen-lg-min}) {
+    @content;
+  }
+}
+ 
+// Extra large devices
+@mixin xl {
+  @media (max-width: #{$screen-xl-min}) {
+    @content;
+  }
+}
 nav{
     width: 100%;
     height: 9vh;
@@ -8,10 +49,19 @@ nav{
     grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
     z-index: 9000;
+    @include sm{
+      display: flex;
+      justify-content: center;
+      align-content: center;
+    }
     h4{
         margin: 0;
         margin-left: 3vw;
         font-size: 25px;
+        @include sm{
+            margin-left: 0;
+            font-size: 30px;
+        }
     }
     input{
         width: 80%;
@@ -20,6 +70,9 @@ nav{
         border: 0;
         background: transparent;
         border-bottom: 1px solid #e6e6e6;
+        @include sm{
+            display: none;
+        }
     }
     input::placeholder {
         color: #e6e6e6;
@@ -35,5 +88,13 @@ nav{
         justify-content: space-around;
         width: 60%;
         margin: 0 auto;
+        @include sm{
+            display: none;
+        }
+    }
+    a{
+        text-decoration: none;
+        color: #e6e6e6;
+
     }
 }

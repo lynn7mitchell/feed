@@ -6,11 +6,14 @@
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     width: 100%;
-    height: 45px;
+    height: 48px;
     display: flex;
     justify-content: space-around;
     align-items: center; }
     .mobile-navbar i {
-      font-size: 28px; } }
+      font-size: 30px; }
+    .mobile-navbar a {
+      text-decoration: none;
+      color: #e6e6e6; } }
 
 /*# sourceMappingURL=mobile-navbar.css.map */

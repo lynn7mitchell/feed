@@ -60,7 +60,7 @@ export class Dashboard extends Component {
         {/* <button className="floating-add-post-button" onClick={(e)=>{this.startNewPost(e)}}>
           <i className="material-icons">add</i>
         </button> */}
-        <MobileNavbar/>
+        <MobileNavbar user={this.state.user}/>
       </div>
     );
   }

@@ -8,10 +8,19 @@ nav {
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
   z-index: 9000; }
+  @media (max-width: 576px) {
+    nav {
+      display: flex;
+      justify-content: center;
+      align-content: center; } }
   nav h4 {
     margin: 0;
     margin-left: 3vw;
     font-size: 25px; }
+    @media (max-width: 576px) {
+      nav h4 {
+        margin-left: 0;
+        font-size: 30px; } }
   nav input {
     width: 80%;
     color: #e6e6e6;
@@ -19,6 +28,9 @@ nav {
     border: 0;
     background: transparent;
     border-bottom: 1px solid #e6e6e6; }
+    @media (max-width: 576px) {
+      nav input {
+        display: none; } }
   nav input::placeholder {
     color: #e6e6e6;
     font-family: "Lato";
@@ -31,5 +43,11 @@ nav {
     justify-content: space-around;
     width: 60%;
     margin: 0 auto; }
+    @media (max-width: 576px) {
+      nav .nav-icons {
+        display: none; } }
+  nav a {
+    text-decoration: none;
+    color: #e6e6e6; }
 
 /*# sourceMappingURL=desktop-navbar.css.map */

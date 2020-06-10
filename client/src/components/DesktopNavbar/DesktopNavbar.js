@@ -18,7 +18,7 @@ export default function DesktopNavbar(user) {
 
   return (
     <nav>
-      <h4>FEED</h4>
+      <Link to={'/dashboard'}><h4>FEED</h4></Link>
       <div><input type="text" placeholder="Search"/></div>
       <div className="nav-icons">
         <Link to={`/profile/${user.user.username}`}><i className="material-icons">account_circle</i></Link>
