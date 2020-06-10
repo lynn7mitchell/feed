@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./dashboard.css";
 import DesktopNavbar from "../../components/DesktopNavbar/DesktopNavbar";
+import MobileNavbar from "../../components/MobileNavbar/MobileNavbar"
 import AddPostForm from "../../components/AddPostForm/AddPostForm";
 import setAuthToken from "../../utils/setAuthtoken";
 import axios from "axios";
@@ -59,6 +60,7 @@ export class Dashboard extends Component {
         {/* <button className="floating-add-post-button" onClick={(e)=>{this.startNewPost(e)}}>
           <i className="material-icons">add</i>
         </button> */}
+        <MobileNavbar/>
       </div>
     );
   }

@@ -1,0 +1,16 @@
+@media (max-width: 576px) {
+  .mobile-navbar {
+    position: absolute;
+    bottom: 0;
+    background: #1f1f1f;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    width: 100%;
+    height: 45px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center; }
+    .mobile-navbar i {
+      font-size: 28px; } }
+
+/*# sourceMappingURL=mobile-navbar.css.map */
