@@ -1,5 +1,49 @@
+// MEDIA QUERY MIXINS
+ 
+// Small tablets and large smartphones (landscape view)
+$screen-sm-min: 576px;
+ 
+// Small tablets (portrait view)
+$screen-md-min: 768px;
+ 
+// Tablets and small desktops
+$screen-lg-min: 992px;
+ 
+// Large tablets and desktops
+$screen-xl-min: 1200px;
+ 
+// Small devices
+@mixin sm {
+  @media (max-width: #{$screen-sm-min}) {
+    @content;
+  }
+}
+ 
+// Medium devices
+@mixin md {
+  @media (max-width: #{$screen-md-min}) {
+    @content;
+  }
+}
+ 
+// Large devices
+@mixin lg {
+  @media (max-width: #{$screen-lg-min}) {
+    @content;
+  }
+}
+ 
+// Extra large devices
+@mixin xl {
+  @media (max-width: #{$screen-xl-min}) {
+    @content;
+  }
+}
+
 .form-container {
   padding-top: 5%;
+
+ 
 
   .post-form {
     position: relative;
@@ -15,6 +59,16 @@
     padding-top: 12px;
     flex-wrap: wrap;
 
+    @include sm{
+      margin-top: 10vh;
+      height: 20vh;
+      width: 98%;
+      justify-content: flex-start;
+      flex-wrap: nowrap;
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+
     #post-form-text {
       margin-top: 1%;
       background: transparent;
@@ -24,6 +78,11 @@
       outline: none;
       resize: none;
       color: #e6e6e6;
+
+      @include sm{
+        margin-left: 5px;
+        margin-right: 5px;
+      }
     }
     #post-form-text::placeholder{
       color: #e6e6e6;
@@ -36,6 +95,11 @@
     bottom: 0;
     margin-bottom: 10px;
     width: 80px;
+
+    @include sm{
+      width: 70px;
+      height: 40px;
+    }
     }
   }
 }
