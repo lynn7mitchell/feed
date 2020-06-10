@@ -41,6 +41,7 @@ $screen-xl-min: 1200px;
 }
 
 .mobile-navbar{
+    display: none;
     @include sm{
         position: absolute;
         bottom: 0;
