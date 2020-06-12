@@ -61,7 +61,7 @@ $screen-xl-min: 1200px;
 
     @include sm{
       margin-top: 10vh;
-      height: 20vh;
+      height: 22vh;
       width: 98%;
       justify-content: flex-start;
       flex-wrap: nowrap;
@@ -69,6 +69,11 @@ $screen-xl-min: 1200px;
       padding-right: 5px;
     }
 
+    i{
+      @include sm{
+        font-size: 32px !important;
+      }
+    }
     #post-form-text {
       margin-top: 1%;
       background: transparent;
@@ -82,6 +87,7 @@ $screen-xl-min: 1200px;
       @include sm{
         margin-left: 5px;
         margin-right: 5px;
+        font-size: 18px;
       }
     }
     #post-form-text::placeholder{
@@ -97,8 +103,9 @@ $screen-xl-min: 1200px;
     width: 80px;
 
     @include sm{
-      width: 70px;
-      height: 40px;
+      width: 74px;
+      height: 44px;
+      font-size: 18px;
     }
     }
   }
