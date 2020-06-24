@@ -107,7 +107,7 @@ export default function Profile() {
   if (loading) {
     return (
       <div className="profile-container">
-        <div className="profile">Loading...</div>
+        <div className="profile loading">Loading...</div>
       </div>
     );
   } else

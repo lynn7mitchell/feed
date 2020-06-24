@@ -1,5 +1,51 @@
+// MEDIA QUERY MIXINS
+ 
+// Small tablets and large smartphones (landscape view)
+$screen-sm-min: 576px;
+ 
+// Small tablets (portrait view)
+$screen-md-min: 768px;
+ 
+// Tablets and small desktops
+$screen-lg-min: 992px;
+ 
+// Large tablets and desktops
+$screen-xl-min: 1200px;
+ 
+// Small devices
+@mixin sm {
+  @media (max-width: #{$screen-sm-min}) {
+    @content;
+  }
+}
+ 
+// Medium devices
+@mixin md {
+  @media (max-width: #{$screen-md-min}) {
+    @content;
+  }
+}
+ 
+// Large devices
+@mixin lg {
+  @media (max-width: #{$screen-lg-min}) {
+    @content;
+  }
+}
+ 
+// Extra large devices
+@mixin xl {
+  @media (max-width: #{$screen-xl-min}) {
+    @content;
+  }
+}
+.loading{
+  font-size: 35px;
+  margin: 0 auto;
+}
 .profile-container {
   background: #121212;
+  height: 100vh;
 }
 .profile {
   color: #e6e6e6;
@@ -7,7 +53,8 @@
   background: #121212;
   position: relative;
   padding-top: 15vh;
-  height: 100%;
+  height: 100vh;
+ 
   width: 80vw;
   margin: 0 auto;
 
