@@ -12,14 +12,14 @@ export default function DesktopNavbar(user) {
     // because this variable is set to have nothing in it on every onChange
     // you do not have to loop through the searchSuggestions to get rid of suggestions
     // that do not include e.target.value
-    console.log(e.target.value)
-    let newSuggestions = []
+    console.log(e.target.value);
+    let newSuggestions = [];
     for (let i = 0; i < allUsers.length; i++) {
       if (allUsers[i].username.includes(e.target.value)) {
-        newSuggestions.push(allUsers[i]);        
+        newSuggestions.push(allUsers[i]);
       }
     }
-    setSearchSuggestions(newSuggestions)
+    setSearchSuggestions(newSuggestions);
   };
 
   const onClick = (e) => {
@@ -31,20 +31,36 @@ export default function DesktopNavbar(user) {
         })
         .catch((err) => console.log(err));
     }
-  };
+  }
+
+
+  if(searchSuggestions.length !== 0){
+    document.getElementsByClassName('search-suggestions')[0].style.display = 'block'
+  }
+  
+  if(searchSuggestions.length === allUsers.length){
+    setTimeout(function(){ document.getElementsByClassName('search-suggestions')[0].style.display = 'none' }, 500);
+  } 
+
+  
 
   return (
     <nav>
       <Link to={"/dashboard"}>
         <h4>FEED</h4>
       </Link>
-      <div>
+      <div className="search-box">
         <input
           type="text"
           placeholder="Search"
           onChange={(e) => onChange(e)}
           onClick={(e) => onClick(e)}
         />
+        <div className="search-suggestions">
+          {searchSuggestions.map((searchSuggestion) => {
+            return <Link to={'/profile/'+searchSuggestion.username} style={{display:'block'}}>{searchSuggestion.username}</Link>;
+          })}
+        </div>
       </div>
       <div className="nav-icons">
         <Link to={`/profile/${user.user.username}`}>

@@ -7,7 +7,8 @@ nav {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
-  z-index: 9000; }
+  z-index: 9000;
+  overflow: visible; }
   @media (max-width: 576px) {
     nav {
       display: flex;
@@ -38,6 +39,15 @@ nav {
     font-size: 16px; }
   nav input:focus {
     border-bottom: 2px solid #fff; }
+  nav .search-suggestions {
+    background: #121212;
+    border-radius: 10px;
+    position: absolute;
+    margin-top: 5px;
+    bottom: -5;
+    width: 27%;
+    height: 300px;
+    display: none; }
   nav .nav-icons {
     display: flex;
     justify-content: space-around;
