@@ -46,8 +46,12 @@ $screen-xl-min: 1200px;
 .profile-container {
   background: #121212;
   height: 100vh;
+  
 }
 .profile {
+  @include sm{
+    height: 100%;
+  }
   color: #e6e6e6;
   position: relative;
   background: #121212;

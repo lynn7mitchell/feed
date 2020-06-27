@@ -6,6 +6,9 @@
   margin: 0 auto;
   margin-bottom: 10px;
   position: relative; }
+  @media (max-width: 576px) {
+    .post-card {
+      width: 100%; } }
   .post-card .delete-button {
     position: absolute;
     font-size: 18px;
