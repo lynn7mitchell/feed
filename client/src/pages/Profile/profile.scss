@@ -49,9 +49,7 @@ $screen-xl-min: 1200px;
   
 }
 .profile {
-  @include sm{
-    height: 100%;
-  }
+  
   color: #e6e6e6;
   position: relative;
   background: #121212;
@@ -60,6 +58,9 @@ $screen-xl-min: 1200px;
   height: 100vh;
  
   width: 80vw;
+  @include sm{
+    width: 100%;
+  }
   margin: 0 auto;
 
   .header {

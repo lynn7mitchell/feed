@@ -17,7 +17,7 @@
   margin: 0 auto; }
   @media (max-width: 576px) {
     .profile {
-      height: 100%; } }
+      width: 100%; } }
   .profile .header {
     display: grid;
     grid-template-columns: 1fr 2fr;
