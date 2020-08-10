@@ -6,7 +6,7 @@ import axios from "axios";
 
 import DesktopNavbar from "../../components/DesktopNavbar/DesktopNavbar";
 import PostCard from "../../components/PostCard/PostCard";
-import MobileNavbar from "../../components/MobileNavbar/MobileNavbar"
+import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 
 export default function Profile() {
   const { id } = useParams();
@@ -35,47 +35,47 @@ export default function Profile() {
       .get("/api/user")
       .then((res) => {
         setCurrentUser(res.data);
-      })
-      .catch((err) => console.log(err.response));
+        const thisUser = res.data;
 
-    // /api/notCurrentUser is used when you need user information of someone who is not logged in
-    // in the case this is being used because the profile page being displayed may not belong to the user that is currently logged in
-    axios
-      .get("/api/notCurrentUser", {
-        params: {
-          username: id,
-        },
-      })
-      .then((res) => {
-        setProfileUser(res.data);
-        setFollowerCount(res.data.followers.length);
-        setFollowingCount(res.data.following.length);
-
-        // get /postsById grabs only the posts that belong to the user that was grabbed by /api/notCurrentUser
+        // /api/notCurrentUser is used when you need user information of someone who is not logged in
+        // in the case this is being used because the profile page being displayed may not belong to the user that is currently logged in
         axios
-          .get("/postsById", {
+          .get("/api/notCurrentUser", {
             params: {
-              author: res.data._id,
+              username: id,
             },
           })
           .then((res) => {
-            console.log("posts", res.data);
-            setPosts(res.data);
-            setCurrentTabContent(
-              <div>
-                <PostCard userPosts={res.data} currentLoggedInUser={currentUser} />
-              </div>
-            );
+            setProfileUser(res.data);
+            setFollowerCount(res.data.followers.length);
+            setFollowingCount(res.data.following.length);
+
+            // get /postsById grabs only the posts that belong to the user that was grabbed by /api/notCurrentUser
+            axios
+              .get("/postsById", {
+                params: {
+                  author: res.data._id,
+                },
+              })
+              .then((res) => {
+                console.log("posts", res.data);
+                setPosts(res.data);
+                setCurrentTabContent(
+                  <div>
+                    <PostCard
+                      userPosts={res.data}
+                      currentLoggedInUser={thisUser}
+                    />
+                  </div>
+                );
+              });
           })
           .catch((err) => console.log(err.response));
         // setLoading is set to True by default
         setLoading(false);
       })
       .catch((err) => console.log(err));
-
-     
   }, []);
-
 
   //Switch case to handle the content grabbed for the profile tabs (media, favorites, and tagged)
   const handleTabContent = (e) => {
@@ -86,7 +86,7 @@ export default function Profile() {
             <PostCard userPosts={posts} currentLoggedInUser={currentUser} />
           </div>
         );
-        console.log(currentTabContent)
+        console.log(currentTabContent);
 
         break;
       case "media":
@@ -103,7 +103,6 @@ export default function Profile() {
     }
   };
 
-
   // loading screen (temporary design)
   if (loading) {
     return (
@@ -113,7 +112,6 @@ export default function Profile() {
     );
   } else
     return (
-      
       <div className="profile-container">
         <DesktopNavbar user={currentUser} />
         <div className="profile">
@@ -174,7 +172,7 @@ export default function Profile() {
           {/* posts / media / favorited / tagged */}
 
           {currentTabContent}
-          <MobileNavbar user={currentUser}/>
+          <MobileNavbar user={currentUser} />
         </div>
       </div>
     );
