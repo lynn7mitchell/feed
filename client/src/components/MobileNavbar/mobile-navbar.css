@@ -2,7 +2,7 @@
   display: none; }
   @media (max-width: 576px) {
     .mobile-navbar {
-      position: absolute;
+      position: fixed;
       bottom: 0;
       background: #1f1f1f;
       border-top-left-radius: 10px;

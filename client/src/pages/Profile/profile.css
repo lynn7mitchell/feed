@@ -1,6 +1,7 @@
 .loading {
   font-size: 35px;
-  margin: 0 auto; }
+  margin: 0 auto;
+  text-align: center; }
 
 .profile-container {
   background: #121212;

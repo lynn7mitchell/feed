@@ -43,7 +43,7 @@ $screen-xl-min: 1200px;
 .mobile-navbar{
     display: none;
     @include sm{
-        position: absolute;
+        position: fixed;
         bottom: 0;
         background: #1f1f1f;
         border-top-left-radius: 10px;

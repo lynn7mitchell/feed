@@ -6,6 +6,7 @@ import axios from "axios";
 
 import DesktopNavbar from "../../components/DesktopNavbar/DesktopNavbar";
 import PostCard from "../../components/PostCard/PostCard";
+import MobileNavbar from "../../components/MobileNavbar/MobileNavbar"
 
 export default function Profile() {
   const { id } = useParams();
@@ -173,6 +174,7 @@ export default function Profile() {
           {/* posts / media / favorited / tagged */}
 
           {currentTabContent}
+          <MobileNavbar user={currentUser}/>
         </div>
       </div>
     );
