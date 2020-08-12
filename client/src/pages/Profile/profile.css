@@ -21,21 +21,43 @@
       width: 100%; } }
   .profile .header {
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    justify-items: center;
-    align-items: center; }
-    .profile .header .user-info div {
-      margin-bottom: 10px; }
-    .profile .header .user-info .name h4 {
-      font-size: 30px;
-      margin-bottom: 0;
-      margin-top: 0; }
-    .profile .header .user-info .follow {
+    grid-template-columns: 1fr 1.5fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    align-items: center;
+    grid-template-areas: "user-image name" "user-image follow" "user-image bio"; }
+    @media (max-width: 576px) {
+      .profile .header {
+        grid-template-rows: .5fr .35fr .35fr;
+        grid-template-areas: "user-image follow" "name name" "bio bio"; } }
+    .profile .header .user-image {
+      grid-area: user-image;
+      justify-self: center; }
+      .profile .header .user-image .material-icons {
+        font-size: 145px; }
+        @media (max-width: 576px) {
+          .profile .header .user-image .material-icons {
+            font-size: 90px; } }
+    .profile .header .name {
+      grid-area: name; }
+      .profile .header .name h4 {
+        font-size: 30px;
+        margin-bottom: 0;
+        margin-top: 0; }
+        @media (max-width: 576px) {
+          .profile .header .name h4 {
+            font-size: 20px;
+            padding-left: 10%; } }
+    .profile .header .follow {
+      grid-area: follow;
       display: flex; }
-      .profile .header .user-info .follow span {
-        margin-right: 8px; }
-  .profile .user-image .material-icons {
-    font-size: 145px; }
+      .profile .header .follow span {
+        margin-right: 10px; }
+    .profile .header .bio {
+      grid-area: bio; }
+      @media (max-width: 576px) {
+        .profile .header .bio {
+          padding-left: 10%;
+          padding-right: 5%; } }
   .profile .content-headers {
     display: flex;
     justify-content: space-evenly;
@@ -44,6 +66,6 @@
     padding-bottom: 0; }
   .profile hr {
     margin-top: 0;
-    border: .5px solid #e6e6e6; }
+    border: 0.5px solid #e6e6e6; }
 
 /*# sourceMappingURL=profile.css.map */

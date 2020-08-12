@@ -119,17 +119,29 @@ export default function Profile() {
             <div className="user-image">
               <i className="material-icons">account_circle</i>
             </div>
+            <div className="name">
+              <h4>{profileUser.username}</h4>
+            </div>
+            <div className="follow">
+              <span>Followers: {followerCount}</span>
+              <span>Following: {followingCount}</span>
+            </div>
+            <div className="bio">{profileUser.bio}</div>
+          </div>
+          {/* <div className="header">
+            <div className="user-image">
+              <i className="material-icons">account_circle</i>
+            </div>
             <div className="user-info">
               <div className="name">
                 <h4>{profileUser.username}</h4>
               </div>
               <div className="follow">
-                <span>Followers: {followerCount}</span>
-                <span>Following: {followingCount}</span>
+                
               </div>
               <div className="bio">{profileUser.bio}</div>
             </div>
-          </div>
+          </div> */}
           <div className="content">
             <div className="content-headers">
               <h5
