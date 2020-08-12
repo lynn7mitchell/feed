@@ -18,7 +18,8 @@
   margin: 0 auto; }
   @media (max-width: 576px) {
     .profile {
-      width: 100%; } }
+      width: 100%;
+      padding-top: 12vh; } }
   .profile .header {
     display: grid;
     grid-template-columns: 1fr 1.5fr;
@@ -27,16 +28,20 @@
     grid-template-areas: "user-image name" "user-image follow" "user-image bio"; }
     @media (max-width: 576px) {
       .profile .header {
-        grid-template-rows: .5fr .35fr .35fr;
-        grid-template-areas: "user-image follow" "name name" "bio bio"; } }
+        grid-template-rows: 0.5fr 0.35fr 0.35fr;
+        grid-template-areas: "user-image follow" "name name" "bio bio";
+        margin-left: 10%; } }
     .profile .header .user-image {
       grid-area: user-image;
       justify-self: center; }
+      @media (max-width: 576px) {
+        .profile .header .user-image {
+          justify-self: left; } }
       .profile .header .user-image .material-icons {
         font-size: 145px; }
         @media (max-width: 576px) {
           .profile .header .user-image .material-icons {
-            font-size: 90px; } }
+            font-size: 95px; } }
     .profile .header .name {
       grid-area: name; }
       .profile .header .name h4 {
@@ -45,19 +50,15 @@
         margin-top: 0; }
         @media (max-width: 576px) {
           .profile .header .name h4 {
-            font-size: 20px;
-            padding-left: 10%; } }
+            font-size: 20px; } }
     .profile .header .follow {
       grid-area: follow;
       display: flex; }
       .profile .header .follow span {
         margin-right: 10px; }
     .profile .header .bio {
-      grid-area: bio; }
-      @media (max-width: 576px) {
-        .profile .header .bio {
-          padding-left: 10%;
-          padding-right: 5%; } }
+      grid-area: bio;
+      padding-right: 5%; }
   .profile .content-headers {
     display: flex;
     justify-content: space-evenly;

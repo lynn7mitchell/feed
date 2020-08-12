@@ -59,6 +59,7 @@ $screen-xl-min: 1200px;
   width: 80vw;
   @include sm {
     width: 100%;
+    padding-top: 12vh;
   }
   margin: 0 auto;
 
@@ -74,23 +75,25 @@ $screen-xl-min: 1200px;
       "user-image follow"
       "user-image bio";
     @include sm {
-      grid-template-rows: .5fr .35fr .35fr;
+      grid-template-rows: 0.5fr 0.35fr 0.35fr;
       grid-template-areas:
         "user-image follow"
         "name name"
         "bio bio";
+        margin-left: 10%;
     }
     .user-image {
       grid-area: user-image;
       justify-self: center;
+      @include sm{
+        justify-self: left;
+      }
       .material-icons {
         font-size: 145px;
-      @include sm {
-        
-          font-size: 90px;
-        
-      }}
-      
+        @include sm {
+          font-size: 95px;
+        }
+      }
     }
     .name {
       grid-area: name;
@@ -98,13 +101,11 @@ $screen-xl-min: 1200px;
         font-size: 30px;
         margin-bottom: 0;
         margin-top: 0;
-      @include sm{
-       
+        @include sm {
           font-size: 20px;
-          padding-left: 10%;
-        
-      }}
-      
+          // padding-left: 10%;
+        }
+      }
     }
     .follow {
       grid-area: follow;
@@ -115,13 +116,11 @@ $screen-xl-min: 1200px;
     }
     .bio {
       grid-area: bio;
-     @include sm{
-      
-        padding-left: 10%;
+      // @include sm {
+      //   padding-left: 10%;
         padding-right: 5%;
-      
-    }}
-   
+      // }
+    }
   }
 
   // .header {
