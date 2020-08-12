@@ -22,4 +22,7 @@ h2 {
   font-size: 30px;
 }
 
+input, textarea{
+  -webkit-appearance: none;
+}
 

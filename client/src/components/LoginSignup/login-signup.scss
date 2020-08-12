@@ -75,6 +75,7 @@ form {
     margin-right: 10px;
   }
   .form-field {
+    -webkit-appearance: none;
     color: #e6e6e6;
     font-size: 16px;
     border: 0;
@@ -82,6 +83,7 @@ form {
     border-bottom: 1px solid #e6e6e6;
     margin-bottom: 10%;
     width: 90%;
+    
   }
   .form-field::placeholder {
     color: #e6e6e6;
@@ -103,6 +105,7 @@ form {
     font-weight: 700;
     @include sm{
       background: rgba(65, 96, 251, 0.85);
+      height: 35px;
     }
   }
   .signup-link{

@@ -22,7 +22,7 @@
   @media (max-width: 576px) {
     .profile {
       width: 100%;
-      padding-top: 12vh; } }
+      padding-top: 11vh; } }
   .profile .header {
     display: grid;
     grid-template-columns: 1fr 1.5fr;
