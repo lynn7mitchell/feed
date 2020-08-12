@@ -183,9 +183,9 @@ export default function Profile() {
           {/* content (tabs)*/}
           {/* posts / media / favorited / tagged */}
 
-          {currentTabContent}
-          <MobileNavbar user={currentUser} />
+          <div className="tab-content">{currentTabContent}</div>
         </div>
+        <MobileNavbar user={currentUser} />
       </div>
     );
 }

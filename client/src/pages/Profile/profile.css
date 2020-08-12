@@ -6,6 +6,9 @@
 .profile-container {
   background: #121212;
   height: 100vh; }
+  @media (max-width: 576px) {
+    .profile-container {
+      height: 100%; } }
 
 .profile {
   color: #e6e6e6;
@@ -68,5 +71,9 @@
   .profile hr {
     margin-top: 0;
     border: 0.5px solid #e6e6e6; }
+  .profile .tab-content {
+    background: #121212;
+    margin-top: 2vh;
+    margin-bottom: 10vh; }
 
 /*# sourceMappingURL=profile.css.map */
