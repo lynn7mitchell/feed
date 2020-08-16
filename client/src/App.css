@@ -26,3 +26,8 @@ input, textarea{
   -webkit-appearance: none;
 }
 
+a{
+  text-decoration: none;
+  color: #e6e6e6;
+
+}

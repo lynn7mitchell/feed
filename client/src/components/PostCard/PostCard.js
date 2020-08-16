@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./post-card.css";
 import axios from "axios";
 
@@ -52,8 +53,9 @@ export default function PostCard(props) {
             <div className="post-card" key={post._id}>
               <i className="material-icons delete-button" id={post._id} onClick={(e)=>{showDeleteModal(e)}}>delete</i>
               <div className="basic-info">
+              
                 <i className="material-icons">account_circle</i>
-                <h5>{post.username}</h5>
+                <Link to={'/profile/'+post.username}><h5>{post.username}</h5></Link>
               </div>
               <div className="content">
                 <p>{post.text}</p>
@@ -71,7 +73,7 @@ export default function PostCard(props) {
             <div className="post-card" key={post._id}>
               <div className="basic-info">
                 <i className="material-icons">account_circle</i>
-                <h5>{post.username}</h5>
+                <Link to={'/profile/'+post.username}><h5>{post.username}</h5></Link>
               </div>
               <div className="content">
                 <p>{post.text}</p>
