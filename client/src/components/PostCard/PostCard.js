@@ -5,7 +5,7 @@ import axios from "axios";
 export default function PostCard(props) {
   const [posts, setPosts] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
-
+  const [targetPostid, setTargetPostId] = useState('')
   useEffect(() => {
     setPosts(props.userPosts.reverse());
     setCurrentUser(props.currentLoggedInUser);
@@ -13,15 +13,33 @@ export default function PostCard(props) {
 
 }, []);
 
+// Add a modal that asks if the user is sure they want
+// to delete the post and if the answer is yes then it will
+// refresh the page
+
+  const showDeleteModal = e =>{
+    setTargetPostId(e.target.id)
+    // console.log(currentPostId)
+    const modal = document.getElementById('delete-modal')
+    // display modal
+    modal.style.display = 'block'
+  }
+
+  const hideDeleteModal = e =>{
+    setTargetPostId('')
+    // console.log(currentPostId)
+    const modal = document.getElementById('delete-modal')
+    // display modal
+    modal.style.display = 'none'
+  }
 
   const handleDeletePost = e =>{
-    const id = e.target.id
-    axios.delete(`/deletePost/${id}`)
+    axios.delete(`/deletePost/${targetPostid}`)
       .then(
         console.log('post deleted')
-        
       )
         .catch(err => console.log(err.data))
+        window.location.reload(false)
 
   }
 
@@ -31,7 +49,7 @@ export default function PostCard(props) {
         if (post.username === currentUser.username) {
           return (
             <div className="post-card" key={post._id}>
-              <i className="material-icons delete-button" id={post._id} onClick={(e)=>{handleDeletePost(e)}}>delete</i>
+              <i className="material-icons delete-button" id={post._id} onClick={(e)=>{showDeleteModal(e)}}>delete</i>
               <div className="basic-info">
                 <i className="material-icons">account_circle</i>
                 <h5>{post.username}</h5>
@@ -67,6 +85,13 @@ export default function PostCard(props) {
           );
         }
       })}
+
+      <div id="delete-modal" className="hidden">
+        <p>Are you sure you want to delete this post?</p>
+        <div id="delete-choices">
+          <h5 onClick={(e)=>{handleDeletePost(e)}}>Yes</h5> <h5 onClick={(e)=>{hideDeleteModal(e)}}>Cancel</h5>
+        </div>
+      </div>
     </div>
   );
 }
