@@ -22,6 +22,9 @@ export default function AddPostForm(user) {
         .catch(err =>
             setErr(err)
           );
+
+          // refresh page
+        window.location.reload(false)
     }
     return (
             <div className="form-container">

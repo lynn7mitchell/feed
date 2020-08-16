@@ -39,6 +39,7 @@ export default function PostCard(props) {
         console.log('post deleted')
       )
         .catch(err => console.log(err.data))
+        // refresh page
         window.location.reload(false)
 
   }
