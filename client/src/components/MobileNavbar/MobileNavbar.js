@@ -16,6 +16,9 @@ export default function MobileNavbar(user) {
   }, []);
   return (
     <div className="mobile-navbar">
+      <Link to={'/dashboard'}>
+      <i className="material-icons">home</i>
+      </Link>
       <i className="material-icons">search</i>
       <Link to={`/profile/${user.user.username}`}>
         <i className="material-icons">account_circle</i>
