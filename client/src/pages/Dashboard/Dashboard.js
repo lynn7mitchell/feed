@@ -4,14 +4,14 @@ import "./dashboard.css";
 import DesktopNavbar from "../../components/DesktopNavbar/DesktopNavbar";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 import AddPostForm from "../../components/AddPostForm/AddPostForm";
-import PostCard from '../../components/PostCard/PostCard'
+import PostCard from "../../components/PostCard/PostCard";
 import setAuthToken from "../../utils/setAuthtoken";
 import axios from "axios";
 
 export class Dashboard extends Component {
   state = {
     user: {},
-    posts: '',
+    posts: "",
   };
   componentWillMount() {
     const token = localStorage.getItem("example-app");
@@ -26,22 +26,32 @@ export class Dashboard extends Component {
         this.setState({
           user: res.data,
         });
-        thisUser = res.data
+        const thisUser = res.data;
+        console.log("user", thisUser);
+
+        // axios call is inside this .then so that the user info can get to the PostCard component
+        // so that the delete button will show up on the cards
+        axios
+          .get("/allPosts")
+          .then((res) => {
+            console.log(thisUser);
+            this.setState({
+              posts: (
+                <div>
+                  <PostCard
+                    userPosts={res.data}
+                    currentLoggedInUser={thisUser}
+                  />
+                </div>
+              ),
+            });
+          })
+          .catch((err) => console.log(err.res));
       })
+
       .catch((err) => console.log(err.res));
 
-    axios
-      .get("/allPosts")
-      .then((res) => {
-        this.setState({
-          posts: (
-            <div>
-              <PostCard userPosts={res.data} currentLoggedInUser={thisUser} />
-            </div>
-          ),
-        });
-      })
-      .catch((err) => console.log(err.res));
+    console.log("user", thisUser);
   }
 
   handleLogout = () => {
