@@ -46,7 +46,7 @@
             border-bottom: 2px solid #fff; }
           .mobile-navbar #mobile-search .search-box #search-suggestions {
             font-size: 20px;
-            position: absolute;
+            position: fixed;
             margin-top: 5px; } }
 
 /*# sourceMappingURL=mobile-navbar.css.map */
