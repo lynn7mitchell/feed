@@ -46,10 +46,7 @@
             border-bottom: 2px solid #fff; }
           .mobile-navbar #mobile-search .search-box #search-suggestions {
             font-size: 20px;
-            border-radius: 10px;
             position: absolute;
-            margin-top: 5px;
-            bottom: -5;
-            overflow: scroll; } }
+            margin-top: 5px; } }
 
 /*# sourceMappingURL=mobile-navbar.css.map */
