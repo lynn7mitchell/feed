@@ -28,7 +28,7 @@
           position: fixed;
           transform: translate(-50%, -50%);
           left: 50%;
-          top: 20%; }
+          top: 30%; }
           .mobile-navbar #mobile-search .search-box input {
             width: 90vw;
             height: 20px;
@@ -47,7 +47,7 @@
           .mobile-navbar #mobile-search .search-box #search-suggestions {
             font-size: 20px;
             position: fixed;
-            margin-top: 13vh;
+            margin-top: 16vh;
             margin: 0 auto;
             overflow: scroll; } }
 
