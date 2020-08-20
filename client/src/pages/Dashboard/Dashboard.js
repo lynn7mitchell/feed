@@ -27,14 +27,14 @@ export class Dashboard extends Component {
           user: res.data,
         });
         const thisUser = res.data;
-        console.log("user", thisUser);
+        // console.log("user", thisUser);
 
         // axios call is inside this .then so that the user info can get to the PostCard component
         // so that the delete button will show up on the cards
         axios
           .get("/allPosts")
           .then((res) => {
-            console.log(thisUser);
+            // console.log(thisUser);
             this.setState({
               posts: (
                 <div>
@@ -51,7 +51,7 @@ export class Dashboard extends Component {
 
       .catch((err) => console.log(err.res));
 
-    console.log("user", thisUser);
+    // console.log("user", thisUser);
   }
 
   handleLogout = () => {
@@ -63,7 +63,7 @@ export class Dashboard extends Component {
 
   startNewPost = (e) => {
     e.preventDefault();
-    console.log("clicked");
+    // console.log("clicked");
   };
 
   render() {

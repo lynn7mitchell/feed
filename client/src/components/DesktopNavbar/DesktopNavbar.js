@@ -15,13 +15,25 @@ export default function DesktopNavbar(user) {
     console.log(e.target.value);
     let newSuggestions = [];
     for (let i = 0; i < allUsers.length; i++) {
-      if (allUsers[i].username.includes(e.target.value)) {
+      if (
+        allUsers[i].username.includes(e.target.value) ||
+        allUsers[i].username.includes(e.target.value.toLowerCase()) ||
+        allUsers[i].username.includes(e.target.value.toUpperCase())
+      ) {
         newSuggestions.push(allUsers[i]);
       }
     }
+    document.getElementById("search-suggestions").style.display = "block";
     setSearchSuggestions(newSuggestions);
-  };
 
+    if (newSuggestions.length === allUsers.length) {
+      document.getElementById("search-suggestions").style.display = "none";
+    }
+  };
+  const refresh = (e) => {
+    // console.log(e.target)
+    window.location.href = e.target.href
+  };
   const onClick = (e) => {
     if (allUsers.length === 0) {
       Axios.get("/api/allUsers")
@@ -58,7 +70,19 @@ export default function DesktopNavbar(user) {
         />
         <div className="search-suggestions">
           {searchSuggestions.map((searchSuggestion) => {
-            return <Link to={'/profile/'+searchSuggestion.username} style={{display:'block'}}>{searchSuggestion.username}</Link>;
+            return  <Link
+                  
+                  to={{
+                    pathname: "/profile/" + searchSuggestion.username,
+                    key: searchSuggestion._id,
+                  }}
+                  style={{ display: "block" }}
+                  key={searchSuggestion._id}
+                  onClick={(e) => refresh(e)}
+
+                >
+                  {searchSuggestion.username}
+                </Link>;
           })}
         </div>
       </div>

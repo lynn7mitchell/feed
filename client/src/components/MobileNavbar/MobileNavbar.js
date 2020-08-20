@@ -24,18 +24,26 @@ export default function MobileNavbar(user) {
     console.log(e.target.value);
     let newSuggestions = [];
     for (let i = 0; i < users.length; i++) {
-      if (users[i].username.includes(e.target.value) || users[i].username.includes(e.target.value.toLowerCase()) || users[i].username.includes(e.target.value.toUpperCase())) {
+      if (
+        users[i].username.includes(e.target.value) ||
+        users[i].username.includes(e.target.value.toLowerCase()) ||
+        users[i].username.includes(e.target.value.toUpperCase())
+      ) {
         newSuggestions.push(users[i]);
       }
     }
-    document.getElementById('search-suggestions').style.display = 'block'
+    document.getElementById("search-suggestions").style.display = "block";
     setSearchSuggestions(newSuggestions);
 
-    if(newSuggestions.length === users.length){
-      document.getElementById('search-suggestions').style.display = 'none'
+    if (newSuggestions.length === users.length) {
+      document.getElementById("search-suggestions").style.display = "none";
     }
   };
-  
+
+  const refresh = (e) => {
+    // console.log(e.target)
+    window.location.href = e.target.href
+  };
 
   let homeButton = (
     <Link to={"/dashboard"}>
@@ -54,26 +62,27 @@ export default function MobileNavbar(user) {
     </i>
   );
 
-  let profileButton= (
-<Link to={`/profile/${user.user.username}`}>
-        <i className="material-icons">account_circle</i>
-      </Link>
-  )
+  let profileButton = (
+    <Link to={`/profile/${user.user.username}`}>
+      <i className="material-icons">account_circle</i>
+    </Link>
+  );
   if (searchIsOpen) {
+    if (window.location.href.includes("dashboard")) {
+      homeButton = (
+        <i className="material-icons" onClick={(e) => exitSearch(e)}>
+          home
+        </i>
+      );
+    }
 
-    if(window.location.href.includes('dashboard')){
-    homeButton = (
-      <i className="material-icons" onClick={(e) => exitSearch(e)}>
-        home
-      </i>
-    )}
-
-    if(window.location.href.includes('profile')){
+    if (window.location.href.includes("profile")) {
       profileButton = (
         <i className="material-icons" onClick={(e) => exitSearch(e)}>
           account_circle
         </i>
-      )}
+      );
+    }
     searchButton = (
       <i
         className="material-icons"
@@ -108,8 +117,15 @@ export default function MobileNavbar(user) {
             {searchSuggestions.map((searchSuggestion) => {
               return (
                 <Link
-                  to={"/profile/" + searchSuggestion.username}
+                  
+                  to={{
+                    pathname: "/profile/" + searchSuggestion.username,
+                    key: searchSuggestion._id,
+                  }}
                   style={{ display: "block" }}
+                  key={searchSuggestion._id}
+                  onClick={(e) => refresh(e)}
+
                 >
                   {searchSuggestion.username}
                 </Link>
