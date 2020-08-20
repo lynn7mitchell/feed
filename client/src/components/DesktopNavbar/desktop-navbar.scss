@@ -91,12 +91,13 @@ nav{
       }
       .search-suggestions{
         background: #121212;
-        border-radius: 10px;
+        border-radius: 5px;
         position: absolute;
         margin-top: 5px;
-        bottom: -5;
+        padding: 5px 0 10px 5px;
+        bottom: -3;
         width: 27%;
-        height: 300px;
+        max-height: 300px;
         display: none;
         // overflow: scroll;
       }

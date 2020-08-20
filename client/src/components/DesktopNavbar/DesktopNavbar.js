@@ -76,7 +76,8 @@ export default function DesktopNavbar(user) {
                     pathname: "/profile/" + searchSuggestion.username,
                     key: searchSuggestion._id,
                   }}
-                  style={{ display: "block" }}
+                  style={{ display: "block",
+                  marginBottom: 5}}
                   key={searchSuggestion._id}
                   onClick={(e) => refresh(e)}
 
