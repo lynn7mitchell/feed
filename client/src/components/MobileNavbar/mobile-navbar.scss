@@ -1,38 +1,38 @@
 // MEDIA QUERY MIXINS
- 
+
 // Small tablets and large smartphones (landscape view)
 $screen-sm-min: 576px;
- 
+
 // Small tablets (portrait view)
 $screen-md-min: 768px;
- 
+
 // Tablets and small desktops
 $screen-lg-min: 992px;
- 
+
 // Large tablets and desktops
 $screen-xl-min: 1200px;
- 
+
 // Small devices
 @mixin sm {
   @media (max-width: #{$screen-sm-min}) {
     @content;
   }
 }
- 
+
 // Medium devices
 @mixin md {
   @media (max-width: #{$screen-md-min}) {
     @content;
   }
 }
- 
+
 // Large devices
 @mixin lg {
   @media (max-width: #{$screen-lg-min}) {
     @content;
   }
 }
- 
+
 // Extra large devices
 @mixin xl {
   @media (max-width: #{$screen-xl-min}) {
@@ -40,26 +40,67 @@ $screen-xl-min: 1200px;
   }
 }
 
-.mobile-navbar{
-    display: none;
-    @include sm{
-        position: fixed;
-        bottom: 0;
-        background: #1f1f1f;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-        width: 100%;
-        height: 48px;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-       i{
-        font-size: 30px;
-       }
-       a{
-        text-decoration: none;
-        color: #e6e6e6;
+.mobile-navbar {
+  display: none;
+  @include sm {
+    position: fixed;
+    bottom: 0;
+    background: #1f1f1f;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    width: 100%;
+    height: 48px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    i {
+      font-size: 30px;
+    }
+    a {
+      text-decoration: none;
+      color: #e6e6e6;
+    }
+    #mobile-search {
+      z-index: -1;
+      background: #1f1f1f;
+      display: none;
+      position: absolute;
+      height: 200vh;
+      width: 100%;
 
+      .search-box {
+        position: fixed;
+        transform: translate(-50%, -50%);
+        left: 50%;
+        top: 20%;
+        input {
+          width: 90vw;
+          height: 20px;
+          color: #e6e6e6;
+          font-size: 20px;
+          border: 0;
+          background: transparent;
+          border-bottom: 1px solid #e6e6e6;
+        }
+        input::placeholder {
+          color: #e6e6e6;
+          font-family: "Lato";
+          font-weight: 200;
+          font-size: 16px;
+        }
+        input:focus {
+          border-bottom: 2px solid #fff;
+        }
+        #search-suggestions {
+          font-size: 20px;
+          border-radius: 10px;
+        position: absolute;
+        margin-top: 5px;
+        bottom: -5;
+        //  max-height: 80vh;
+         overflow: scroll;
+        }
+      }
     }
-    }
+  }
 }
