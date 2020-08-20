@@ -24,7 +24,7 @@ export default function MobileNavbar(user) {
     console.log(e.target.value);
     let newSuggestions = [];
     for (let i = 0; i < users.length; i++) {
-      if (users[i].username.includes(e.target.value)) {
+      if (users[i].username.includes(e.target.value) || users[i].username.includes(e.target.value.toLowerCase()) || users[i].username.includes(e.target.value.toUpperCase())) {
         newSuggestions.push(users[i]);
       }
     }
