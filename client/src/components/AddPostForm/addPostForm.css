@@ -15,7 +15,7 @@
     flex-wrap: wrap; }
     @media (max-width: 576px) {
       .form-container .post-form {
-        margin-top: 11vh;
+        margin-top: 13vh;
         height: 200px;
         width: 100%;
         justify-content: flex-start;

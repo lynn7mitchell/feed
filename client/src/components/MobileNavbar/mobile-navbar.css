@@ -47,7 +47,7 @@
           .mobile-navbar #mobile-search .search-box #search-suggestions {
             font-size: 20px;
             position: fixed;
-            margin-top: 35px;
+            margin-top: 13vh;
             margin: 0 auto;
             overflow: scroll; } }
 
