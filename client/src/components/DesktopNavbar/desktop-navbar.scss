@@ -51,6 +51,7 @@ nav{
     z-index: 9000;
     overflow: visible;
     @include sm{
+      height: 75px;
       display: flex;
       justify-content: center;
       align-content: center;

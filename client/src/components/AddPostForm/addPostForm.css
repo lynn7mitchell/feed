@@ -16,7 +16,7 @@
     @media (max-width: 576px) {
       .form-container .post-form {
         margin-top: 10vh;
-        height: 22vh;
+        height: 200px;
         width: 100%;
         justify-content: flex-start;
         flex-wrap: nowrap;
@@ -54,4 +54,4 @@
           height: 44px;
           font-size: 18px; } }
 
-/*# sourceMappingURL=addPostForm.css.map */
+/*# sourceMappingURL=AddPostForm.css.map */
