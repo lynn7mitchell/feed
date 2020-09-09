@@ -109,6 +109,17 @@ nav{
         @include sm{
             display: none;
         }
+        
+    }
+    .logout-button{
+      display: none;
+      @include sm{
+        display: block;
+        position: absolute;
+        right: 1em;
+        align-self: center;
+        font-size: 25px;
+    }
     }
     a{
         text-decoration: none;

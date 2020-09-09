@@ -44,7 +44,11 @@ export default function DesktopNavbar(user) {
         .catch((err) => console.log(err));
     }
   }
+const  handleLogout = (e) => {
+  localStorage.removeItem("example-app");
+  window.location.href = window.location.href
 
+};
 
   if(searchSuggestions.length !== 0){
     document.getElementsByClassName('search-suggestions')[0].style.display = 'block'
@@ -94,7 +98,11 @@ export default function DesktopNavbar(user) {
         <i className="material-icons">notifications</i>
         <i className="material-icons">sms</i>
         <i className="material-icons">settings</i>
+        <i className="material-icons" onClick={(e)=>handleLogout(e)}>login</i>
+
       </div>
+      <i className="material-icons logout-button" onClick={(e)=>handleLogout(e)}>login</i>
+
     </nav>
   );
 }

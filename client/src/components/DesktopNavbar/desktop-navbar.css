@@ -58,6 +58,15 @@ nav {
     @media (max-width: 576px) {
       nav .nav-icons {
         display: none; } }
+  nav .logout-button {
+    display: none; }
+    @media (max-width: 576px) {
+      nav .logout-button {
+        display: block;
+        position: absolute;
+        right: 1em;
+        align-self: center;
+        font-size: 25px; } }
   nav a {
     text-decoration: none;
     color: #e6e6e6; }
