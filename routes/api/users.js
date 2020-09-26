@@ -167,8 +167,8 @@ module.exports = function (app) {
       db.User.findByIdAndUpdate(req.user.id, { $set: req.body })
         .then((user) => {
           res.status(200).json({
-            message: "User account successfully created.",
-            userCreated: true,
+            message: "User account updated.",
+            // userCreated: true,
           });
         })
         .catch((err) => console.log(err));

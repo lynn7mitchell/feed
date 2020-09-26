@@ -13,6 +13,8 @@ export class SignUp extends Component {
       password: "",
       confirmPassword: "",
       errors: {},
+      bio: '',
+      isLoggedIn: false,
       redirect: false,
 
     };
@@ -46,7 +48,7 @@ export class SignUp extends Component {
             errors: 'none'
           },
         })
-        alert("Thanks for signing up!")
+        // alert("Thanks for signing up!")
 
 
 
@@ -60,7 +62,7 @@ export class SignUp extends Component {
           setAuthToken(token);
         }
         this.setState({
-          redirect: true,
+          isLoggedIn: true,
           errors: {},
         });
       })
@@ -79,6 +81,30 @@ export class SignUp extends Component {
      
 
   };
+
+  onBioSubmit = (e) =>{
+    e.preventDefault()
+
+    if(this.state.bio.length > 150){
+        this.setState({errors: {bio:"Please keep bio under 150 characters"}})
+        return this.state.errors
+    }
+    let updatedUser = {
+      bio: this.state.bio
+    }
+    axios
+    .put('/api/user', updatedUser)
+    .then((response) =>{
+      this.setState({
+        redirect: true
+      })
+    })
+    .catch((err) =>
+        this.setState({
+          errors: err.response.data,
+        })
+      );
+  }
 
   render() {
     const styles = {
@@ -102,6 +128,35 @@ export class SignUp extends Component {
     const { errors } = this.state;
     if (this.state.redirect) {
       return <Redirect to="/dashboard" />;
+    }
+
+    if(this.state.isLoggedIn){
+      return(
+        <div style={styles.main}>
+        <div className="container">
+          <div>
+            <h3>Enter a Bio</h3>
+            <form onSubmit={this.onBioSubmit}>
+               {errors.bio && <div style={styles.error}>{errors.bio}</div>}
+              <div>
+                <textarea
+                  placeholder="Bio"
+                  id="bio"
+                  type="text"
+                  className="form-field"
+                  name="bio"
+                  onChange={this.onChange}
+                />
+              </div>
+              <button type="submit" name="action">
+               Submit
+              </button>
+            
+            </form>
+          </div>
+        </div>
+      </div>
+      )
     }
     return (
       <div style={styles.main}>
