@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
+import authenticate from "../../utils/Authenticate";
+import setAuthToken from "../../utils/setAuthtoken";
 import axios from "axios";
 import "./login-signup.css";
 
@@ -11,6 +13,8 @@ export class SignUp extends Component {
       password: "",
       confirmPassword: "",
       errors: {},
+      redirect: false,
+
     };
   }
 
@@ -43,6 +47,28 @@ export class SignUp extends Component {
           },
         })
         alert("Thanks for signing up!")
+
+
+
+        axios
+      .post("/api/user/login", newUser)
+      .then((response) => {
+        if (response.data.token) {
+          const { token } = response.data;
+
+          localStorage.setItem("example-app", token);
+          setAuthToken(token);
+        }
+        this.setState({
+          redirect: true,
+          errors: {},
+        });
+      })
+      .catch((err) =>
+        this.setState({
+          errors: err.response.data,
+        })
+      );
       })
       .catch((err) =>
         this.setState({
@@ -74,6 +100,9 @@ export class SignUp extends Component {
       },
     };
     const { errors } = this.state;
+    if (this.state.redirect) {
+      return <Redirect to="/dashboard" />;
+    }
     return (
       <div style={styles.main}>
         <div className="container">

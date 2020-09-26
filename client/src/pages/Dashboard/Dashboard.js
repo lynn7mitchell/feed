@@ -73,11 +73,11 @@ export class Dashboard extends Component {
         <AddPostForm user={this.state.user} />
         {this.state.posts}
         {/* <i className="material-icons account-icon">account_circle</i> */}
-        <Link to="/">
+        {/* <Link to="/">
           <button className="logout-button" onClick={this.handleLogout}>
             Log Out
           </button>
-        </Link>
+        </Link> */}
         {/* <button className="floating-add-post-button" onClick={(e)=>{this.startNewPost(e)}}>
           <i className="material-icons">add</i>
         </button> */}
