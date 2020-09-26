@@ -46,6 +46,20 @@ form .form-field::placeholder {
   font-size: 16px; }
 form .form-field:focus {
   border-bottom: 2px solid #4160fb; }
+form .bio-form {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  width: 90%;
+  min-height: 100px;
+  resize: none; }
+form .character-counter {
+  right: 0;
+  margin: 0 5% 10% 0;
+  padding: 0;
+  text-align: right;
+  display: block; }
+form .bio-error {
+  color: #B00020; }
 form button {
   background: #a451ad;
   border: 0;

@@ -143,10 +143,12 @@ export class SignUp extends Component {
                   placeholder="Bio"
                   id="bio"
                   type="text"
-                  className="form-field"
+                  className="form-field bio-form"
                   name="bio"
                   onChange={this.onChange}
                 />
+                             <h6 className={"character-counter " + (this.state.bio.length > 150 ? 'bio-error' : '')}>{this.state.bio.length} / 150</h6>
+
               </div>
               <button type="submit" name="action">
                Submit
