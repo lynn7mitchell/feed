@@ -4,7 +4,8 @@
   right: 5vw;
   background: #1f1f1f;
   width: 35vw;
-  height: 80vh;
+  min-height: 80vh;
+  max-height: 85vh;
   border-radius: 10px; }
   @media (max-width: 576px) {
     .container {

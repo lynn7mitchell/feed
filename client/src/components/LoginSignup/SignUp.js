@@ -29,6 +29,15 @@ export class SignUp extends Component {
   onSubmit = (e) => {
     e.preventDefault();
 
+    // check for strong password
+    // /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+    // found regex at https://www.w3resource.com/javascript/form/password-validation.php
+    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+    if(passwordRegex.test(this.state.password) !== true){
+      console.log('works')
+      this.setState({errors: {password:"Password must be 8 characters and have at least 1 uppercase, 1 lowercase, 1 number, and 1 special character"}})
+      return this.state.errors
+    }
     if(this.state.password != this.state.confirmPassword){
       this.setState({errors: {password:"passwords do not match"}})
       return this.state.errors
@@ -117,6 +126,9 @@ export class SignUp extends Component {
         color: "#cc0000",
         fontSize: "0.8rem",
         margin: 0,
+        paddingRight: "5%",
+        paddingLeft: '5%'
+        
       },
       main: {
         textAlign: "center",
