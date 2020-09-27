@@ -122,14 +122,7 @@ export class SignUp extends Component {
         margin: "0 auto",
         width: "28vw",
       },
-      error: {
-        color: "#cc0000",
-        fontSize: "0.8rem",
-        margin: 0,
-        paddingRight: "5%",
-        paddingLeft: '5%'
-        
-      },
+     
       main: {
         textAlign: "center",
       },
@@ -149,7 +142,7 @@ export class SignUp extends Component {
           <div>
             <h3>Enter a Bio</h3>
             <form onSubmit={this.onBioSubmit}>
-               {errors.bio && <div style={styles.error}>{errors.bio}</div>}
+               {errors.bio && <div className='error'>{errors.bio}</div>}
               <div>
                 <textarea
                   placeholder="Bio"
@@ -178,8 +171,8 @@ export class SignUp extends Component {
           <div>
             <h3>SIGN UP</h3>
             <form onSubmit={this.onSubmit}>
-               {errors.email && <div style={styles.error}>{errors.email}</div>}
-               {errors.password && <div style={styles.error}>{errors.password}</div>}
+               {errors.email && <div className='error'>{errors.email}</div>}
+               {errors.password && <div className='error'>{errors.password}</div>}
               <div>
                 <input
                   placeholder="Username"

@@ -90,6 +90,7 @@ export class Login extends Component {
           <h3>LOG IN</h3>
           <div className="row">
             <form onSubmit={this.onSubmit}>
+            {errors.user && <div className="error">{errors.user}</div>}
               <div>
                 <input
                   placeholder="Email"
@@ -101,7 +102,7 @@ export class Login extends Component {
                   onChange={this.onChange}
                 />
 
-                {errors.user && <div style={styles.error}>{errors.user}</div>}
+                
               </div>
 
               <div>
@@ -116,7 +117,7 @@ export class Login extends Component {
                 />
 
                 {errors.password && (
-                  <div style={styles.error}>{errors.password}</div>
+                  <div className="error">{errors.password}</div>
                 )}
               </div>
               <button type="submit" name="action">

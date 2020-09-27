@@ -1,38 +1,38 @@
 // MEDIA QUERY MIXINS
- 
+
 // Small tablets and large smartphones (landscape view)
 $screen-sm-min: 576px;
- 
+
 // Small tablets (portrait view)
 $screen-md-min: 768px;
- 
+
 // Tablets and small desktops
 $screen-lg-min: 992px;
- 
+
 // Large tablets and desktops
 $screen-xl-min: 1200px;
- 
+
 // Small devices
 @mixin sm {
   @media (max-width: #{$screen-sm-min}) {
     @content;
   }
 }
- 
+
 // Medium devices
 @mixin md {
   @media (max-width: #{$screen-md-min}) {
     @content;
   }
 }
- 
+
 // Large devices
 @mixin lg {
   @media (max-width: #{$screen-lg-min}) {
     @content;
   }
 }
- 
+
 // Extra large devices
 @mixin xl {
   @media (max-width: #{$screen-xl-min}) {
@@ -63,13 +63,13 @@ h3 {
   font-weight: 800;
   font-size: 35px;
   padding-top: 5%;
-  @include sm{
+  @include sm {
     display: none;
   }
 }
- 
+
 form {
-  @include sm{
+  @include sm {
     margin: 0 auto;
   }
   label {
@@ -84,7 +84,6 @@ form {
     border-bottom: 1px solid #e6e6e6;
     margin-bottom: 10%;
     width: 90%;
-    
   }
   .form-field::placeholder {
     color: #e6e6e6;
@@ -95,22 +94,29 @@ form {
   .form-field:focus {
     border-bottom: 2px solid rgba(65, 96, 251, 1);
   }
-  .bio-form{
+  .bio-form {
     margin-bottom: 0;
     padding-bottom: 0;
     width: 90%;
     min-height: 100px;
     resize: none;
   }
-  .character-counter{
+  .character-counter {
     right: 0;
-    margin:0 5% 10% 0;
+    margin: 0 5% 10% 0;
     padding: 0;
     text-align: right;
     display: block;
   }
-  .bio-error{
-    color: #B00020
+  .bio-error {
+    color: #b00020;
+  }
+  .error {
+    color: #b00020;
+    font-size: 0.8rem;
+    margin: 0;
+    padding-right: 5%;
+    padding-left: 5%;
   }
   button {
     background: #a451ad;
@@ -121,16 +127,13 @@ form {
     color: #e6e6e6;
     font-family: "Lato";
     font-weight: 700;
-    @include sm{
+    @include sm {
       background: rgba(65, 96, 251, 0.85);
       height: 35px;
     }
   }
-  .signup-link{
+  .signup-link {
     color: #fff;
     font-weight: 500;
   }
-  
 }
- 
-

@@ -60,7 +60,13 @@ form .character-counter {
   text-align: right;
   display: block; }
 form .bio-error {
-  color: #B00020; }
+  color: #b00020; }
+form .error {
+  color: #b00020;
+  font-size: 0.8rem;
+  margin: 0;
+  padding-right: 5%;
+  padding-left: 5%; }
 form button {
   background: #a451ad;
   border: 0;
