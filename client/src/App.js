@@ -7,7 +7,7 @@ import NoMatch from "./pages/NoMatch";
 // import SignUp from "./components/SignUp";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Profile from "./pages/Profile/Profile";
-
+import Settings from './pages/Settings/Settings';
 import Home from "./pages/Home/Home";
 
 export class App extends Component {
@@ -22,6 +22,7 @@ export class App extends Component {
             {/* <Route exact path="/login" component={Login}/> */}
             <PrivateRoute exact path="/dashboard" component={Dashboard} />
             <PrivateRoute exact path="/profile/:id" component={Profile} />
+            <PrivateRoute exact path='/settings' component={Settings} />
             <Route exact component={NoMatch} />
           </Switch>
         </Router>

@@ -97,7 +97,7 @@ const  handleLogout = (e) => {
         </Link>
         <i className="material-icons">notifications</i>
         <i className="material-icons">sms</i>
-        <i className="material-icons">settings</i>
+        <Link to='/settings' ><i className="material-icons">settings</i></Link>
         <i className="material-icons" onClick={(e)=>handleLogout(e)}>login</i>
 
       </div>
