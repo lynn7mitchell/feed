@@ -12,5 +12,9 @@
     margin-top: 2vh; }
     .settings .buttons span {
       margin-right: 10px; }
+  .settings .settings-bio {
+    width: 50%;
+    margin-left: 3vw;
+    margin-top: 4vh; }
 
 /*# sourceMappingURL=settings.css.map */
