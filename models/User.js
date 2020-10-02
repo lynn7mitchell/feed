@@ -22,6 +22,10 @@ var UserSchema = new Schema({
   bio: {
     type: String,
   },
+  politicsFilter:{
+    type: Boolean,
+    default: false,
+  },
   posts: [{
     postType: {
       type: String,
