@@ -14,7 +14,10 @@ export default function Profile() {
   // currentUser is the user who is logged on
   // profileUser is the user that the profile being visited belongs to
   const [currentUser, setCurrentUser] = useState({});
+  const [currentUserFollowing, setCurrentUserFollowing] = useState([])
   const [profileUser, setProfileUser] = useState({});
+  const [errors, setErrors] = useState({});
+
   const [isProfileOwner, setIsProfileOwner] = useState(false);
   const [followingCount, setFollowingCount] = useState();
   const [followerCount, setFollowerCount] = useState();
@@ -35,6 +38,9 @@ export default function Profile() {
       .get("/api/user")
       .then((res) => {
         setCurrentUser(res.data);
+        setFollowerCount(res.data.followers.length);
+        setFollowingCount(res.data.following.length);
+        setCurrentUserFollowing(res.data.following)
         const thisUser = res.data;
 
         // /api/notCurrentUser is used when you need user information of someone who is not logged in
@@ -47,9 +53,7 @@ export default function Profile() {
           })
           .then((res) => {
             setProfileUser(res.data);
-            setFollowerCount(res.data.followers.length);
-            setFollowingCount(res.data.following.length);
-
+           
             // get /postsById grabs only the posts that belong to the user that was grabbed by /api/notCurrentUser
             axios
               .get("/postsById", {
@@ -76,6 +80,36 @@ export default function Profile() {
       })
       .catch((err) => console.log(err));
   }, []);
+
+
+  const onFollow = e =>{
+    e.preventDefault()
+
+    console.log(profileUser._id)
+
+   
+
+
+    if(!currentUser.following.includes(profileUser._id) && profileUser._id !== currentUser._id){
+      setCurrentUserFollowing(currentUserFollowing.push(profileUser._id.toString()))
+      
+      console.log(currentUserFollowing)
+
+      let updatedUser = {
+        following: currentUserFollowing
+      }
+
+      axios
+      .put("/api/user", updatedUser)
+      .then((res) => {
+        console.log(updatedUser);
+      })
+      .catch((err) => setErrors(err.res.data));
+    }else{
+      console.log('Don\'t follow yourself')
+    }
+
+  }
 
   //Switch case to handle the content grabbed for the profile tabs (media, favorites, and tagged)
   const handleTabContent = (e) => {
@@ -125,6 +159,7 @@ export default function Profile() {
             <div className="follow">
               <span>Followers: {followerCount}</span>
               <span>Following: {followingCount}</span>
+              <button className="follow-button" onClick={(e)=>onFollow(e)}>Follow</button>
             </div>
             <div className="bio">{profileUser.bio}</div>
           </div>

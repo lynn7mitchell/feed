@@ -51,8 +51,8 @@ var UserSchema = new Schema({
       type: Number,
     },
   }],
-  following: [{ userId: String }],
-  followers: [{ userId: String }],
+  following: [String],
+  followers: [String],
 });
 
 const User = mongoose.model("User", UserSchema);

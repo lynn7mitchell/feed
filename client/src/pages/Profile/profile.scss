@@ -114,8 +114,20 @@ $screen-xl-min: 1200px;
     .follow {
       grid-area: follow;
       display: flex;
+      align-items: center;
       span {
         margin-right: 10px;
+      }
+      .follow-button{
+        background: #3f5efb;
+    border: 0;
+    border-radius: 10px;
+    width: 8%;
+    height: 6vh;
+    color: #e6e6e6;
+    font-family: "Lato";
+    font-weight: 700;
+    font-size: 16px;
       }
     }
     .bio {
