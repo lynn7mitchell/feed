@@ -136,6 +136,7 @@ $screen-xl-min: 1200px;
     }
     .bio {
       grid-area: bio;
+      word-wrap: break-word;
       // @include sm {
       //   padding-left: 10%;
         padding-right: 5%;
