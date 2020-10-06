@@ -45,12 +45,16 @@ $screen-xl-min: 1200px;
   text-align: center;
 }
 .profile-container {
-  background: #121212;
+  position: absolute;
+  top: 0;
+  width: 100%;
   height: 100vh;
-  @include sm{
-    height: 100%;
-    // padding-bottom: 80vh;
-  }
+  background: #121212;
+ 
+  // @include sm{
+  //   height: 100%;
+  //   // padding-bottom: 80vh;
+  // }
 }
 .profile {
   color: #e6e6e6;
