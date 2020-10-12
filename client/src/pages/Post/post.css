@@ -1,0 +1,30 @@
+.post-page {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background: #121212; }
+  .post-page .post-container {
+    background: #1f1f1f;
+    padding: 0px 10px 10px 10px;
+    border-radius: 10px;
+    width: 50%;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    margin-top: 30px;
+    position: relative; }
+    .post-page .post-container .basic-info {
+      display: flex;
+      align-items: center; }
+      .post-page .post-container .basic-info h5 {
+        padding-left: 5px; }
+    .post-page .post-container .content {
+      width: 90%;
+      padding-bottom: 15px; }
+    .post-page .post-container .action-icons {
+      display: flex;
+      justify-content: space-evenly; }
+      .post-page .post-container .action-icons .material-icons {
+        font-size: 20px; }
+
+/*# sourceMappingURL=post.css.map */

@@ -22,5 +22,25 @@ export default function Post() {
       .catch((err) => console.log(err));
   }, []);
 
-  return <div></div>;
+  return (
+    <div className="post-page">
+      <div className="post-container">
+        <div className="basic-info">
+          <i className="material-icons">account_circle</i>
+          <Link to={"/profile/" + post.username}>
+            <h5>{post.username}</h5>
+          </Link>
+        </div>
+        <div className="content">
+          <p>{post.text}</p>
+        </div>
+        <div className="action-icons">
+          <i className="material-icons">message</i>
+          <i className="material-icons">favorite</i>
+          <i className="material-icons">cached</i>
+          <i className="material-icons">share</i>
+        </div>
+      </div>
+    </div>
+  );
 }
