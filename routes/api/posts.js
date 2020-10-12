@@ -28,6 +28,15 @@ module.exports = function (app) {
       })
       .catch((err) => console.log(err));
     })
+
+    app.get('/specificPost', (req,res)=>{
+      console.log(req.query)
+      db.Post.findById(req.query.id)
+      .then((post) => {
+        res.status(200).json(post)
+      })
+      .catch((err) => console.log(err));
+    })
   
     app.post('/post', passport.authenticate("jwt", { session: false }), (req,res)=>{
       const newPost = {

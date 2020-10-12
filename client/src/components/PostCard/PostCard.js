@@ -55,6 +55,9 @@ export default function PostCard(props) {
         {posts.map((post) => {
           if (post.username === currentUser.username) {
             return (
+              <Link to={
+                {pathname: '/post/' + post._id }
+              }>
               <div className="post-card" key={post._id}>
                 <i
                   className="material-icons delete-button"
@@ -81,9 +84,13 @@ export default function PostCard(props) {
                   <i className="material-icons">share</i>
                 </div>
               </div>
+              </Link>
             );
           } else {
             return (
+              <Link to={
+                {pathname: '/post/' + post._id }
+              }>
               <div className="post-card" key={post._id}>
                 <div className="basic-info">
                   <i className="material-icons">account_circle</i>
@@ -101,6 +108,7 @@ export default function PostCard(props) {
                   <i className="material-icons">share</i>
                 </div>
               </div>
+              </Link>
             );
           }
         })}
