@@ -13,6 +13,9 @@
     margin-bottom: 10px;
     margin-top: 30px;
     position: relative; }
+    @media (max-width: 576px) {
+      .post-page .post-container {
+        width: 100%; } }
     .post-page .post-container .basic-info {
       display: flex;
       align-items: center; }

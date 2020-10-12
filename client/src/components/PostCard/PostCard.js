@@ -43,6 +43,22 @@ export default function PostCard(props) {
     window.location.reload(false);
   };
 
+  const copy = (e) =>{
+    e.preventDefault()
+
+    console.dir(e.target)
+    console.log(e.target.attributes.link.value)
+    // https://stackoverflow.com/questions/33855641/copy-output-of-a-javascript-variable-to-the-clipboard
+    let link = document.createElement("textarea");
+    document.body.appendChild(link);
+    link.value = e.target.attributes.link.value
+    link.select()
+    document.execCommand("copy");
+    document.body.removeChild(link);
+
+    alert('The link to this post was copied to your clipboard')
+  }
+
   // if (loading) {
   //   return (
   //     <div className="profile-container">
@@ -81,7 +97,7 @@ export default function PostCard(props) {
                   <i className="material-icons">message</i>
                   <i className="material-icons">favorite</i>
                   <i className="material-icons">cached</i>
-                  <i className="material-icons">share</i>
+                  <i className="material-icons" link={'feed-social-media.herokuapp.com/post/' + post._id} onClick={(e)=>{copy(e)}}>share</i>
                 </div>
               </div>
               </Link>
@@ -105,7 +121,7 @@ export default function PostCard(props) {
                   <i className="material-icons">message</i>
                   <i className="material-icons">favorite</i>
                   <i className="material-icons">cached</i>
-                  <i className="material-icons">share</i>
+                  <i className="material-icons" link={'feed-social-media.herokuapp.com/post/' + post._id} onClick={(e)=>{copy(e)}}>share</i>
                 </div>
               </div>
               </Link>
@@ -132,6 +148,13 @@ export default function PostCard(props) {
             </h5>
           </div>
         </div>
+
+        {/* <div id="copy-modal" className="hidden">
+         <p>The link to this post has been copied to your clipboard!</p>
+         <h5>
+              Okay
+            </h5>
+        </div> */}
       </div>
     );
   // }
