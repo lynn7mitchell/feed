@@ -9,8 +9,11 @@ export default function PostCard(props) {
   const [targetPostid, setTargetPostId] = useState("");
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    setPosts(props.userPosts.reverse());
-    setCurrentUser(props.currentLoggedInUser);
+    const user = props.currentLoggedInUser
+    const allPosts = props.userPosts.reverse()
+    const followingPosts = allPosts.filter(post => user.following.includes(post.author) || post.author === user._id)
+    setPosts(followingPosts);
+    setCurrentUser(user);
     // setLoading(false)
   }, []);
 
