@@ -63,8 +63,8 @@ export default function MobileNavbar(user) {
   );
 
   let profileButton = (
-    <Link to={`/profile/${user.user.username}`}>
-      <i className="material-icons">account_circle</i>
+    <Link to={{ pathname: "/profile/" + user.user.username}} onClick={(e)=>(window.location.href = "/profile/" + user.user.username)} >
+    <i className="material-icons">account_circle</i>
     </Link>
   );
   if (searchIsOpen) {

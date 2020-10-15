@@ -9,7 +9,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Profile from "./pages/Profile/Profile";
 import Settings from './pages/Settings/Settings';
 import Home from "./pages/Home/Home";
-
+import Post from './pages/Post/Post'
 export class App extends Component {
   render() {
     return (
@@ -23,6 +23,7 @@ export class App extends Component {
             <PrivateRoute exact path="/dashboard" component={Dashboard} />
             <PrivateRoute exact path="/profile/:id" component={Profile} />
             <PrivateRoute exact path='/settings' component={Settings} />
+            <Route exact path='/post/:id' component={Post} />
             <Route exact component={NoMatch} />
           </Switch>
         </Router>

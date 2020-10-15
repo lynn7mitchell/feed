@@ -92,7 +92,7 @@ const  handleLogout = (e) => {
         </div>
       </div>
       <div className="nav-icons">
-        <Link to={`/profile/${user.user.username}`}>
+        <Link to={{ pathname: "/profile/" + user.user.username}} onClick={(e)=>(window.location.href = "/profile/" + user.user.username)} >
           <i className="material-icons">account_circle</i>
         </Link>
         <i className="material-icons">notifications</i>
