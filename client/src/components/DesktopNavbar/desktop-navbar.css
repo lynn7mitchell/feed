@@ -53,6 +53,7 @@ nav {
   nav .nav-icons {
     display: flex;
     justify-content: space-around;
+    align-items: center;
     width: 60%;
     margin: 0 auto; }
     @media (max-width: 576px) {
@@ -64,9 +65,19 @@ nav {
       nav .logout-button {
         display: block;
         position: absolute;
-        right: 1em;
+        left: 1em;
         align-self: center;
         font-size: 25px; } }
+  nav .settings-button {
+    display: none; }
+    @media (max-width: 576px) {
+      nav .settings-button {
+        display: block;
+        position: absolute;
+        right: 1em;
+        top: 35%;
+        align-self: center;
+        font-size: 26px; } }
   nav a {
     text-decoration: none;
     color: #e6e6e6; }

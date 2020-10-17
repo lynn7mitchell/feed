@@ -99,8 +99,9 @@ const  handleLogout = (e) => {
         <i className="material-icons">sms</i>
         <Link to='/settings' ><i className="material-icons">settings</i></Link>
         <i className="material-icons" onClick={(e)=>handleLogout(e)}>login</i>
-
       </div>
+      <Link to='/settings'className="settings-button" ><i className="material-icons ">settings</i></Link>
+
       <i className="material-icons logout-button" onClick={(e)=>handleLogout(e)}>login</i>
 
     </nav>

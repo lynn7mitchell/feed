@@ -104,6 +104,7 @@ nav{
     .nav-icons{
         display: flex;
         justify-content: space-around;
+        align-items: center;
         width: 60%;
         margin: 0 auto;
         @include sm{
@@ -116,9 +117,21 @@ nav{
       @include sm{
         display: block;
         position: absolute;
-        right: 1em;
+        left: 1em;
         align-self: center;
         font-size: 25px;
+    }
+    }
+    .settings-button{
+      display: none;
+      @include sm{
+        display: block;
+        position: absolute;
+        right: 1em;
+        top: 35%;
+        // bottom:50%;
+        align-self: center;
+        font-size: 26px;
     }
     }
     a{
