@@ -4,13 +4,21 @@ module.exports = function (app) {
   const bcrypt = require("bcryptjs");
   const jwt = require("jsonwebtoken");
   const keys = require("../../config/keys");
+  require("dotenv").config();
 
+  const multer = require("multer");
+  var multerS3 = require('multer-s3')
+  const aws = require('aws-sdk'); //"^2.2.41"
   // Test Routes
   app.get("/users/noAuthTest", (req, res) => {
     res.json({
       msg: "Users route works (no auth)",
     });
   });
+
+
+
+
 
   app.get(
     "/users/test",
@@ -174,6 +182,41 @@ module.exports = function (app) {
         .catch((err) => console.log(err));
     }
   );
+
+
+
+
+  // S3
+
+
+  aws.config.update({
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    region: process.env.AWS_REGION
+});
+  const s3 = new aws.S3();
+
+  const upload = multer({
+    storage: multerS3({
+        s3: s3,
+        acl: 'public-read',
+        bucket: process.env.AWS_BUCKET_NAME,
+        key: function (req, file, cb) {
+          // console.log(req)
+            console.log(file);
+            cb(null, file.originalname); //use Date.now() for unique file keys
+        }
+    })
+})
+
+// app.get('/getFromS3', (req,res)=>{
+//   console.log(s3)
+// })
+
+//used by upload form
+app.post('/upload', upload.any('file'), (req, res, next) => {
+  res.send("Uploaded!");
+});
 
   // end
 };
