@@ -17,13 +17,13 @@ export default function Profile() {
   const [currentUserFollowing, setCurrentUserFollowing] = useState([])
   const [profileUser, setProfileUser] = useState({});
   const [errors, setErrors] = useState({});
-
-  const [isProfileOwner, setIsProfileOwner] = useState(false);
+  // const [isProfileOwner, setIsProfileOwner] = useState(false);
   const [followingCount, setFollowingCount] = useState();
   const [followerCount, setFollowerCount] = useState();
   const [currentTabContent, setCurrentTabContent] = useState();
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
+  const [followButton, setFollowButton] = useState()
 
   useEffect(() => {
     // gets the bearer token to validate the user that is logged in
@@ -41,7 +41,9 @@ export default function Profile() {
         setFollowerCount(res.data.followers.length);
         setFollowingCount(res.data.following.length);
         setCurrentUserFollowing(res.data.following)
+
         const thisUser = res.data;
+
 
         // /api/notCurrentUser is used when you need user information of someone who is not logged in
         // in the case this is being used because the profile page being displayed may not belong to the user that is currently logged in
@@ -53,7 +55,7 @@ export default function Profile() {
           })
           .then((res) => {
             setProfileUser(res.data);
-           
+          
             // get /postsById grabs only the posts that belong to the user that was grabbed by /api/notCurrentUser
             axios
               .get("/postsById", {
@@ -89,7 +91,7 @@ export default function Profile() {
 
    
 
-
+    // if you are already following the person or if it is your own profile it will not add to following
     if(!currentUser.following.includes(profileUser._id) && profileUser._id !== currentUser._id){
       setCurrentUserFollowing(currentUserFollowing.push(profileUser._id.toString()))
       
@@ -159,7 +161,8 @@ export default function Profile() {
             <div className="follow">
               <span>Followers: {followerCount}</span>
               <span>Following: {followingCount}</span>
-              <button className="follow-button" onClick={(e)=>onFollow(e)}>Follow</button>
+              {currentUser._id === profileUser._id ? console.log('true') : <button className="follow-button" onClick={(e)=>onFollow(e)}>Follow</button>}
+              {/* <button className="follow-button" onClick={(e)=>onFollow(e)}>Follow</button> */}
             </div>
             <div className="bio">{profileUser.bio}</div>
           </div>
