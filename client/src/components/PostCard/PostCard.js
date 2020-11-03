@@ -62,6 +62,28 @@ export default function PostCard(props) {
     alert('The link to this post was copied to your clipboard')
   }
 
+  const onLike = e =>{
+    e.preventDefault()
+    
+    // find instead of filter so it updates the state
+    let currentPost = posts.find(obj =>{
+      return obj._id === e.target.id
+    })
+   
+    
+    currentPost.likes += 1
+    console.log(currentPost.likes)
+
+    let updatedUser = {
+      postId: currentPost._id,
+      postLikes: currentPost.likes
+    }
+    axios.put('/post', updatedUser)
+    .then(console.log('liked'))
+    .catch((err) => console.log(err));
+
+  }
+
   // if (loading) {
   //   return (
   //     <div className="profile-container">
@@ -98,7 +120,7 @@ export default function PostCard(props) {
                 </div>
                 <div className="action-icons">
                   <i className="material-icons">message</i>
-                  <i className="material-icons">favorite</i>
+                  <div className="likes" id={post._id}><i className="material-icons">favorite</i> {post.likes}</div>
                   <i className="material-icons">cached</i>
                   <i className="material-icons" link={'feed-social-media.herokuapp.com/post/' + post._id} onClick={(e)=>{copy(e)}}>share</i>
                 </div>
@@ -122,7 +144,7 @@ export default function PostCard(props) {
                 </div>
                 <div className="action-icons">
                   <i className="material-icons">message</i>
-                  <i className="material-icons">favorite</i>
+                  <div className="likes"  ><i className="material-icons" id={post._id}  onClick={(e)=>{onLike(e)}}>favorite</i> {post.likes}</div>
                   <i className="material-icons">cached</i>
                   <i className="material-icons" link={'feed-social-media.herokuapp.com/post/' + post._id} onClick={(e)=>{copy(e)}}>share</i>
                 </div>
