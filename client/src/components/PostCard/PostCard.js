@@ -8,6 +8,11 @@ export default function PostCard(props) {
   const [currentUser, setCurrentUser] = useState({});
   const [targetPostid, setTargetPostId] = useState("");
   const [loading, setLoading] = useState(true);
+
+  // https://stackoverflow.com/questions/53215285/how-can-i-force-component-to-re-render-with-hooks-in-react
+  const [, updateState] = React.useState();
+  const forceUpdate = React.useCallback(() => updateState({}), []);
+
   useEffect(() => {
     const user = props.currentLoggedInUser
     const allPosts = props.userPosts.reverse()
@@ -22,6 +27,7 @@ export default function PostCard(props) {
   // refresh the page
 
   const showDeleteModal = (e) => {
+    e.preventDefault()
     setTargetPostId(e.target.id);
     // console.log(currentPostId)
     const modal = document.getElementById("delete-modal");
@@ -64,15 +70,24 @@ export default function PostCard(props) {
 
   const onLike = e =>{
     e.preventDefault()
+
+    let postsArray = posts
     
     // find instead of filter so it updates the state
-    let currentPost = posts.find(obj =>{
+    let currentPost = postsArray.find(obj =>{
       return obj._id === e.target.id
     })
    
+    // let findPosts = obj => obj._id === e.target.id
+    // let updatedArray = [...posts]
+    // updatedArray[findPosts] = currentPost
+    // // postsArray.findIndex(currentPost._id)
+    // console.log( postsArray.findIndex(findPosts))
     
     currentPost.likes += 1
-    console.log(currentPost.likes)
+    
+    console.log(posts)
+
 
     let updatedUser = {
       postId: currentPost._id,
@@ -81,6 +96,7 @@ export default function PostCard(props) {
     axios.put('/post', updatedUser)
     .then(console.log('liked'))
     .catch((err) => console.log(err));
+    forceUpdate()
 
   }
 
