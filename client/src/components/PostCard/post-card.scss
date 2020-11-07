@@ -75,9 +75,15 @@ $screen-xl-min: 1200px;
     .action-icons{
         display: flex;
         justify-content: space-evenly;
-        
         .material-icons{
             font-size: 20px;
+        }
+        .likes{
+          display: flex;
+          align-items: center;
+          .material-icons{
+            margin-right: 5px
+          }
         }
     }
 

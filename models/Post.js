@@ -32,6 +32,7 @@ var PostSchema = new Schema({
     type: Number,
     default: 0
   },
+  whoLikes:[String],
   shareLink: {
     type: String,
   },

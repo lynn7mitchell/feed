@@ -27,6 +27,11 @@
     justify-content: space-evenly; }
     .post-card .action-icons .material-icons {
       font-size: 20px; }
+    .post-card .action-icons .likes {
+      display: flex;
+      align-items: center; }
+      .post-card .action-icons .likes .material-icons {
+        margin-right: 5px; }
 
 #delete-modal {
   background: #7B56CD;

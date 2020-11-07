@@ -14,9 +14,11 @@ export default function PostCard(props) {
   const forceUpdate = React.useCallback(() => updateState({}), []);
 
   useEffect(() => {
-    const user = props.currentLoggedInUser
-    const allPosts = props.userPosts.reverse()
-    const followingPosts = allPosts.filter(post => user.following.includes(post.author) || post.author === user._id)
+    const user = props.currentLoggedInUser;
+    const allPosts = props.userPosts.reverse();
+    const followingPosts = allPosts.filter(
+      (post) => user.following.includes(post.author) || post.author === user._id
+    );
     setPosts(followingPosts);
     setCurrentUser(user);
     // setLoading(false)
@@ -27,7 +29,7 @@ export default function PostCard(props) {
   // refresh the page
 
   const showDeleteModal = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     setTargetPostId(e.target.id);
     // console.log(currentPostId)
     const modal = document.getElementById("delete-modal");
@@ -52,53 +54,66 @@ export default function PostCard(props) {
     window.location.reload(false);
   };
 
-  const copy = (e) =>{
-    e.preventDefault()
+  const copy = (e) => {
+    e.preventDefault();
 
-    console.dir(e.target)
-    console.log(e.target.attributes.link.value)
+    console.dir(e.target);
+    console.log(e.target.attributes.link.value);
     // https://stackoverflow.com/questions/33855641/copy-output-of-a-javascript-variable-to-the-clipboard
     let link = document.createElement("textarea");
     document.body.appendChild(link);
-    link.value = e.target.attributes.link.value
-    link.select()
+    link.value = e.target.attributes.link.value;
+    link.select();
     document.execCommand("copy");
     document.body.removeChild(link);
 
-    alert('The link to this post was copied to your clipboard')
-  }
+    alert("The link to this post was copied to your clipboard");
+  };
 
-  const onLike = e =>{
-    e.preventDefault()
+  const onLike = (e) => {
+    e.preventDefault();
 
-    let postsArray = posts
-    
+    let isLiked = e.target.getAttribute("liked");
+
+    let postsArray = posts;
+
     // find instead of filter so it updates the state
-    let currentPost = postsArray.find(obj =>{
-      return obj._id === e.target.id
-    })
-   
+    let currentPost = postsArray.find((obj) => {
+      return obj._id === e.target.id;
+    });
+
+    if (isLiked === "true") {
+      currentPost.likes -= 1;
+      for (let i = currentPost.whoLikes.length - 1; i >= 0; i--) {
+        if (currentPost.whoLikes[i] === currentUser._id) {
+          currentPost.whoLikes.splice(i, 1);
+        }
+        console.log(currentPost.whoLikes);
+      }
+    } else if (isLiked === "false") {
+      currentPost.likes += 1;
+      currentPost.whoLikes.push(currentUser._id);
+    }
     // let findPosts = obj => obj._id === e.target.id
     // let updatedArray = [...posts]
     // updatedArray[findPosts] = currentPost
     // // postsArray.findIndex(currentPost._id)
     // console.log( postsArray.findIndex(findPosts))
-    
-    currentPost.likes += 1
-    
-    console.log(posts)
 
+    // console.log(posts)
 
     let updatedUser = {
       postId: currentPost._id,
-      postLikes: currentPost.likes
-    }
-    axios.put('/post', updatedUser)
-    .then(console.log('liked'))
-    .catch((err) => console.log(err));
-    forceUpdate()
-
-  }
+      postLikes: currentPost.likes,
+      whoLikes: currentPost.whoLikes,
+      user: currentUser._id,
+    };
+    axios
+      .put("/post", updatedUser)
+      .then(console.log("liked"))
+      .catch((err) => console.log(err));
+    forceUpdate();
+  };
 
   // if (loading) {
   //   return (
@@ -107,14 +122,12 @@ export default function PostCard(props) {
   //     </div>
   //   );
   // } else {
-    return (
-      <div>
-        {posts.map((post) => {
-          if (post.username === currentUser.username) {
-            return (
-              <Link to={
-                {pathname: '/post/' + post._id }
-              }>
+  return (
+    <div>
+      {posts.map((post) => {
+        if (post.username === currentUser.username) {
+          return (
+            <Link to={{ pathname: "/post/" + post._id }}>
               <div className="post-card" key={post._id}>
                 <i
                   className="material-icons delete-button"
@@ -136,18 +149,30 @@ export default function PostCard(props) {
                 </div>
                 <div className="action-icons">
                   <i className="material-icons">message</i>
-                  <div className="likes" id={post._id}><i className="material-icons">favorite</i> {post.likes}</div>
+                  <div
+                    className="likes"
+                    id={post._id}
+                    onClick={(e) => e.preventDefault()}
+                  >
+                    <i className="material-icons">favorite</i> {post.likes}
+                  </div>
                   <i className="material-icons">cached</i>
-                  <i className="material-icons" link={'feed-social-media.herokuapp.com/post/' + post._id} onClick={(e)=>{copy(e)}}>share</i>
+                  <i
+                    className="material-icons"
+                    link={"feed-social-media.herokuapp.com/post/" + post._id}
+                    onClick={(e) => {
+                      copy(e);
+                    }}
+                  >
+                    share
+                  </i>
                 </div>
               </div>
-              </Link>
-            );
-          } else {
-            return (
-              <Link to={
-                {pathname: '/post/' + post._id }
-              }>
+            </Link>
+          );
+        } else {
+          return (
+            <Link to={{ pathname: "/post/" + post._id }}>
               <div className="post-card" key={post._id}>
                 <div className="basic-info">
                   <i className="material-icons">account_circle</i>
@@ -160,43 +185,72 @@ export default function PostCard(props) {
                 </div>
                 <div className="action-icons">
                   <i className="material-icons">message</i>
-                  <div className="likes"  ><i className="material-icons" id={post._id}  onClick={(e)=>{onLike(e)}}>favorite</i> {post.likes}</div>
+                  <div className="likes"  style={
+                        post.whoLikes.includes(currentUser._id)
+                          ? { color: "#7B56CD" }
+                          : { color: "#FEFEFE" }
+                      }>
+                    <i
+                      className="material-icons"
+                      id={post._id}
+                      liked={
+                        post.whoLikes.includes(currentUser._id)
+                          ? "true"
+                          : "false"
+                      }
+                      onClick={(e) => {
+                        onLike(e);
+                      }}
+                     
+                    >
+                      favorite
+                    </i>
+                    {post.likes}
+                  </div>
                   <i className="material-icons">cached</i>
-                  <i className="material-icons" link={'feed-social-media.herokuapp.com/post/' + post._id} onClick={(e)=>{copy(e)}}>share</i>
+                  <i
+                    className="material-icons"
+                    link={"feed-social-media.herokuapp.com/post/" + post._id}
+                    onClick={(e) => {
+                      copy(e);
+                    }}
+                  >
+                    share
+                  </i>
                 </div>
               </div>
-              </Link>
-            );
-          }
-        })}
+            </Link>
+          );
+        }
+      })}
 
-        <div id="delete-modal" className="hidden">
-          <p>Are you sure you want to delete this post?</p>
-          <div id="delete-choices">
-            <h5
-              onClick={(e) => {
-                handleDeletePost(e);
-              }}
-            >
-              Yes
-            </h5>{" "}
-            <h5
-              onClick={(e) => {
-                hideDeleteModal(e);
-              }}
-            >
-              Cancel
-            </h5>
-          </div>
+      <div id="delete-modal" className="hidden">
+        <p>Are you sure you want to delete this post?</p>
+        <div id="delete-choices">
+          <h5
+            onClick={(e) => {
+              handleDeletePost(e);
+            }}
+          >
+            Yes
+          </h5>{" "}
+          <h5
+            onClick={(e) => {
+              hideDeleteModal(e);
+            }}
+          >
+            Cancel
+          </h5>
         </div>
+      </div>
 
-        {/* <div id="copy-modal" className="hidden">
+      {/* <div id="copy-modal" className="hidden">
          <p>The link to this post has been copied to your clipboard!</p>
          <h5>
               Okay
             </h5>
         </div> */}
-      </div>
-    );
+    </div>
+  );
   // }
 }

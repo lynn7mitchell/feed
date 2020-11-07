@@ -71,7 +71,7 @@ module.exports = function (app) {
   );
 
   app.put("/post", (req, res) => {
-    db.Post.findByIdAndUpdate({_id: req.body.postId}, { likes: req.body.postLikes })
+    db.Post.findByIdAndUpdate({_id: req.body.postId}, { likes: req.body.postLikes, whoLikes: req.body.whoLikes } )
     .then(console.log(req.body))
     .catch((err) =>
       console.log(err)
