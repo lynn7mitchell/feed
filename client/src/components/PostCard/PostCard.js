@@ -90,9 +90,24 @@ export default function PostCard(props) {
         }
         console.log(currentPost.whoLikes);
       }
+
+     
     } else if (isLiked === "false") {
       currentPost.likes += 1;
       currentPost.whoLikes.push(currentUser._id);
+
+      let notification = {
+        postAuthor: currentPost.author,
+        notificationType:'like',
+        mssg: 'liked your post!',
+        whoRang:currentUser._id,
+        link:"feed-social-media.herokuapp.com/post/" + currentPost._id
+      }
+
+      axios.put('/notifications', notification)
+      .then(console.log('worked'))
+      .catch((err) => console.log(err));
+
     }
     // let findPosts = obj => obj._id === e.target.id
     // let updatedArray = [...posts]
@@ -102,14 +117,14 @@ export default function PostCard(props) {
 
     // console.log(posts)
 
-    let updatedUser = {
+    let updatedPost = {
       postId: currentPost._id,
       postLikes: currentPost.likes,
       whoLikes: currentPost.whoLikes,
       user: currentUser._id,
     };
     axios
-      .put("/post", updatedUser)
+      .put("/post", updatedPost)
       .then(console.log("liked"))
       .catch((err) => console.log(err));
     forceUpdate();
@@ -185,11 +200,14 @@ export default function PostCard(props) {
                 </div>
                 <div className="action-icons">
                   <i className="material-icons">message</i>
-                  <div className="likes"  style={
-                        post.whoLikes.includes(currentUser._id)
-                          ? { color: "#7B56CD" }
-                          : { color: "#FEFEFE" }
-                      }>
+                  <div
+                    className="likes"
+                    style={
+                      post.whoLikes.includes(currentUser._id)
+                        ? { color: "#7B56CD" }
+                        : { color: "#FEFEFE" }
+                    }
+                  >
                     <i
                       className="material-icons"
                       id={post._id}
@@ -201,7 +219,6 @@ export default function PostCard(props) {
                       onClick={(e) => {
                         onLike(e);
                       }}
-                     
                     >
                       favorite
                     </i>

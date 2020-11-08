@@ -22,6 +22,22 @@ var UserSchema = new Schema({
   bio: {
     type: String,
   },
+  notifications:[
+    {
+      notifictionType:{
+        type: String,
+      },
+      mssg:{
+        type: String
+      },
+      whoRang:{
+        type: String
+      },
+      link:{
+        type: String
+      },
+    },
+  ],
   politicsFilter:{
     type: Boolean,
     default: false,
