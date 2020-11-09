@@ -98,7 +98,33 @@ $screen-xl-min: 1200px;
           margin: 0 auto;
           overflow: scroll;
         }
+        
       }
+     
+    }
+    #notifications{
+      z-index: -2;
+    background: #121212;
+    display: none;
+    position: absolute;
+    height: 200vh;
+    width: 100%;
+    margin-top: 30vh;
+    .notification{
+      color:#fefefe;
+      background: #1f1f1f;
+      padding: 20px 10px 20px 10px;
+      width: 100%;
+      margin: 0 auto;
+      position: relative;
+    }
+    }
+    .loading{
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      background-color: #121212;
+      text-align: center;
     }
   }
 }

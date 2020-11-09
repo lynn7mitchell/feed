@@ -100,7 +100,7 @@ export default function PostCard(props) {
         postAuthor: currentPost.author,
         notificationType:'like',
         mssg: 'liked your post!',
-        whoRang:currentUser._id,
+        whoRang:currentUser.username,
         link:"feed-social-media.herokuapp.com/post/" + currentPost._id
       }
 

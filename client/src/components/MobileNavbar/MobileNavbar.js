@@ -1,14 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { Redirect, Link } from "react-router-dom";
 import "./mobile-navbar.css";
+import setAuthToken from "../../utils/setAuthtoken";
 import axios from "axios";
 export default function MobileNavbar(user) {
   const [users, setUsers] = useState([]);
-  const [currentUser, setCurrentUser] = useState(user);
+  const [currentUser, setCurrentUser] = useState({});
   const [searchIsOpen, setSearchIsOpen] = useState(false);
   const [searchSuggestions, setSearchSuggestions] = useState([]);
+  const [notificationsAreOpen, setNotificationsAreOpen] = useState(false)
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const token = localStorage.getItem("example-app");
+
+    if (token) {
+      setAuthToken(token);
+    }
+    axios
+      .get("/api/user")
+      .then((res) => {
+        setCurrentUser(res.data);
+        setLoading(false)
+      })
+      .catch((err) => console.log(err));
     axios
       .get("/api/allUsers")
       .then((res) => {
@@ -16,7 +31,6 @@ export default function MobileNavbar(user) {
       })
       .catch((err) => console.log(err));
   }, []);
-
   const onChange = (e) => {
     // because this variable is set to have nothing in it on every onChange
     // you do not have to loop through the searchSuggestions to get rid of suggestions
@@ -62,12 +76,23 @@ export default function MobileNavbar(user) {
     </i>
   );
 
+  let notificationButton = (
+    <i
+      className="material-icons"
+      onClick={(e) => {
+        openMobileNotifications(e);
+      }}
+    >
+    notifications
+    </i>
+  );
   let profileButton = (
     <Link to={{ pathname: "/profile/" + user.user.username}} onClick={(e)=>(window.location.href = "/profile/" + user.user.username)} >
     <i className="material-icons">account_circle</i>
     </Link>
   );
-  if (searchIsOpen) {
+
+  if (searchIsOpen || notificationsAreOpen) {
     if (window.location.href.includes("dashboard")) {
       homeButton = (
         <i className="material-icons" onClick={(e) => exitSearch(e)}>
@@ -93,6 +118,17 @@ export default function MobileNavbar(user) {
         search
       </i>
     );
+
+    notificationButton = (
+      <i
+        className="material-icons"
+        onClick={(e) => {
+          exitMobileNotifications(e);
+        }}
+      >
+        notifications
+      </i>
+    );
   }
 
   const openMobileSearch = (e) => {
@@ -104,6 +140,23 @@ export default function MobileNavbar(user) {
     document.getElementById("mobile-search").style.display = "none";
     setSearchIsOpen(false);
   };
+
+  const openMobileNotifications = (e) => {
+    document.getElementById("notifications").style.display = "block";
+    setNotificationsAreOpen(true);
+  };
+  const exitMobileNotifications = (e) => {
+    document.getElementById("notifications").style.display = "none";
+    setNotificationsAreOpen(false);
+  };
+
+  if (loading) {
+    return (
+      <div className="loading">
+       Loading...
+      </div>
+    );
+  } else
   return (
     <div className="mobile-navbar">
       <div id="mobile-search">
@@ -138,7 +191,23 @@ export default function MobileNavbar(user) {
       {searchButton}
       {profileButton}
       <i className="material-icons">sms</i>
-      <i className="material-icons">notifications</i>
+      {notificationButton}
+      <div id="notifications">
+       
+            {currentUser.notifications.map((notification) => {
+              return (
+                <div>
+                <h2>Notifications</h2>
+                <Link to={notification.link}>
+                <div className='notification'>
+                {notification.whoRang + ' ' + notification.mssg}
+                </div>
+                </Link>
+                </div>
+              );
+            })}
+            
+        </div>
     </div>
   );
 }
