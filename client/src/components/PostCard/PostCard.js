@@ -101,7 +101,7 @@ export default function PostCard(props) {
         notificationType:'like',
         mssg: 'liked your post!',
         whoRang:currentUser.username,
-        link:"feed-social-media.herokuapp.com/post/" + currentPost._id
+        link:"/post/" + currentPost._id
       }
 
       axios.put('/notifications', notification)
