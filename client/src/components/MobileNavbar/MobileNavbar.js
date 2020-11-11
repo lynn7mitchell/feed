@@ -8,7 +8,7 @@ export default function MobileNavbar(user) {
   const [currentUser, setCurrentUser] = useState({});
   const [searchIsOpen, setSearchIsOpen] = useState(false);
   const [searchSuggestions, setSearchSuggestions] = useState([]);
-  const [notificationsAreOpen, setNotificationsAreOpen] = useState(false)
+  const [notificationsAreOpen, setNotificationsAreOpen] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function MobileNavbar(user) {
       .get("/api/user")
       .then((res) => {
         setCurrentUser(res.data);
-        setLoading(false)
+        setLoading(false);
       })
       .catch((err) => console.log(err));
     axios
@@ -56,7 +56,7 @@ export default function MobileNavbar(user) {
 
   const refresh = (e) => {
     // console.log(e.target)
-    window.location.href = e.target.href
+    window.location.href = e.target.href;
   };
 
   let homeButton = (
@@ -83,12 +83,15 @@ export default function MobileNavbar(user) {
         openMobileNotifications(e);
       }}
     >
-    notifications
+      notifications
     </i>
   );
   let profileButton = (
-    <Link to={{ pathname: "/profile/" + user.user.username}} onClick={(e)=>(window.location.href = "/profile/" + user.user.username)} >
-    <i className="material-icons">account_circle</i>
+    <Link
+      to={{ pathname: "/profile/" + user.user.username }}
+      onClick={(e) => (window.location.href = "/profile/" + user.user.username)}
+    >
+      <i className="material-icons">account_circle</i>
     </Link>
   );
 
@@ -151,63 +154,57 @@ export default function MobileNavbar(user) {
   };
 
   if (loading) {
-    return (
-      <div className="loading">
-       Loading...
-      </div>
-    );
+    return <div className="loading">Loading...</div>;
   } else
-  return (
-    <div className="mobile-navbar">
-      <div id="mobile-search">
-        <div className="search-box">
-          <input
-            type="text"
-            placeholder="Search"
-            onChange={(e) => onChange(e)}
-          />
-          <div id="search-suggestions">
-            {searchSuggestions.map((searchSuggestion) => {
-              return (
-                <Link
-                  
-                  to={{
-                    pathname: "/profile/" + searchSuggestion.username,
-                    key: searchSuggestion._id,
-                  }}
-                  style={{ display: "block" }}
-                  key={searchSuggestion._id}
-                  onClick={(e) => refresh(e)}
-
-                >
-                  {searchSuggestion.username}
-                </Link>
-              );
-            })}
+    return (
+      <div className="mobile-navbar">
+        <div id="mobile-search">
+          <div className="search-box">
+            <input
+              type="text"
+              placeholder="Search"
+              onChange={(e) => onChange(e)}
+            />
+            <div id="search-suggestions">
+              {searchSuggestions.map((searchSuggestion) => {
+                return (
+                  <Link
+                    to={{
+                      pathname: "/profile/" + searchSuggestion.username,
+                      key: searchSuggestion._id,
+                    }}
+                    style={{ display: "block" }}
+                    key={searchSuggestion._id}
+                    onClick={(e) => refresh(e)}
+                  >
+                    {searchSuggestion.username}
+                  </Link>
+                );
+              })}
+            </div>
           </div>
         </div>
-      </div>
-      {homeButton}
-      {searchButton}
-      {profileButton}
-      <i className="material-icons">sms</i>
-      {notificationButton}
-      <div id="notifications">
-       
-            {currentUser.notifications.map((notification) => {
-              return (
-                <div>
-                <h2>Notifications</h2>
-                <Link to={notification.link}>
-                <div className='notification'>
-                {notification.whoRang + ' ' + notification.mssg}
+        {homeButton}
+        {searchButton}
+        {profileButton}
+        <i className="material-icons">sms</i>
+        {notificationButton}
+        <div id="notifications">
+          <h4>Notifications</h4>
+          {currentUser.notifications.map((notification) => {
+
+          
+                return (
+              <Link to={notification.link}>
+                <div className="notification">
+                  {notification.whoRang + " " + notification.mssg}
                 </div>
-                </Link>
-                </div>
-              );
-            })}
+              </Link>
+            );
             
+            
+          })}
         </div>
-    </div>
-  );
+      </div>
+    );
 }

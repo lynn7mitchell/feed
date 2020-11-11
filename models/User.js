@@ -24,7 +24,7 @@ var UserSchema = new Schema({
   },
   notifications:[
     {
-      notifictionType:{
+      notificationType:{
         type: String,
       },
       mssg:{

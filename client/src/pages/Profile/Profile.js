@@ -108,6 +108,18 @@ export default function Profile() {
           console.log(updatedUser);
         })
         .catch((err) => setErrors(err.res.data));
+console.log(profileUser)
+        let notification = {
+          postAuthor: profileUser._id,
+          notificationType:'follow',
+          mssg: 'followed you!',
+          whoRang:currentUser.username,
+          link:"/profile/" + currentUser.username
+        }
+  
+        axios.put('/notifications', notification)
+        .then(console.log('worked'))
+        .catch((err) => console.log(err));
     } else {
       console.log("Don't follow yourself");
     }
