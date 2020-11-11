@@ -184,6 +184,22 @@ module.exports = function (app) {
   );
 
   app.put(
+    "/api/follow",
+    passport.authenticate("jwt", { session: false }),
+    (req, res) => {
+      console.log("put route", req.body);
+      db.User.findByIdAndUpdate(req.body.id, { $set: req.body })
+        .then((user) => {
+          res.status(200).json({
+            message: "User account updated.",
+            // userCreated: true,
+          });
+        })
+        .catch((err) => console.log(err));
+    }
+  );
+
+  app.put(
     "/notifications",
     passport.authenticate("jwt", { session: false }),
     (req, res) => {

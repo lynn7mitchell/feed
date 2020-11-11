@@ -16,10 +16,11 @@ export default function Profile() {
   const [currentUser, setCurrentUser] = useState({});
   const [currentUserFollowing, setCurrentUserFollowing] = useState([]);
   const [profileUser, setProfileUser] = useState({});
+  const [profileUserFollowers, setProfileUserFollowers] = useState([])
   const [errors, setErrors] = useState({});
   // const [isProfileOwner, setIsProfileOwner] = useState(false);
-  const [followingCount, setFollowingCount] = useState();
-  const [followerCount, setFollowerCount] = useState();
+  const [followingCount, setFollowingCount] = useState(0);
+  const [followerCount, setFollowerCount] = useState(0);
   const [currentTabContent, setCurrentTabContent] = useState();
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
@@ -38,8 +39,7 @@ export default function Profile() {
       .get("/api/user")
       .then((res) => {
         setCurrentUser(res.data);
-        setFollowerCount(res.data.followers.length);
-        setFollowingCount(res.data.following.length);
+       
         setCurrentUserFollowing(res.data.following);
 
         const thisUser = res.data;
@@ -54,7 +54,10 @@ export default function Profile() {
           })
           .then((res) => {
             setProfileUser(res.data);
-
+            console.log(res.data.followers)
+        setFollowerCount(res.data.followers.length);
+        setFollowingCount(res.data.following.length);
+        setProfileUserFollowers(res.data.followers)
             // get /postsById grabs only the posts that belong to the user that was grabbed by /api/notCurrentUser
             axios
               .get("/postsById", {
@@ -95,20 +98,36 @@ export default function Profile() {
       setCurrentUserFollowing(
         currentUserFollowing.push(profileUser._id.toString())
       );
+      setProfileUserFollowers(
+        profileUserFollowers.push(currentUser._id.toString())
+      )
+      
 
-      console.log(currentUserFollowing);
+      console.log(profileUserFollowers);
 
       let updatedUser = {
         following: currentUserFollowing,
       };
 
+      let updatedProfileUser = {
+        id: profileUser._id,
+        followers: profileUserFollowers
+      }
       axios
         .put("/api/user", updatedUser)
         .then((res) => {
           console.log(updatedUser);
         })
         .catch((err) => setErrors(err.res.data));
-console.log(profileUser)
+
+
+      axios
+      .put('/api/follow', updatedProfileUser)
+      .then((res) =>{
+        console.log(updatedProfileUser)
+      })
+      .catch((err) => setErrors(err.res.data));
+
         let notification = {
           postAuthor: profileUser._id,
           notificationType:'follow',
@@ -120,6 +139,9 @@ console.log(profileUser)
         axios.put('/notifications', notification)
         .then(console.log('worked'))
         .catch((err) => console.log(err));
+
+        window.location.reload(false);
+
     } else {
       console.log("Don't follow yourself");
     }
@@ -139,9 +161,24 @@ console.log(profileUser)
         setCurrentUserFollowing(following)
       }
     }
+    
+    const profileUserFollowers = profileUser.followers
+    console.log(profileUserFollowers)
+
+    for(let i = profileUserFollowers.length; i--;){
+      if (profileUserFollowers[i] === currentUser._id){
+        profileUserFollowers.splice(i, 1);
+      }
+    }
+
+    
     console.log(following)
     let updatedUser ={
       following : following
+    }
+
+    let updatedProfileUser = {
+      followers: profileUserFollowers
     }
 
     axios
@@ -150,6 +187,16 @@ console.log(profileUser)
       console.log(updatedUser);
     })
     .catch((err) => setErrors(err.res.data));
+
+    axios
+    .put("/api/user", updatedProfileUser)
+    .then((res) => {
+      console.log(updatedProfileUser);
+    })
+    .catch((err) => setErrors(err.res.data));
+
+    window.location.reload(false);
+
 
   }
 
