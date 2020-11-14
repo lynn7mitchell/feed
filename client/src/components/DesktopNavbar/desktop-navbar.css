@@ -59,6 +59,16 @@ nav {
     @media (max-width: 576px) {
       nav .nav-icons {
         display: none; } }
+  nav .notifications {
+    background: #121212;
+    border-radius: 5px;
+    position: absolute;
+    margin-top: 15px;
+    padding: 5px 0 10px 5px;
+    width: 15%;
+    max-height: 150px;
+    display: none;
+    overflow-y: scroll; }
   nav .logout-button {
     display: none; }
     @media (max-width: 576px) {
@@ -81,5 +91,10 @@ nav {
   nav a {
     text-decoration: none;
     color: #e6e6e6; }
+  nav .loading {
+    z-index: 1;
+    position: fixed;
+    width: 100vw;
+    height: 100vh; }
 
 /*# sourceMappingURL=desktop-navbar.css.map */

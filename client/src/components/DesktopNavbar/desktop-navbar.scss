@@ -101,6 +101,7 @@ nav{
         display: none;
         // overflow: scroll;
       }
+      
     .nav-icons{
         display: flex;
         justify-content: space-around;
@@ -111,6 +112,17 @@ nav{
             display: none;
         }
         
+    }
+    .notifications{
+      background: #121212;
+      border-radius: 5px;
+      position: absolute;
+      margin-top: 15px;
+      padding: 5px 0 10px 5px;
+      width: 15%;
+      max-height: 150px;
+      display: none;
+      overflow-y: scroll;
     }
     .logout-button{
       display: none;
@@ -138,5 +150,12 @@ nav{
         text-decoration: none;
         color: #e6e6e6;
 
+    }
+
+    .loading{
+      z-index: 1;
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
     }
 }
