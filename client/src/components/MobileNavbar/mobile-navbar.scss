@@ -102,17 +102,22 @@ $screen-xl-min: 1200px;
       }
      
     }
-    #notifications{
-      z-index: -2;
+    #notifications-container{
+      z-index: -1;
     background: #121212;
     display: none;
     position: absolute;
     height: 200vh;
     width: 100%;
-    margin-top: 30vh;
+    margin-top: 50%;
     h4{
       font-size: 25px;
       margin-left: 10px;
+    }
+    .notifications{
+      height: 60vh;
+      overflow-y: scroll;
+
     }
     .notification{
       color:#fefefe;

@@ -48,7 +48,7 @@ export default function MobileNavbar(user) {
     }
     document.getElementById("search-suggestions").style.display = "block";
     setSearchSuggestions(newSuggestions);
-
+    
     if (newSuggestions.length === users.length) {
       document.getElementById("search-suggestions").style.display = "none";
     }
@@ -96,6 +96,7 @@ export default function MobileNavbar(user) {
   );
 
   if (searchIsOpen || notificationsAreOpen) {
+    document.getElementsByClassName('mobile-navbar')[0].style.background = '#121212'
     if (window.location.href.includes("dashboard")) {
       homeButton = (
         <i className="material-icons" onClick={(e) => exitSearch(e)}>
@@ -145,11 +146,11 @@ export default function MobileNavbar(user) {
   };
 
   const openMobileNotifications = (e) => {
-    document.getElementById("notifications").style.display = "block";
+    document.getElementById("notifications-container").style.display = "block";
     setNotificationsAreOpen(true);
   };
   const exitMobileNotifications = (e) => {
-    document.getElementById("notifications").style.display = "none";
+    document.getElementById("notifications-container").style.display = "none";
     setNotificationsAreOpen(false);
   };
 
@@ -189,8 +190,9 @@ export default function MobileNavbar(user) {
         {profileButton}
         <i className="material-icons">sms</i>
         {notificationButton}
-        <div id="notifications">
+        <div id="notifications-container">
           <h4>Notifications</h4>
+          <div className="notifications">
           {currentUser.notifications.map((notification) => {
 
           
@@ -204,6 +206,7 @@ export default function MobileNavbar(user) {
             
             
           })}
+          </div>
         </div>
       </div>
     );

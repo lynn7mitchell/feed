@@ -50,18 +50,21 @@
             margin-top: 16vh;
             margin: 0 auto;
             overflow: scroll; }
-      .mobile-navbar #notifications {
-        z-index: -2;
+      .mobile-navbar #notifications-container {
+        z-index: -1;
         background: #121212;
         display: none;
         position: absolute;
         height: 200vh;
         width: 100%;
-        margin-top: 30vh; }
-        .mobile-navbar #notifications h4 {
+        margin-top: 50%; }
+        .mobile-navbar #notifications-container h4 {
           font-size: 25px;
           margin-left: 10px; }
-        .mobile-navbar #notifications .notification {
+        .mobile-navbar #notifications-container .notifications {
+          height: 60vh;
+          overflow-y: scroll; }
+        .mobile-navbar #notifications-container .notification {
           color: #fefefe;
           background: #1f1f1f;
           padding: 20px 10px 20px 10px;
