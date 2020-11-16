@@ -23,7 +23,13 @@ export default function Post() {
   }, []);
 
   return (
+    
     <div className="post-page">
+    <nav>
+      <Link to={"/dashboard"}>
+        <h4>FEED</h4>
+      </Link>
+    </nav>
       <div className="post-container">
         <div className="basic-info">
           <i className="material-icons">account_circle</i>

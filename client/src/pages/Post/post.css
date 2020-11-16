@@ -11,11 +11,12 @@
     width: 50%;
     margin: 0 auto;
     margin-bottom: 10px;
-    margin-top: 30px;
+    margin-top: 10%;
     position: relative; }
     @media (max-width: 576px) {
       .post-page .post-container {
-        width: 100%; } }
+        width: 100%;
+        margin-top: 25%; } }
     .post-page .post-container .basic-info {
       display: flex;
       align-items: center; }
