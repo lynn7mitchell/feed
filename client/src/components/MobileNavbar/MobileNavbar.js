@@ -155,7 +155,7 @@ export default function MobileNavbar(user) {
   };
 
   if (loading) {
-    return <div className="loading">Loading...</div>;
+    return <div className="loading"> <h2> Loading...</h2></div>;
   } else
     return (
       <div className="mobile-navbar">

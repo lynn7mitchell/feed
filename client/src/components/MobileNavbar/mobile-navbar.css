@@ -57,7 +57,7 @@
         position: absolute;
         height: 200vh;
         width: 100%;
-        margin-top: 50%; }
+        margin-top: 60%; }
         .mobile-navbar #notifications-container h4 {
           font-size: 25px;
           margin-left: 10px; }
@@ -70,12 +70,6 @@
           padding: 20px 10px 20px 10px;
           width: 100%;
           margin: 0 auto;
-          position: relative; }
-      .mobile-navbar .loading {
-        position: absolute;
-        width: 100vw;
-        height: 100vh;
-        background-color: #121212;
-        text-align: center; } }
+          position: relative; } }
 
 /*# sourceMappingURL=mobile-navbar.css.map */

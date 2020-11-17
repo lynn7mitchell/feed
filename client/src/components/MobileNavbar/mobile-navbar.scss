@@ -109,7 +109,7 @@ $screen-xl-min: 1200px;
     position: absolute;
     height: 200vh;
     width: 100%;
-    margin-top: 50%;
+    margin-top: 60%;
     h4{
       font-size: 25px;
       margin-left: 10px;
@@ -128,12 +128,12 @@ $screen-xl-min: 1200px;
       position: relative;
     }
     }
-    .loading{
-      position: absolute;
-      width: 100vw;
-      height: 100vh;
-      background-color: #121212;
-      text-align: center;
-    }
+    // .loading{
+    //   position: absolute;
+    //   width: 100vw;
+    //   height: 100vh;
+    //   background-color: #121212;
+    //   text-align: center;
+    // }
   }
 }

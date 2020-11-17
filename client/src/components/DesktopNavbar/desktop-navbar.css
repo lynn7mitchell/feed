@@ -91,10 +91,5 @@ nav {
   nav a {
     text-decoration: none;
     color: #e6e6e6; }
-  nav .loading {
-    z-index: 1;
-    position: fixed;
-    width: 100vw;
-    height: 100vh; }
 
 /*# sourceMappingURL=desktop-navbar.css.map */
