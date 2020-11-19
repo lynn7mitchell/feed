@@ -45,6 +45,13 @@ $screen-xl-min: 1200px;
     width: 100%;
     height: 100vh;
     background: #121212;
+    
+    h2{
+      margin-top: 10%;
+      @include sm{
+        margin-top: 30%;
+      }
+    }
 
     .buttons{
       display: flex;
@@ -53,15 +60,45 @@ $screen-xl-min: 1200px;
       margin-left: 3vw;
       margin-top: 2vh;
 
-      span{
+      h4{
         margin-right: 10px;
       }
     }
 
     .settings-bio{
-      width: 50%;
-      margin-left: 3vw;
+      width: 30%;
+      // margin-left: 3vw;
       margin-top: 4vh;
+      h4{
+        margin-left: 3vw;
+      }
+      textarea{
+        margin-left: 3vw;
+
+       }
+       .submit-button{
+        margin-left: 3vw;
+        button{
+          width: 100%;
+        }
+       }
+      @include sm{
+       width: 100%;
+       display: flex;
+       flex-direction: column;
+       justify-content: center;
+       form{
+         margin: 0;
+         
+         .submit-button{
+           width: 100%;
+           margin: 0 auto;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+         }
+       }
+      }
     }
     
     

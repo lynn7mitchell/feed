@@ -69,9 +69,10 @@ export default function Settings() {
   return (
     <div className="settings">
       <DesktopNavbar user={currentUser} />
-      <h1>Settings</h1>
+      <h2>Settings</h2>
       <div className="buttons">
-        <span>Politics Filter</span>
+      <h4>Politics Filter</h4>
+
         <Switch
           onChange={(e) => handleChange(e)}
           checked={politicsFilter}
@@ -82,7 +83,7 @@ export default function Settings() {
       </div>
 
       <div className="settings-bio">
-        <span>Change Bio</span>
+        <h4>Change Bio</h4>
         <form onSubmit={(e) => onSubmit(e)}>
           {/* {errors.bio && <div className='error'>{errors.bio}</div>} */}
           <div>
@@ -102,9 +103,11 @@ export default function Settings() {
               {bio.length} / 150
             </h6>
           </div>
+          <div className="submit-button">
           <button type="submit" name="action">
             Submit
           </button>
+          </div>
         </form>
       </div>
       <MobileNavbar user={currentUser} />
