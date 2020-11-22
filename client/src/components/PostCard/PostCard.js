@@ -14,13 +14,25 @@ export default function PostCard(props) {
   const forceUpdate = React.useCallback(() => updateState({}), []);
 
   useEffect(() => {
+    axios
+      .get("/api/user")
+      .then((res) => {
+        setCurrentUser(res.data);
+       
+      })
+      .catch((err) => console.log(err));
     const user = props.currentLoggedInUser;
     const allPosts = props.userPosts.reverse();
+    if(user === {}){
+      console.log(user)
     const followingPosts = allPosts.filter(
       (post) => user.following.includes(post.author) || post.author === user._id
     );
     setPosts(followingPosts);
     setCurrentUser(user);
+    }else{
+      setPosts(allPosts)
+    }
     // setLoading(false)
   }, []);
 
@@ -199,7 +211,9 @@ export default function PostCard(props) {
                   <p>{post.text}</p>
                 </div>
                 <div className="action-icons">
-                  <i className="material-icons">message</i>
+                  <i className="material-icons"  onClick={currentUser === {} ? (e) => {
+                    e.preventDefault()
+                      }: (e)=>{e.preventDefault()}}>message</i>
                   <div
                     className="likes"
                     style={
@@ -216,21 +230,24 @@ export default function PostCard(props) {
                           ? "true"
                           : "false"
                       }
-                      onClick={(e) => {
+                      onClick={currentUser === {} ? (e) => {
                         onLike(e);
-                      }}
+                      }: (e)=>{e.preventDefault()}}
                     >
                       favorite
                     </i>
                     {post.likes}
                   </div>
-                  <i className="material-icons">cached</i>
+                  <i className="material-icons" onClick={currentUser === {} ? (e) => {
+                    e.preventDefault()
+                      }: (e)=>{e.preventDefault()}}>cached</i>
                   <i
                     className="material-icons"
                     link={"feed-social-media.herokuapp.com/post/" + post._id}
                     onClick={(e) => {
                       copy(e);
                     }}
+                   
                   >
                     share
                   </i>

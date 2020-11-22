@@ -46,17 +46,11 @@ $screen-xl-min: 1200px;
     height: 100vh;
     background: #121212;
     
-    .post-container{
-        background: #1f1f1f;
-    padding: 0px 10px 10px 10px;
-    border-radius: 10px;
-    width: 50%;
-    margin: 0 auto;
-    margin-bottom: 10px;
+    .posts-container{
+    
     margin-top: 10%;
-    position: relative;
     @include sm{
-        width: 100%;
+        
         margin-top: 25%;
     }
 

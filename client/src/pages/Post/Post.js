@@ -6,7 +6,7 @@ import "./post.css";
 import axios from "axios";
 
 import DesktopNavbar from '../../components/DesktopNavbar/DesktopNavbar'
-
+import PostCard from '../../components/PostCard/PostCard'
 export default function Post() {
   const { id } = useParams();
 
@@ -25,10 +25,15 @@ export default function Post() {
       .get("/api/user")
       .then((res) => {
         setCurrentUser(res.data);
-        setLoading(false);
+       setPostNav(<DesktopNavbar user={res.data} />)
 
       })
       .catch((err) => {console.log(err)
+        setPostNav(<nav>
+          <Link to={"/dashboard"}>
+            <h4>FEED</h4>
+          </Link>
+        </nav>)
         // setLoading(false);
       });
     axios
@@ -39,10 +44,19 @@ export default function Post() {
       })
       .then((res) => {
         setPost(res.data);
+        setLoading(false);
       })
       .catch((err) => console.log(err));
   }, []);
 
+  if(currentUser === {}){
+    const nav = ( <div className="loading">
+    <h2> Loading...</h2>
+     <div className="search-suggestions"></div>
+   </div>)
+  }else{
+      const nav = <DesktopNavbar user={currentUser} />
+  }
  
   if (loading) {
     return (
@@ -54,13 +68,10 @@ export default function Post() {
   } else{
   return (
     <div className="post-page">
-    <nav>
-          <Link to={"/dashboard"}>
-            <h4>FEED</h4>
-          </Link>
-        </nav>
-
-      <div className="post-container">
+    {postNav}
+<div className="posts-container">
+<PostCard userPosts={[post]} currentLoggedInUser={currentUser}></PostCard>
+      {/* <div className="post-container">
         <div className="basic-info">
           <i className="material-icons">account_circle</i>
           <Link to={"/profile/" + post.username}>
@@ -76,7 +87,8 @@ export default function Post() {
           <i className="material-icons">cached</i>
           <i className="material-icons">share</i>
         </div>
-      </div>
+      </div>*/}
+    </div> 
     </div>
   );
   }
