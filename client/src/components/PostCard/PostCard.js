@@ -8,6 +8,7 @@ export default function PostCard(props) {
   const [currentUser, setCurrentUser] = useState({});
   const [targetPostid, setTargetPostId] = useState("");
   const [loading, setLoading] = useState(true);
+  const [comment, setComment] = useState("");
 
   // https://stackoverflow.com/questions/53215285/how-can-i-force-component-to-re-render-with-hooks-in-react
   const [, updateState] = React.useState();
@@ -18,20 +19,20 @@ export default function PostCard(props) {
       .get("/api/user")
       .then((res) => {
         setCurrentUser(res.data);
-       
       })
       .catch((err) => console.log(err));
     const user = props.currentLoggedInUser;
     const allPosts = props.userPosts.reverse();
-    if(user === {}){
-      console.log(user)
-    const followingPosts = allPosts.filter(
-      (post) => user.following.includes(post.author) || post.author === user._id
-    );
-    setPosts(followingPosts);
-    setCurrentUser(user);
-    }else{
-      setPosts(allPosts)
+    if (user === {}) {
+      console.log(user);
+      const followingPosts = allPosts.filter(
+        (post) =>
+          user.following.includes(post.author) || post.author === user._id
+      );
+      setPosts(followingPosts);
+      setCurrentUser(user);
+    } else {
+      setPosts(allPosts);
     }
     // setLoading(false)
   }, []);
@@ -102,24 +103,22 @@ export default function PostCard(props) {
         }
         console.log(currentPost.whoLikes);
       }
-
-     
     } else if (isLiked === "false") {
       currentPost.likes += 1;
       currentPost.whoLikes.push(currentUser._id);
 
       let notification = {
         postAuthor: currentPost.author,
-        notificationType:'like',
-        mssg: 'liked your post!',
-        whoRang:currentUser.username,
-        link:"/post/" + currentPost._id
-      }
+        notificationType: "like",
+        mssg: "liked your post!",
+        whoRang: currentUser.username,
+        link: "/post/" + currentPost._id,
+      };
 
-      axios.put('/notifications', notification)
-      .then(console.log('worked'))
-      .catch((err) => console.log(err));
-
+      axios
+        .put("/notifications", notification)
+        .then(console.log("worked"))
+        .catch((err) => console.log(err));
     }
     // let findPosts = obj => obj._id === e.target.id
     // let updatedArray = [...posts]
@@ -136,12 +135,40 @@ export default function PostCard(props) {
       user: currentUser._id,
     };
     axios
-      .put("/post", updatedPost)
+      .put("/postLikes", updatedPost)
       .then(console.log("liked"))
       .catch((err) => console.log(err));
     forceUpdate();
   };
 
+  const onCommentChange = (e) => {
+    e.preventDefault();
+    setComment(e.target.value);
+  };
+
+  const onCommentSubmit = (e) => {
+    e.preventDefault();
+
+    let postsArray = posts;
+
+    let currentPost = postsArray.find((obj) => {
+      return obj._id === e.target.id;
+    });
+
+
+
+
+    let updatedPost = {
+      postId: currentPost._id,
+      comment: comment,
+      user: currentUser._id,
+    };
+
+    axios
+      .put("/postComments", updatedPost)
+      .then(console.log("comment submitted"))
+      .catch((err) => console.log(err));
+  };
   // if (loading) {
   //   return (
   //     <div className="profile-container">
@@ -152,6 +179,9 @@ export default function PostCard(props) {
   return (
     <div>
       {posts.map((post) => {
+        {
+          /* If post is by the CURRENT USER */
+        }
         if (post.username === currentUser.username) {
           return (
             <Link to={{ pathname: "/post/" + post._id }}>
@@ -199,61 +229,108 @@ export default function PostCard(props) {
           );
         } else {
           return (
-            <Link to={{ pathname: "/post/" + post._id }}>
-              <div className="post-card" key={post._id}>
-                <div className="basic-info">
-                  <i className="material-icons">account_circle</i>
-                  <Link to={"/profile/" + post.username}>
-                    <h5>{post.username}</h5>
-                  </Link>
-                </div>
-                <div className="content">
-                  <p>{post.text}</p>
-                </div>
-                <div className="action-icons">
-                  <i className="material-icons"  onClick={currentUser === {} ? (e) => {
-                    e.preventDefault()
-                      }: (e)=>{e.preventDefault()}}>message</i>
-                  <div
-                    className="likes"
-                    style={
-                      post.whoLikes.includes(currentUser._id)
-                        ? { color: "#7B56CD" }
-                        : { color: "#FEFEFE" }
-                    }
-                  >
+            <div className="post-card">
+              <Link to={{ pathname: "/post/" + post._id }}>
+                {/* If post is by the DIFFERENT USER */}
+                <div key={post._id}>
+                  <div className="basic-info">
+                    <i className="material-icons">account_circle</i>
+                    <Link to={"/profile/" + post.username}>
+                      <h5>{post.username}</h5>
+                    </Link>
+                  </div>
+                  <div className="content">
+                    <p>{post.text}</p>
+                  </div>
+                  <div className="action-icons">
                     <i
                       className="material-icons"
-                      id={post._id}
-                      liked={
-                        post.whoLikes.includes(currentUser._id)
-                          ? "true"
-                          : "false"
+                      onClick={
+                        currentUser === {}
+                          ? (e) => {
+                              e.preventDefault();
+                            }
+                          : (e) => {
+                              e.preventDefault();
+                            }
                       }
-                      onClick={currentUser === {} ? (e) => {
-                        onLike(e);
-                      }: (e)=>{e.preventDefault()}}
                     >
-                      favorite
+                      message
                     </i>
-                    {post.likes}
+                    <div
+                      className="likes"
+                      style={
+                        post.whoLikes.includes(currentUser._id)
+                          ? { color: "#7B56CD" }
+                          : { color: "#FEFEFE" }
+                      }
+                    >
+                      <i
+                        className="material-icons"
+                        id={post._id}
+                        liked={
+                          post.whoLikes.includes(currentUser._id)
+                            ? "true"
+                            : "false"
+                        }
+                        onClick={
+                          currentUser === {}
+                            ? (e) => {
+                                onLike(e);
+                              }
+                            : (e) => {
+                                e.preventDefault();
+                              }
+                        }
+                      >
+                        favorite
+                      </i>
+                      {post.likes}
+                    </div>
+                    <i
+                      className="material-icons"
+                      onClick={
+                        currentUser === {}
+                          ? (e) => {
+                              e.preventDefault();
+                            }
+                          : (e) => {
+                              e.preventDefault();
+                            }
+                      }
+                    >
+                      cached
+                    </i>
+                    <i
+                      className="material-icons"
+                      link={"feed-social-media.herokuapp.com/post/" + post._id}
+                      onClick={(e) => {
+                        copy(e);
+                      }}
+                    >
+                      share
+                    </i>
                   </div>
-                  <i className="material-icons" onClick={currentUser === {} ? (e) => {
-                    e.preventDefault()
-                      }: (e)=>{e.preventDefault()}}>cached</i>
-                  <i
-                    className="material-icons"
-                    link={"feed-social-media.herokuapp.com/post/" + post._id}
-                    onClick={(e) => {
-                      copy(e);
-                    }}
-                   
-                  >
-                    share
-                  </i>
                 </div>
+              </Link>
+              <div className="comment-container">
+                <input
+                  placeholder="Comment"
+                  type="comment"
+                  className="comment-form-field"
+                  name="comment"
+                  onChange={(e) => onCommentChange(e)}
+                  value={comment}
+                />
+                <i
+                  className="material-icons"
+                  id={post._id}
+                  onClick={(e) => onCommentSubmit(e)}
+                >
+                  send
+                </i>
               </div>
-            </Link>
+            </div>
           );
         }
       })}

@@ -70,14 +70,23 @@ module.exports = function (app) {
     }
   );
 
-  app.put("/post", (req, res) => {
-    db.Post.findByIdAndUpdate({_id: req.body.postId}, { likes: req.body.postLikes, whoLikes: req.body.whoLikes } )
-    .then(console.log(req.body))
-    .catch((err) =>
-      console.log(err)
-    );
+  app.put("/postLikes", (req, res) => {
+    db.Post.findByIdAndUpdate(
+      { _id: req.body.postId },
+      { likes: req.body.postLikes, whoLikes: req.body.whoLikes }
+    )
+      .then(console.log(req.body))
+      .catch((err) => console.log(err));
   });
 
+  app.put("/postComments", (req, res) => {
+    db.Post.findByIdAndUpdate(
+      { _id: req.body.postId },
+      { $push: { comments: { commentType: "text", text: req.body.comment } } }
+    )
+      .then(console.log(req.body))
+      .catch((err) => console.log(err));
+  });
   app.delete("/deletePost/:id", (req, res) => {
     db.Post.findOneAndDelete({ _id: req.params.id })
       .then(() => {
