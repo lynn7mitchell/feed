@@ -168,7 +168,22 @@ export default function PostCard(props) {
       .put("/postComments", updatedPost)
       .then(console.log("comment submitted"))
       .catch((err) => console.log(err));
+  
+
+
+  let notification = {
+    postAuthor: currentPost.author,
+    notificationType: "comment",
+    mssg: "commented on your post!",
+    whoRang: currentUser.username,
+    link: "/post/" + currentPost._id,
   };
+
+  axios
+    .put("/notifications", notification)
+    .then(console.log("comment notification"))
+    .catch((err) => console.log(err));
+}
   // if (loading) {
   //   return (
   //     <div className="profile-container">
