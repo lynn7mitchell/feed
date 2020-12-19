@@ -23,7 +23,7 @@ export default function PostCard(props) {
       .catch((err) => console.log(err));
     const user = props.currentLoggedInUser;
     const allPosts = props.userPosts.reverse();
-    if (user === {}) {
+    if (user !== {}) {
       console.log(user);
       const followingPosts = allPosts.filter(
         (post) =>
