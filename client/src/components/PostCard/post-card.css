@@ -33,8 +33,35 @@
       .post-card .action-icons .likes .material-icons {
         margin-right: 5px; }
 
+.comment-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2%; }
+  @media (max-width: 576px) {
+    .comment-container {
+      margin-top: 6%; } }
+  .comment-container input {
+    -webkit-appearance: none;
+    color: #e6e6e6;
+    font-size: 16px;
+    border: 0;
+    background: transparent;
+    border-bottom: 1px solid #e6e6e6;
+    width: 90%; }
+  .comment-container input::placeholder {
+    color: #e6e6e6;
+    font-family: "Lato";
+    font-weight: 200;
+    font-size: 16px; }
+  .comment-container input:focus {
+    border-bottom: 2px solid #4160fb; }
+  .comment-container .material-icons {
+    margin-top: 2%;
+    margin-left: 2%; }
+
 #delete-modal {
-  background: #7B56CD;
+  background: #7b56cd;
   position: fixed;
   transform: translate(-50%, -50%);
   left: 50%;
