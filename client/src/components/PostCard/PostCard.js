@@ -8,6 +8,7 @@ export default function PostCard(props) {
   const [currentUser, setCurrentUser] = useState({});
   const [targetPostid, setTargetPostId] = useState("");
   const [loading, setLoading] = useState(true);
+  const [commentActive, setCommentActive] = useState(false)
   const [comment, setComment] = useState("");
 
   // https://stackoverflow.com/questions/53215285/how-can-i-force-component-to-re-render-with-hooks-in-react
@@ -141,6 +142,13 @@ export default function PostCard(props) {
     forceUpdate();
   };
 
+  // comment actions
+
+  const commentButtonClick = e =>{
+    e.preventDefault()
+    commentActive ? setCommentActive(false) : setCommentActive(true)
+  }
+
   const onCommentChange = (e) => {
     e.preventDefault();
     setComment(e.target.value);
@@ -261,13 +269,7 @@ export default function PostCard(props) {
                     <i
                       className="material-icons"
                       onClick={
-                        currentUser === {}
-                          ? (e) => {
-                              e.preventDefault();
-                            }
-                          : (e) => {
-                              e.preventDefault();
-                            }
+                        e => commentButtonClick(e)
                       }
                     >
                       message
@@ -328,7 +330,7 @@ export default function PostCard(props) {
                   </div>
                 </div>
               </Link>
-              <div className="comment-container">
+              <div className="comment-container" style={{display: commentActive ? 'flex' : 'none'}}>
                 <input
                   placeholder="Comment"
                   type="comment"
