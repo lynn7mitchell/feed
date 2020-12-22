@@ -9,11 +9,13 @@
   @media (max-width: 576px) {
     .post-card {
       width: 100%; } }
-  .post-card .delete-button {
+  .post-card .editing-icons {
     position: absolute;
-    font-size: 18px;
     right: 10px;
     top: 10px; }
+    .post-card .editing-icons i {
+      font-size: 18px;
+      margin-left: 10px; }
   .post-card .basic-info {
     display: flex;
     align-items: center; }
@@ -60,7 +62,7 @@
     margin-top: 2%;
     margin-left: 2%; }
 
-#delete-modal {
+#delete-modal, #edit-modal {
   background: #7b56cd;
   position: fixed;
   transform: translate(-50%, -50%);
@@ -71,9 +73,9 @@
   display: none;
   text-align: center; }
   @media (max-width: 576px) {
-    #delete-modal {
+    #delete-modal, #edit-modal {
       width: 90%; } }
-  #delete-modal #delete-choices {
+  #delete-modal #delete-choices, #edit-modal #delete-choices {
     display: flex;
     justify-content: space-around; }
 

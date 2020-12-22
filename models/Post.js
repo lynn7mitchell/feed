@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 var PostSchema = new Schema({
+  datePosted: {
+    type: Date,
+    default: Date.now
+  },
   author: {
     type: String,
     required: true,
@@ -40,6 +44,11 @@ var PostSchema = new Schema({
     type: Number,
     default: 0
   },
+  tags:{
+    edited:{
+      type: Date,
+    }
+  }
 });
 
 const Post = mongoose.model("Post", PostSchema);

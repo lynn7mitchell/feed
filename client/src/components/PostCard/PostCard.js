@@ -10,7 +10,7 @@ export default function PostCard(props) {
   const [loading, setLoading] = useState(true);
   const [commentActive, setCommentActive] = useState(false)
   const [comment, setComment] = useState("");
-
+  const [currentPostText, setCurrentPostText] =useState('')
   // https://stackoverflow.com/questions/53215285/how-can-i-force-component-to-re-render-with-hooks-in-react
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
@@ -68,6 +68,36 @@ export default function PostCard(props) {
     window.location.reload(false);
   };
 
+
+  const showEditModal = (e) => {
+    e.preventDefault();
+    setTargetPostId(e.target.id);
+    console.log(e.target.parentNode.parentNode.children[2].firstChild.innerHTML)
+    setCurrentPostText(e.target.parentNode.parentNode.children[2].firstChild.innerHTML)
+    const modal = document.getElementById("edit-modal");
+
+    // display modal
+    modal.style.display = "block";
+  };
+
+  const handlePostTestChange = e =>{
+    setCurrentPostText(e.target.value)
+  }
+
+  const handlePostEdit = e =>{
+    e.preventDefault()
+
+    let updatedPost = {
+      postId: targetPostid,
+      text: currentPostText,
+    };
+    axios
+      .put("/editPost", updatedPost)
+      .then((res) => {
+        console.log(updatedPost);
+      })
+      .catch((err) => console.error(err.res.data));
+  }
   const copy = (e) => {
     e.preventDefault();
 
@@ -121,13 +151,7 @@ export default function PostCard(props) {
         .then(console.log("worked"))
         .catch((err) => console.log(err));
     }
-    // let findPosts = obj => obj._id === e.target.id
-    // let updatedArray = [...posts]
-    // updatedArray[findPosts] = currentPost
-    // // postsArray.findIndex(currentPost._id)
-    // console.log( postsArray.findIndex(findPosts))
-
-    // console.log(posts)
+    
 
     let updatedPost = {
       postId: currentPost._id,
@@ -209,7 +233,18 @@ export default function PostCard(props) {
           return (
             <Link to={{ pathname: "/post/" + post._id }}>
               <div className="post-card" key={post._id}>
+                <div className="editing-icons">
                 <i
+                  className="material-icons edit-button"
+                  id={post._id}
+                  text={post.text}
+                  onClick={(e) => {
+                    showEditModal(e);
+                  }}
+                >
+                  edit
+                </i>
+                  <i
                   className="material-icons delete-button"
                   id={post._id}
                   onClick={(e) => {
@@ -218,6 +253,10 @@ export default function PostCard(props) {
                 >
                   delete
                 </i>
+
+                
+                </div>
+                
                 <div className="basic-info">
                   <i className="material-icons">account_circle</i>
                   <Link to={"/profile/" + post.username}>
@@ -370,8 +409,16 @@ export default function PostCard(props) {
             Cancel
           </h5>
         </div>
-      </div>
 
+      
+      </div>
+      <div id="edit-modal" className="hidden">
+      <p>Edit Post</p>
+      <form className="post-form" onSubmit={(e)=>{handlePostEdit(e)}}>
+                <textarea name="post" id="post-form-text" value={currentPostText} onChange={(e)=>{handlePostTestChange(e)}}></textarea>
+                <button type="submit">Post</button>
+                </form>
+        </div>
       {/* <div id="copy-modal" className="hidden">
          <p>The link to this post has been copied to your clipboard!</p>
          <h5>

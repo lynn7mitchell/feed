@@ -50,12 +50,21 @@ $screen-xl-min: 1200px;
   @include sm {
     width: 100%;
   }
-  .delete-button {
+  .editing-icons{
     position: absolute;
-    font-size: 18px;
     right: 10px;
     top: 10px;
+    i{
+      font-size: 18px;
+      margin-left: 10px ;
+    }
   }
+  // .delete-button {
+  //   position: absolute;
+  //   font-size: 18px;
+  //   right: 10px;
+  //   top: 10px;
+  // }
   .basic-info {
     display: flex;
     align-items: center;
@@ -116,7 +125,7 @@ $screen-xl-min: 1200px;
     margin-left: 2%;
   }
 }
-#delete-modal {
+#delete-modal, #edit-modal {
   background: #7b56cd;
   position: fixed;
   transform: translate(-50%, -50%);
