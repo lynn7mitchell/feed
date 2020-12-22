@@ -6,6 +6,7 @@ import "./post.css";
 import axios from "axios";
 
 import DesktopNavbar from '../../components/DesktopNavbar/DesktopNavbar'
+import MobileNavbar from '../../components/MobileNavbar/MobileNavbar'
 import PostCard from '../../components/PostCard/PostCard'
 export default function Post() {
   const { id } = useParams();
@@ -71,24 +72,11 @@ export default function Post() {
     {postNav}
 <div className="posts-container">
 <PostCard userPosts={[post]} currentLoggedInUser={currentUser}></PostCard>
-      {/* <div className="post-container">
-        <div className="basic-info">
-          <i className="material-icons">account_circle</i>
-          <Link to={"/profile/" + post.username}>
-            <h5>{post.username}</h5>
-          </Link>
-        </div>
-        <div className="content">
-          <p>{post.text}</p>
-        </div>
-        <div className="action-icons">
-          <i className="material-icons">message</i>
-          <i className="material-icons">favorite</i>
-          <i className="material-icons">cached</i>
-          <i className="material-icons">share</i>
-        </div>
-      </div>*/}
+     
     </div> 
+
+    {currentUser !== {} ? <MobileNavbar user={currentUser} /> : ''}
+
     </div>
   );
   }
