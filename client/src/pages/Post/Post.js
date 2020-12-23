@@ -46,6 +46,7 @@ export default function Post() {
       .then((res) => {
         setPost(res.data);
         setLoading(false);
+
       })
       .catch((err) => console.log(err));
   }, []);
