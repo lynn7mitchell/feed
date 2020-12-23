@@ -24,8 +24,11 @@ export default function PostCard(props) {
       .catch((err) => console.log(err));
     const user = props.currentLoggedInUser;
     const allPosts = props.userPosts.reverse();
-    if (user !== {}) {
-      console.log(user);
+    console.log(allPosts)
+    console.log(user);
+
+    if (Object.keys(user).length !== 0) {
+
       const followingPosts = allPosts.filter(
         (post) =>
           user.following.includes(post.author) || post.author === user._id
@@ -35,7 +38,7 @@ export default function PostCard(props) {
     } else {
       setPosts(allPosts);
     }
-    // setLoading(false)
+    setLoading(false)
   }, []);
 
   // Add a modal that asks if the user is sure they want
@@ -216,13 +219,7 @@ export default function PostCard(props) {
     .then(console.log("comment notification"))
     .catch((err) => console.log(err));
 }
-  // if (loading) {
-  //   return (
-  //     <div className="profile-container">
-  //       <div className="profile loading">Loading...</div>
-  //     </div>
-  //   );
-  // } else {
+
   return (
     <div>
       {posts.map((post) => {
