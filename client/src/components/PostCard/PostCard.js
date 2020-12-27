@@ -221,7 +221,7 @@ export default function PostCard(props) {
 }
 
   return (
-    <div>
+    <div className="post-card-container">
       {posts.map((post) => {
         {
           /* If post is by the CURRENT USER */
