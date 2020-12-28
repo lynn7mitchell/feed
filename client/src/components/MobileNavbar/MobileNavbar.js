@@ -6,6 +6,7 @@ import axios from "axios";
 export default function MobileNavbar(user) {
   const [users, setUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
+  const [currentUserNotifcations, setCurrentUserNotifcations] = useState([])
   const [searchIsOpen, setSearchIsOpen] = useState(false);
   const [searchSuggestions, setSearchSuggestions] = useState([]);
   const [notificationsAreOpen, setNotificationsAreOpen] = useState(false);
@@ -21,6 +22,7 @@ export default function MobileNavbar(user) {
       .get("/api/user")
       .then((res) => {
         setCurrentUser(res.data);
+        setCurrentUserNotifcations(res.data.notifications)
         setLoading(false);
       })
       .catch((err) => console.log(err));
@@ -58,6 +60,21 @@ export default function MobileNavbar(user) {
     // console.log(e.target)
     window.location.href = e.target.href;
   };
+
+  const deleteNotification = e =>{
+    e.preventDefault()
+
+    let currentNotifications = currentUserNotifcations
+    let newNotifications = currentNotifications.filter(function( notification ) {
+      return notification._id !== e.target.id;
+  });
+
+
+  axios.put("/deleteNotification", newNotifications)
+  .then( window.location.href = window.location.href)
+  .catch(err => console.error(err))
+    
+  }
 
   let homeButton = (
     <Link to={"/dashboard"}>
@@ -199,7 +216,16 @@ export default function MobileNavbar(user) {
                 return (
               <Link to={notification.link}>
                 <div className="notification">
+                  <span>
                   {notification.whoRang + " " + notification.mssg}
+                  </span>
+                  <i
+                  className="material-icons delete-button"
+                  id={notification._id}
+                  onClick={(e)=>deleteNotification(e)}
+                >
+                  clear
+                </i>
                 </div>
               </Link>
             );

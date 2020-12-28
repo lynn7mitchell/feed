@@ -65,11 +65,17 @@
           height: 60vh;
           overflow-y: scroll; }
         .mobile-navbar #notifications-container .notification {
+          display: flex;
+          justify-content: space-between;
           color: #fefefe;
           background: #1f1f1f;
           padding: 20px 10px 20px 10px;
           width: 100%;
           margin: 0 auto;
-          position: relative; } }
+          position: relative; }
+          .mobile-navbar #notifications-container .notification .delete-button {
+            font-size: 20px;
+            justify-self: flex-end;
+            align-self: flex-end; } }
 
 /*# sourceMappingURL=mobile-navbar.css.map */

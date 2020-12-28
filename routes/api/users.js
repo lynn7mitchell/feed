@@ -215,6 +215,20 @@ module.exports = function (app) {
     }
   );
 
+  app.put("/deleteNotification",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    console.log("put route", req.body);
+    db.User.findByIdAndUpdate(req.user._id, { $set: {notifications : req.body} })
+      .then((user) => {
+        res.status(200).json({
+          message: "User account updated.",
+          // userCreated: true,
+        });
+      })
+      .catch((err) => console.log(err));
+  })
+
 
 //   // S3
 
