@@ -231,8 +231,9 @@ export default function PostCard(props) {
         }
         if (post.username === currentUser.username) {
           return (
+            <div className="post-card" >
             <Link to={{ pathname: "/post/" + post._id }}>
-              <div className="post-card" key={post._id}>
+              <div key={post._id}>
                 <div className="editing-icons">
                 <i
                   className="material-icons edit-button"
@@ -267,7 +268,14 @@ export default function PostCard(props) {
                   <p>{post.text}</p>
                 </div>
                 <div className="action-icons">
-                  <i className="material-icons">message</i>
+                <i
+                      className="material-icons"
+                      onClick={
+                        e => commentButtonClick(e)
+                      }
+                    >
+                      message
+                    </i>
                   <div
                     className="likes"
                     id={post._id}
@@ -288,6 +296,24 @@ export default function PostCard(props) {
                 </div>
               </div>
             </Link>
+            <div className="comment-container" style={{display: commentActive ? 'flex' : 'none'}}>
+                <input
+                  placeholder="Comment"
+                  type="comment"
+                  className="comment-form-field"
+                  name="comment"
+                  onChange={(e) => onCommentChange(e)}
+                  value={comment}
+                />
+                <i
+                  className="material-icons"
+                  id={post._id}
+                  onClick={(e) => onCommentSubmit(e)}
+                >
+                  send
+                </i>
+              </div>
+              </div>
           );
         } else {
           return (
