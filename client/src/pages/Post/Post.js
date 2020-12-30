@@ -82,10 +82,22 @@ export default function Post() {
           ></PostCard>
 
           <div className="comments">
-            {post.comments.map((comment)=>{
+            <h4>Comments</h4>
+            <hr/>
+            {post.comments.map((comment) => {
               return (
-                <div className="commentCard">{comment.text}</div>
-                )
+                <div className="comment-card">
+                  <div className="basic-info">
+                    <i className="material-icons">account_circle</i>
+                    <Link to={"/profile/" + comment.commentAuthor.username}>
+                      <h5>{comment.commentAuthor.username}</h5>
+                    </Link>
+                  </div>
+                  <div className="content">
+                    <p>{comment.text}</p>
+                  </div>
+                </div>
+              );
             })}
           </div>
         </div>

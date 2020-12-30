@@ -22,5 +22,26 @@
       justify-content: space-evenly; }
       .post-page .posts-container .action-icons .material-icons {
         font-size: 20px; }
+    .post-page .posts-container .comments h4 {
+      padding-left: 10px;
+      margin: 0; }
+    .post-page .posts-container .comments hr {
+      margin: 5% 10px 5% 10px; }
+    .post-page .posts-container .comments .comment-card {
+      background: #1f1f1f;
+      padding: 0px 10px 10px 10px;
+      border-radius: 10px;
+      width: 50%;
+      margin: 0 auto;
+      margin-bottom: 10px;
+      position: relative; }
+      @media (max-width: 576px) {
+        .post-page .posts-container .comments .comment-card {
+          width: 100%; } }
+      .post-page .posts-container .comments .comment-card .basic-info {
+        display: flex;
+        align-items: center; }
+        .post-page .posts-container .comments .comment-card .basic-info h5 {
+          padding-left: 5px; }
 
 /*# sourceMappingURL=post.css.map */
