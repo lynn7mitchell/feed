@@ -5,14 +5,14 @@ import setAuthToken from "../../utils/setAuthtoken";
 import "./post.css";
 import axios from "axios";
 
-import DesktopNavbar from '../../components/DesktopNavbar/DesktopNavbar'
-import MobileNavbar from '../../components/MobileNavbar/MobileNavbar'
-import PostCard from '../../components/PostCard/PostCard'
+import DesktopNavbar from "../../components/DesktopNavbar/DesktopNavbar";
+import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
+import PostCard from "../../components/PostCard/PostCard";
 export default function Post() {
   const { id } = useParams();
 
   const [post, setPost] = useState({});
-  const [postNav, setPostNav] = useState()
+  const [postNav, setPostNav] = useState();
   const [currentUser, setCurrentUser] = useState({});
   const [loading, setLoading] = useState(true);
 
@@ -26,15 +26,17 @@ export default function Post() {
       .get("/api/user")
       .then((res) => {
         setCurrentUser(res.data);
-       setPostNav(<DesktopNavbar user={res.data} />)
-
+        setPostNav(<DesktopNavbar user={res.data} />);
       })
-      .catch((err) => {console.log(err)
-        setPostNav(<nav>
-          <Link to={"/dashboard"}>
-            <h4>FEED</h4>
-          </Link>
-        </nav>)
+      .catch((err) => {
+        console.log(err);
+        setPostNav(
+          <nav>
+            <Link to={"/dashboard"}>
+              <h4>FEED</h4>
+            </Link>
+          </nav>
+        );
         // setLoading(false);
       });
     axios
@@ -46,39 +48,50 @@ export default function Post() {
       .then((res) => {
         setPost(res.data);
         setLoading(false);
-
       })
       .catch((err) => console.log(err));
   }, []);
 
-  if(currentUser === {}){
-    const nav = ( <div className="loading">
-    <h2> Loading...</h2>
-     <div className="search-suggestions"></div>
-   </div>)
-  }else{
-      const nav = <DesktopNavbar user={currentUser} />
-  }
- 
-  if (loading) {
-    return (
+  if (currentUser === {}) {
+    const nav = (
       <div className="loading">
-       <h2> Loading...</h2>
+        <h2> Loading...</h2>
         <div className="search-suggestions"></div>
       </div>
     );
-  } else{
-  return (
-    <div className="post-page">
-    {postNav}
-<div className="posts-container">
-<PostCard userPosts={[post]} currentLoggedInUser={currentUser}></PostCard>
-     
-    </div> 
+  } else {
+    const nav = <DesktopNavbar user={currentUser} />;
+  }
 
-    {currentUser !== {} ? <MobileNavbar user={currentUser} /> : ''}
+  console.log(post.comments);
+  if (loading) {
+    return (
+      <div className="loading">
+        <h2> Loading...</h2>
+        <div className="search-suggestions"></div>
+      </div>
+    );
+  } else {
+    return (
+      <div className="post-page">
+        {postNav}
+        <div className="posts-container">
+          <PostCard
+            userPosts={[post]}
+            currentLoggedInUser={currentUser}
+          ></PostCard>
 
-    </div>
-  );
+          <div className="comments">
+            {post.comments.map((comment)=>{
+              return (
+                <div className="commentCard">{comment.text}</div>
+                )
+            })}
+          </div>
+        </div>
+
+        {currentUser !== {} ? <MobileNavbar user={currentUser} /> : ""}
+      </div>
+    );
   }
 }

@@ -66,7 +66,6 @@ module.exports = function (app) {
     }
   );
 
-
   app.post(
     "/repost",
     passport.authenticate("jwt", { session: false }),
@@ -111,7 +110,18 @@ module.exports = function (app) {
   app.put("/postComments", (req, res) => {
     db.Post.findByIdAndUpdate(
       { _id: req.body.postId },
-      { $push: { comments: { commentType: "text", text: req.body.comment } } }
+      {
+        $push: {
+          comments: {
+            commentType: "text",
+            text: req.body.comment,
+            commentAuthor: {
+              username: req.body.commentAuthor.username,
+              id: req.body.commentAuthor.id,
+            },
+          },
+        },
+      }
     )
       .then(console.log(req.body))
       .catch((err) => console.log(err));
@@ -122,7 +132,9 @@ module.exports = function (app) {
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
       console.log("put route", req.body);
-      db.Post.findByIdAndUpdate(req.body.postId, { $set: {text: req.body.text }})
+      db.Post.findByIdAndUpdate(req.body.postId, {
+        $set: { text: req.body.text },
+      })
         .then((user) => {
           res.status(200).json({
             message: "post updated.",

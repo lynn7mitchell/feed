@@ -41,6 +41,9 @@ $screen-xl-min: 1200px;
 }
 .post-card-container{
   padding-bottom: 5%;
+  @include sm{
+    padding-bottom: 20%;
+  }
 }
 .post-card {
   background: #1f1f1f;

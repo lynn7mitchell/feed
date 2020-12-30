@@ -196,7 +196,10 @@ export default function PostCard(props) {
     let updatedPost = {
       postId: currentPost._id,
       comment: comment,
-      user: currentUser._id,
+      commentAuthor: {
+        id: currentUser._id,
+        username: currentUser.username
+      }
     };
 
     axios

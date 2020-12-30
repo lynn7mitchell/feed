@@ -21,6 +21,14 @@ var PostSchema = new Schema({
     type: String,
   },
   comments: [{
+    commentAuthor:{
+      username:{
+        type: String
+      },
+      id:{
+        type: String
+      }
+    },
     commentType: {
       type: String,
     },
