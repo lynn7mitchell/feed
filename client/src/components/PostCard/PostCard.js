@@ -8,7 +8,7 @@ export default function PostCard(props) {
   const [currentUser, setCurrentUser] = useState({});
   const [targetPostid, setTargetPostId] = useState("");
   const [loading, setLoading] = useState(true);
-  const [commentActive, setCommentActive] = useState(false)
+  const [commentActive, setCommentActive] = useState(null)
   const [comment, setComment] = useState("");
   const [currentPostText, setCurrentPostText] =useState('')
   // https://stackoverflow.com/questions/53215285/how-can-i-force-component-to-re-render-with-hooks-in-react
@@ -173,7 +173,18 @@ export default function PostCard(props) {
 
   const commentButtonClick = e =>{
     e.preventDefault()
-    commentActive ? setCommentActive(false) : setCommentActive(true)
+    if(commentActive !== null){
+      document.getElementById(commentActive).style.display='none'
+    }
+    
+    let currentPostCommentSection = document.getElementById(e.target.parentNode.parentNode.parentNode.parentNode.children[1].id)
+    setCommentActive(e.target.parentNode.parentNode.parentNode.parentNode.children[1].id)
+    if(currentPostCommentSection.style.display !== 'flex'){
+      currentPostCommentSection.style.display = 'flex'
+    }else{
+      currentPostCommentSection.style.display = 'none'
+
+    }
   }
 
   const onCommentChange = (e) => {
@@ -296,7 +307,8 @@ export default function PostCard(props) {
                 </div>
               </div>
             </Link>
-            <div className="comment-container" style={{display: commentActive ? 'flex' : 'none'}}>
+            <div className="comment-container" id={'comment_' + post._id}>
+
                 <input
                   placeholder="Comment"
                   type="comment"
@@ -395,7 +407,8 @@ export default function PostCard(props) {
                   </div>
                 </div>
               </Link>
-              <div className="comment-container" style={{display: commentActive ? 'flex' : 'none'}}>
+              <div className="comment-container" id={'comment_' + post._id}>
+
                 <input
                   placeholder="Comment"
                   type="comment"
