@@ -279,7 +279,7 @@ export default function PostCard(props) {
                   </Link>
                 </div>
                 <div className="content">
-                  <p>{post.text}</p>
+                  <pre>{post.text}</pre>
                 </div>
                 <div className="action-icons">
                 <i
@@ -343,7 +343,7 @@ export default function PostCard(props) {
                     </Link>
                   </div>
                   <div className="content">
-                    <p>{post.text}</p>
+                  <pre>{post.text}</pre>
                   </div>
                   <div className="action-icons">
                     <i
