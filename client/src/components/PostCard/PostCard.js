@@ -174,6 +174,7 @@ export default function PostCard(props) {
   const commentButtonClick = e =>{
     e.preventDefault()
     if(commentActive !== null){
+      
       document.getElementById(commentActive).style.display='none'
     }
     
@@ -185,6 +186,8 @@ export default function PostCard(props) {
       currentPostCommentSection.style.display = 'none'
 
     }
+
+    
   }
 
   const onCommentChange = (e) => {

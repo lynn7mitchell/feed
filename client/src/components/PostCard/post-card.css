@@ -1,5 +1,7 @@
 .post-card-container {
-  padding-bottom: 5%; }
+  width: 100%;
+  height: 100vh;
+  background: #121212; }
   @media (max-width: 576px) {
     .post-card-container {
       padding-bottom: 20%; } }
@@ -78,6 +80,16 @@
   border-radius: 10px;
   display: none;
   text-align: center; }
+  #delete-modal textarea, #edit-modal textarea {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid  #e6e6e6;
+    outline: none;
+    resize: none;
+    color: #e6e6e6;
+    margin-bottom: 10px; }
+  #delete-modal button, #edit-modal button {
+    background: #B44FA2; }
   @media (max-width: 576px) {
     #delete-modal, #edit-modal {
       width: 90%; } }
