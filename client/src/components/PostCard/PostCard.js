@@ -119,7 +119,6 @@ export default function PostCard(props) {
 
   const onLike = (e) => {
     e.preventDefault();
-
     let isLiked = e.target.getAttribute("liked");
 
     let postsArray = posts;
@@ -371,7 +370,7 @@ export default function PostCard(props) {
                             : "false"
                         }
                         onClick={
-                          currentUser === {}
+                          currentUser !== {}
                             ? (e) => {
                                 onLike(e);
                               }
