@@ -22,11 +22,22 @@
       justify-content: space-evenly; }
       .post-page .posts-container .action-icons .material-icons {
         font-size: 20px; }
+    .post-page .posts-container .individual-post {
+      height: 80vh; }
     .post-page .posts-container .comments h4 {
       padding-left: 10px;
-      margin: 0; }
+      margin: 0;
+      margin-left: 10vw; }
+      @media (max-width: 576px) {
+        .post-page .posts-container .comments h4 {
+          margin: 0; } }
     .post-page .posts-container .comments hr {
-      margin: 5% 10px 5% 10px; }
+      margin-bottom: 3%;
+      width: 80vw; }
+      @media (max-width: 576px) {
+        .post-page .posts-container .comments hr {
+          margin: 3% 10px 5% 0px;
+          width: 100vw; } }
     .post-page .posts-container .comments .comment-card {
       background: #1f1f1f;
       padding: 0px 10px 10px 10px;

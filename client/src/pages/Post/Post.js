@@ -77,6 +77,7 @@ export default function Post() {
         {postNav}
         <div className="posts-container">
           <PostCard
+          className='individual-post'
             userPosts={[post]}
             currentLoggedInUser={currentUser}
           ></PostCard>

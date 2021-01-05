@@ -22,5 +22,7 @@
   .dashboard #post-text {
     background: #000;
     border: none; }
+  .dashboard .dashboard-posts-container {
+    padding-bottom: 50px; }
 
 /*# sourceMappingURL=dashboard.css.map */
