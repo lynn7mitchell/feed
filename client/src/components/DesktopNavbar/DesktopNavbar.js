@@ -95,7 +95,10 @@ export default function DesktopNavbar(user) {
   if (loading) {
     return (
       <div className="loading">
-       <h2> Loading...</h2>
+        <div className="loading-content">
+          <h2>LOADING ...</h2>
+          <hr />
+        </div>
         <div className="search-suggestions"></div>
       </div>
     );

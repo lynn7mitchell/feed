@@ -66,8 +66,12 @@ export default function Post() {
   console.log(post.comments);
   if (loading) {
     return (
-      <div className="loading">
-        <h2> Loading...</h2>
+       <div className="loading">
+        <div className="loading-content">
+          <h2>LOADING ...</h2>
+          <hr />
+        </div>
+      
         <div className="search-suggestions"></div>
       </div>
     );

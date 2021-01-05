@@ -6,7 +6,7 @@ import axios from "axios";
 export default function MobileNavbar(user) {
   const [users, setUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
-  const [currentUserNotifcations, setCurrentUserNotifcations] = useState([])
+  const [currentUserNotifcations, setCurrentUserNotifcations] = useState([]);
   const [searchIsOpen, setSearchIsOpen] = useState(false);
   const [searchSuggestions, setSearchSuggestions] = useState([]);
   const [notificationsAreOpen, setNotificationsAreOpen] = useState(false);
@@ -22,7 +22,7 @@ export default function MobileNavbar(user) {
       .get("/api/user")
       .then((res) => {
         setCurrentUser(res.data);
-        setCurrentUserNotifcations(res.data.notifications)
+        setCurrentUserNotifcations(res.data.notifications);
         setLoading(false);
       })
       .catch((err) => console.log(err));
@@ -50,7 +50,7 @@ export default function MobileNavbar(user) {
     }
     document.getElementById("search-suggestions").style.display = "block";
     setSearchSuggestions(newSuggestions);
-    
+
     if (newSuggestions.length === users.length) {
       document.getElementById("search-suggestions").style.display = "none";
     }
@@ -61,20 +61,19 @@ export default function MobileNavbar(user) {
     window.location.href = e.target.href;
   };
 
-  const deleteNotification = e =>{
-    e.preventDefault()
+  const deleteNotification = (e) => {
+    e.preventDefault();
 
-    let currentNotifications = currentUserNotifcations
-    let newNotifications = currentNotifications.filter(function( notification ) {
+    let currentNotifications = currentUserNotifcations;
+    let newNotifications = currentNotifications.filter(function (notification) {
       return notification._id !== e.target.id;
-  });
+    });
 
-
-  axios.put("/deleteNotification", newNotifications)
-  .then( window.location.href = window.location.href)
-  .catch(err => console.error(err))
-    
-  }
+    axios
+      .put("/deleteNotification", newNotifications)
+      .then((window.location.href = window.location.href))
+      .catch((err) => console.error(err));
+  };
 
   let homeButton = (
     <Link to={"/dashboard"}>
@@ -113,7 +112,8 @@ export default function MobileNavbar(user) {
   );
 
   if (searchIsOpen || notificationsAreOpen) {
-    document.getElementsByClassName('mobile-navbar')[0].style.background = '#121212'
+    document.getElementsByClassName("mobile-navbar")[0].style.background =
+      "#121212";
     if (window.location.href.includes("dashboard")) {
       homeButton = (
         <i className="material-icons" onClick={(e) => exitSearch(e)}>
@@ -172,7 +172,14 @@ export default function MobileNavbar(user) {
   };
 
   if (loading) {
-    return <div className="loading"> <h2> Loading...</h2></div>;
+    return (
+      <div className="loading">
+        <div className="loading-content">
+          <h2>LOADING ...</h2>
+          <hr />
+        </div>
+      </div>
+    );
   } else
     return (
       <div className="mobile-navbar">
@@ -210,28 +217,24 @@ export default function MobileNavbar(user) {
         <div id="notifications-container">
           <h4>Notifications</h4>
           <div className="notifications">
-          {currentUser.notifications.map((notification) => {
-
-          
-                return (
-              <Link to={notification.link}>
-                <div className="notification">
-                  <span>
-                  {notification.whoRang + " " + notification.mssg}
-                  </span>
-                  <i
-                  className="material-icons delete-button"
-                  id={notification._id}
-                  onClick={(e)=>deleteNotification(e)}
-                >
-                  clear
-                </i>
-                </div>
-              </Link>
-            );
-            
-            
-          })}
+            {currentUser.notifications.map((notification) => {
+              return (
+                <Link to={notification.link}>
+                  <div className="notification">
+                    <span>
+                      {notification.whoRang + " " + notification.mssg}
+                    </span>
+                    <i
+                      className="material-icons delete-button"
+                      id={notification._id}
+                      onClick={(e) => deleteNotification(e)}
+                    >
+                      clear
+                    </i>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>

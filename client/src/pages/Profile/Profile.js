@@ -229,8 +229,11 @@ export default function Profile() {
   // loading screen (temporary design)
   if (loading) {
     return (
-      <div className="profile-container">
-        <div className="profile loading"> <h2> Loading...</h2></div>
+      <div className="loading">
+        <div className="loading-content">
+          <h2>LOADING ...</h2>
+          <hr />
+        </div>
       </div>
     );
   } else
