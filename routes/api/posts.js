@@ -128,6 +128,23 @@ module.exports = function (app) {
   });
 
   app.put(
+    "/deleteComment",
+    passport.authenticate("jwt", { session: false }),
+    (req, res) => {
+      db.Post.findByIdAndUpdate(req.body.postId, {
+        $set: { comments: req.body.comments },
+      })
+        .then((user) => {
+          res.status(200).json({
+            message: "post updated.",
+            // userCreated: true,
+          });
+        })
+        .catch((err) => console.log(err));
+    }
+  );
+
+  app.put(
     "/editPost",
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
@@ -153,6 +170,7 @@ module.exports = function (app) {
       .then(console.log(req.body))
       .catch((err) => console.log(err));
   });
+
   app.delete("/deletePost/:id", (req, res) => {
     db.Post.findOneAndDelete({ _id: req.params.id })
       .then(() => {
@@ -164,4 +182,5 @@ module.exports = function (app) {
         throw err;
       });
   });
+  
 };

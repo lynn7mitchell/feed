@@ -13,6 +13,7 @@ export default function Post() {
 
   const [post, setPost] = useState({});
   const [postNav, setPostNav] = useState();
+  const [targetCommentId, setTargetCommentId] = useState("");
   const [currentUser, setCurrentUser] = useState({});
   const [loading, setLoading] = useState(true);
 
@@ -52,6 +53,46 @@ export default function Post() {
       .catch((err) => console.log(err));
   }, []);
 
+  // DELETE
+
+  const onDeleteComment = (e) => {
+    e.preventDefault();
+    console.log(e);
+    setTargetCommentId(e.target.id);
+    const modal = document.getElementById("delete-comment-modal");
+    modal.style.display = "block";
+  };
+
+  const hideDeleteCommentModal = (e) => {
+    setTargetCommentId("");
+    // console.log(currentPostId)
+    const modal = document.getElementById("delete-comment-modal");
+    // display modal
+    modal.style.display = "none";
+  };
+
+  const handleDeleteComment = (e) => {
+    // axios
+    //   .delete(`/deletePost/${targetCommentId}`)
+    //   .then(console.log("comment deleted"))
+    //   .catch((err) => console.log(err.data));
+    // // refresh page
+    // window.location.reload(false);
+    let updatedComments = post.comments.filter(
+      (comment) => comment._id !== targetCommentId
+    );
+    console.log(updatedComments);
+
+    let updatedPost = {
+      postId: post._id,
+      comments: updatedComments,
+    };
+    axios
+      .put("/deleteComment", updatedPost)
+      .then(window.location.reload(false))
+      .catch((err) => console.log(err.data));
+  };
+
   if (currentUser === {}) {
     const nav = (
       <div className="loading">
@@ -66,12 +107,12 @@ export default function Post() {
   console.log(post.comments);
   if (loading) {
     return (
-       <div className="loading">
+      <div className="loading">
         <div className="loading-content">
           <h2>LOADING ...</h2>
           <hr />
         </div>
-      
+
         <div className="search-suggestions"></div>
       </div>
     );
@@ -81,17 +122,32 @@ export default function Post() {
         {postNav}
         <div className="posts-container">
           <PostCard
-          className='individual-post'
+            className="individual-post"
             userPosts={[post]}
             currentLoggedInUser={currentUser}
           ></PostCard>
 
           <div className="comments">
             <h4>Comments</h4>
-            <hr/>
+            <hr />
             {post.comments.map((comment) => {
               return (
                 <div className="comment-card">
+                  {comment.commentAuthor.id === currentUser._id ? (
+                    <div className="editing-icons">
+                      <i
+                        onClick={(e) => {
+                          onDeleteComment(e);
+                        }}
+                        className="material-icons delete-button"
+                        id={comment._id}
+                      >
+                        delete
+                      </i>
+                    </div>
+                  ) : (
+                    <span></span>
+                  )}
                   <div className="basic-info">
                     <i className="material-icons">account_circle</i>
                     <Link to={"/profile/" + comment.commentAuthor.username}>
@@ -108,6 +164,26 @@ export default function Post() {
         </div>
 
         {currentUser !== {} ? <MobileNavbar user={currentUser} /> : ""}
+
+        <div id="delete-comment-modal" className="a">
+          <p>Are you sure you want to delete this comment?</p>
+          <div id="delete-choices">
+            <h5
+              onClick={(e) => {
+                handleDeleteComment(e);
+              }}
+            >
+              Yes
+            </h5>
+            <h5
+              onClick={(e) => {
+                hideDeleteCommentModal(e);
+              }}
+            >
+              Cancel
+            </h5>
+          </div>
+        </div>
       </div>
     );
   }

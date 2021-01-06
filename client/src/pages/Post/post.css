@@ -22,8 +22,13 @@
       justify-content: space-evenly; }
       .post-page .posts-container .action-icons .material-icons {
         font-size: 20px; }
-    .post-page .posts-container .individual-post {
-      height: 80vh; }
+    .post-page .posts-container .comments .editing-icons {
+      position: absolute;
+      right: 10px;
+      top: 10px; }
+      .post-page .posts-container .comments .editing-icons i {
+        font-size: 18px;
+        margin-left: 10px; }
     .post-page .posts-container .comments h4 {
       padding-left: 10px;
       margin: 0;
@@ -54,5 +59,39 @@
         align-items: center; }
         .post-page .posts-container .comments .comment-card .basic-info h5 {
           padding-left: 5px; }
+    .post-page .posts-container .a {
+      color: red; }
+  .post-page #delete-comment-modal,
+  .post-page #edit-comment-modal {
+    z-index: 1;
+    background: #7b56cd;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    padding: 0px 10px 10px 10px;
+    border-radius: 10px;
+    display: none;
+    text-align: center; }
+    .post-page #delete-comment-modal textarea,
+    .post-page #edit-comment-modal textarea {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid #e6e6e6;
+      outline: none;
+      resize: none;
+      color: #e6e6e6;
+      margin-bottom: 10px; }
+    .post-page #delete-comment-modal button,
+    .post-page #edit-comment-modal button {
+      background: #b44fa2; }
+    @media (max-width: 576px) {
+      .post-page #delete-comment-modal,
+      .post-page #edit-comment-modal {
+        width: 90%; } }
+    .post-page #delete-comment-modal #delete-choices,
+    .post-page #edit-comment-modal #delete-choices {
+      display: flex;
+      justify-content: space-around; }
 
 /*# sourceMappingURL=post.css.map */
