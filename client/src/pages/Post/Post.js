@@ -15,6 +15,7 @@ export default function Post() {
   const [postNav, setPostNav] = useState();
   const [targetCommentId, setTargetCommentId] = useState("");
   const [currentUser, setCurrentUser] = useState({});
+  const [currentCommentText, setCurrentCommentText] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -53,7 +54,7 @@ export default function Post() {
       .catch((err) => console.log(err));
   }, []);
 
-  // DELETE
+  // DELETE COMMENT
 
   const onDeleteComment = (e) => {
     e.preventDefault();
@@ -88,10 +89,63 @@ export default function Post() {
       comments: updatedComments,
     };
     axios
-      .put("/deleteComment", updatedPost)
+      .put("/editOrDeleteComment", updatedPost)
       .then(window.location.reload(false))
       .catch((err) => console.log(err.data));
   };
+
+  // EDIT COMMENT
+
+  const showEditCommentModal = (e) => {
+    e.preventDefault();
+    setTargetCommentId(e.target.id);
+    console.log(
+      e.target.parentNode.parentNode.children[2].firstChild.innerHTML
+    );
+    setCurrentCommentText(
+      e.target.parentNode.parentNode.children[2].firstChild.innerHTML
+    );
+    const modal = document.getElementById("edit-comment-modal");
+
+    // display modal
+    modal.style.display = "block";
+  };
+
+  const handleCommentTextChange = (e) => {
+    setCurrentCommentText(e.target.value);
+  };
+
+  const handleCommentEdit = (e) => {
+    e.preventDefault();
+
+    let commentEdit = post.comments.filter(
+      (comment) => comment._id === targetCommentId
+    );
+
+    commentEdit[0].text = currentCommentText;
+
+    let newCommentArray = post.comments.filter(
+      (comment) => comment._id !== targetCommentId
+    );
+    console.log(newCommentArray);
+
+    newCommentArray.push(commentEdit[0]);
+
+    console.log(newCommentArray);
+
+    let updatedPost = {
+      postId: post._id,
+      comments: newCommentArray,
+    };
+    axios
+      .put("/editOrDeleteComment", updatedPost)
+      .then((res) => {
+        window.location.reload(false);
+      })
+      .catch((err) => console.error(err.res.data));
+  };
+
+  //
 
   if (currentUser === {}) {
     const nav = (
@@ -136,6 +190,16 @@ export default function Post() {
                   {comment.commentAuthor.id === currentUser._id ? (
                     <div className="editing-icons">
                       <i
+                        className="material-icons edit-button"
+                        id={comment._id}
+                        text={comment.text}
+                        onClick={(e) => {
+                          showEditCommentModal(e);
+                        }}
+                      >
+                        edit
+                      </i>
+                      <i
                         onClick={(e) => {
                           onDeleteComment(e);
                         }}
@@ -165,6 +229,7 @@ export default function Post() {
 
         {currentUser !== {} ? <MobileNavbar user={currentUser} /> : ""}
 
+        {/* DELETE COMMENT MODAL */}
         <div id="delete-comment-modal" className="a">
           <p>Are you sure you want to delete this comment?</p>
           <div id="delete-choices">
@@ -183,6 +248,28 @@ export default function Post() {
               Cancel
             </h5>
           </div>
+        </div>
+
+        {/* EDIT COMMENT MODAL */}
+
+        <div id="edit-comment-modal" className="hidden">
+          <p>Edit Comment</p>
+          <form
+            className="post-form"
+            onSubmit={(e) => {
+              handleCommentEdit(e);
+            }}
+          >
+            <textarea
+              name="post"
+              id="post-form-text"
+              value={currentCommentText}
+              onChange={(e) => {
+                handleCommentTextChange(e);
+              }}
+            ></textarea>
+            <button type="submit">Comment</button>
+          </form>
         </div>
       </div>
     );

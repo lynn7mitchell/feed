@@ -83,7 +83,7 @@ export default function PostCard(props) {
     modal.style.display = "block";
   };
 
-  const handlePostTestChange = e =>{
+  const handlePostTextChange = e =>{
     setCurrentPostText(e.target.value)
   }
 
@@ -217,7 +217,7 @@ export default function PostCard(props) {
 
     axios
       .put("/postComments", updatedPost)
-      .then(console.log("comment submitted"))
+      .then(window.location.reload(false))
       .catch((err) => console.log(err));
   
 
@@ -456,7 +456,7 @@ export default function PostCard(props) {
       <div id="edit-modal" className="hidden">
       <p>Edit Post</p>
       <form className="post-form" onSubmit={(e)=>{handlePostEdit(e)}}>
-                <textarea name="post" id="post-form-text" value={currentPostText} onChange={(e)=>{handlePostTestChange(e)}}></textarea>
+                <textarea name="post" id="post-form-text" value={currentPostText} onChange={(e)=>{handlePostTextChange(e)}}></textarea>
                 <button type="submit">Post</button>
                 </form>
         </div>

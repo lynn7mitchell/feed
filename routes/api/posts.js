@@ -128,7 +128,7 @@ module.exports = function (app) {
   });
 
   app.put(
-    "/deleteComment",
+    "/editOrDeleteComment",
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
       db.Post.findByIdAndUpdate(req.body.postId, {
