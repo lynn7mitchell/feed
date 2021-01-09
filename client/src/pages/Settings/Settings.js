@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import setAuthToken from "../../utils/setAuthtoken";
-import { useParams } from "react-router";
+// import { useParams } from "react-router";
 import "./settings.css";
 import axios from "axios";
 import Switch from "react-switch";
@@ -11,7 +11,7 @@ export default function Settings() {
   const [currentUser, setCurrentUser] = useState({});
   const [politicsFilter, setPoliticsFilter] = useState(false);
   const [bio, setBio] = useState("");
-  const [errors, setErrors] = useState({});
+  // const [errors, setError] = useState({});
   useEffect(() => {
     // gets the bearer token to validate the user that is logged in
     const token = localStorage.getItem("example-app");
@@ -64,7 +64,7 @@ export default function Settings() {
       .then((res) => {
         console.log(updatedUser);
       })
-      .catch((err) => setErrors(err.res.data));
+      .catch((err) => console.error(err.res.data));
   };
   return (
     <div className="settings">

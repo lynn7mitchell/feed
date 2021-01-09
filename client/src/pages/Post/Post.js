@@ -147,16 +147,16 @@ export default function Post() {
 
   //
 
-  if (currentUser === {}) {
-    const nav = (
-      <div className="loading">
-        <h2> Loading...</h2>
-        <div className="search-suggestions"></div>
-      </div>
-    );
-  } else {
-    const nav = <DesktopNavbar user={currentUser} />;
-  }
+  // if (currentUser === {}) {
+  //   const nav = (
+  //     <div className="loading">
+  //       <h2> Loading...</h2>
+  //       <div className="search-suggestions"></div>
+  //     </div>
+  //   );
+  // } else {
+  //   const nav = <DesktopNavbar user={currentUser} />;
+  // }
 
   console.log(post.comments);
   if (loading) {

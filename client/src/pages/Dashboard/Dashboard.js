@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import "./dashboard.css";
 import DesktopNavbar from "../../components/DesktopNavbar/DesktopNavbar";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
@@ -15,7 +14,7 @@ export class Dashboard extends Component {
   };
   componentWillMount() {
     const token = localStorage.getItem("example-app");
-    const thisUser = {};
+    // const thisUser = {};
     if (token) {
       setAuthToken(token);
     }

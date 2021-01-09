@@ -7,7 +7,7 @@ export default function PostCard(props) {
   const [posts, setPosts] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
   const [targetPostid, setTargetPostId] = useState("");
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const [commentActive, setCommentActive] = useState(null)
   const [comment, setComment] = useState("");
   const [currentPostText, setCurrentPostText] =useState('')
@@ -38,7 +38,7 @@ export default function PostCard(props) {
     } else {
       setPosts(allPosts);
     }
-    setLoading(false)
+    // setLoading(false)
   }, []);
 
   // Add a modal that asks if the user is sure they want
@@ -244,7 +244,7 @@ export default function PostCard(props) {
         }
         if (post.username === currentUser.username) {
           return (
-            <div className="post-card" >
+            <div className="post-card" key={post._id}>
             <Link to={{ pathname: "/post/" + post._id }}>
               <div key={post._id}>
                 <div className="editing-icons">
@@ -331,7 +331,7 @@ export default function PostCard(props) {
           );
         } else {
           return (
-            <div className="post-card">
+            <div className="post-card" key={post._id}>
               <Link to={{ pathname: "/post/" + post._id }}>
                 {/* If post is by the DIFFERENT USER */}
                 <div key={post._id}>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect, Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import axios from "axios";
 import authenticate from "../../utils/Authenticate";
 import setAuthToken from "../../utils/setAuthtoken";

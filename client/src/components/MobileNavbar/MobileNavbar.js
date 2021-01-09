@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Redirect, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./mobile-navbar.css";
 import setAuthToken from "../../utils/setAuthtoken";
 import axios from "axios";
@@ -219,7 +219,7 @@ export default function MobileNavbar(user) {
           <div className="notifications">
             {currentUser.notifications.map((notification) => {
               return (
-                <Link to={notification.link}>
+                <Link to={notification.link} key={notification._id}> 
                   <div className="notification">
                     <span>
                       {notification.whoRang + " " + notification.mssg}

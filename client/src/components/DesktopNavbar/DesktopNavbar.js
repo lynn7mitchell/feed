@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Redirect, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import setAuthToken from "../../utils/setAuthtoken";
 import "./desktop-navbar.css";
 import axios from "axios";
@@ -152,7 +152,7 @@ export default function DesktopNavbar(user) {
             <div className="notifications">
               {currentUser.notifications.map((notification) => {
                 return (
-                  <Link to={notification.link}>
+                  <Link to={notification.link} key={notification._id}>
                     <div className="notification">
                       {notification.whoRang + " " + notification.mssg}
                     </div>

@@ -17,14 +17,14 @@ export default function Profile() {
   const [currentUserFollowing, setCurrentUserFollowing] = useState([]);
   const [profileUser, setProfileUser] = useState({});
   const [profileUserFollowers, setProfileUserFollowers] = useState([])
-  const [errors, setErrors] = useState({});
+  // const [errors, setErrors] = useState({});
   // const [isProfileOwner, setIsProfileOwner] = useState(false);
   const [followingCount, setFollowingCount] = useState(0);
   const [followerCount, setFollowerCount] = useState(0);
   const [currentTabContent, setCurrentTabContent] = useState();
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
-  const [followButton, setFollowButton] = useState();
+  // const [followButton, setFollowButton] = useState();
 
   useEffect(() => {
     // gets the bearer token to validate the user that is logged in
@@ -118,7 +118,7 @@ export default function Profile() {
         .then((res) => {
           console.log(updatedUser);
         })
-        .catch((err) => setErrors(err.res.data));
+        .catch((err) => console.error(err.res.data));
 
 
       axios
@@ -126,7 +126,7 @@ export default function Profile() {
       .then((res) =>{
         console.log(updatedProfileUser)
       })
-      .catch((err) => setErrors(err.res.data));
+      .catch((err) => console.error(err.res.data));
 
         let notification = {
           postAuthor: profileUser._id,
@@ -186,14 +186,14 @@ export default function Profile() {
     .then((res) => {
       console.log(updatedUser);
     })
-    .catch((err) => setErrors(err.res.data));
+    .catch((err) => console.error(err.res.data));
 
     axios
     .put("/api/user", updatedProfileUser)
     .then((res) => {
       console.log(updatedProfileUser);
     })
-    .catch((err) => setErrors(err.res.data));
+    .catch((err) => console.error(err.res.data));
 
     window.location.reload(false);
 
