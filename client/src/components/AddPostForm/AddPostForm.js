@@ -5,7 +5,7 @@ import Axios from 'axios';
 export default function AddPostForm(user) {
 
     const [formText, setFormText] = useState('');
-    const [err, setErr]=useState({})
+    // const [err, setErr]=useState({})
     
     const handlePost = (e) =>{
         e.preventDefault()
@@ -20,7 +20,7 @@ export default function AddPostForm(user) {
         Axios.post('/post', newPost)
         .then(response => {console.log(response)})
         .catch(err =>
-            setErr(err)
+            console.error(err)
           );
 
           // refresh page
@@ -30,7 +30,7 @@ export default function AddPostForm(user) {
             <div className="form-container">
                 <form className="post-form" onSubmit={(e)=>{handlePost(e)}}>
                  <i className="material-icons" style={{fontSize: 30}}>account_circle</i>
-                <textarea name="post" id="post-form-text" placeholder="What's up?" onChange={(e)=>{setFormText(e.target.value)}}></textarea>
+                <textarea name="post" id="new-post-form-text" placeholder="What's up?" onChange={(e)=>{setFormText(e.target.value)}}></textarea>
                 <button type="submit" >Post</button>
                 </form>
                 

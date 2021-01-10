@@ -8,9 +8,9 @@ export default function PostCard(props) {
   const [currentUser, setCurrentUser] = useState({});
   const [targetPostid, setTargetPostId] = useState("");
   // const [loading, setLoading] = useState(true);
-  const [commentActive, setCommentActive] = useState(null)
+  const [commentActive, setCommentActive] = useState(null);
   const [comment, setComment] = useState("");
-  const [currentPostText, setCurrentPostText] =useState('')
+  const [currentPostText, setCurrentPostText] = useState("");
   // https://stackoverflow.com/questions/53215285/how-can-i-force-component-to-re-render-with-hooks-in-react
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
@@ -24,11 +24,10 @@ export default function PostCard(props) {
       .catch((err) => console.log(err));
     const user = props.currentLoggedInUser;
     const allPosts = props.userPosts.reverse();
-    console.log(allPosts)
-    console.log(user);
+    // console.log(allPosts);
+    // console.log(user);
 
     if (Object.keys(user).length !== 0) {
-
       const followingPosts = allPosts.filter(
         (post) =>
           user.following.includes(post.author) || post.author === user._id
@@ -39,7 +38,7 @@ export default function PostCard(props) {
       setPosts(allPosts);
     }
     // setLoading(false)
-  }, []);
+  }, [props]);
 
   // Add a modal that asks if the user is sure they want
   // to delete the post and if the answer is yes then it will
@@ -71,24 +70,27 @@ export default function PostCard(props) {
     window.location.reload(false);
   };
 
-
   const showEditModal = (e) => {
     e.preventDefault();
     setTargetPostId(e.target.id);
-    console.log(e.target.parentNode.parentNode.children[2].firstChild.innerHTML)
-    setCurrentPostText(e.target.parentNode.parentNode.children[2].firstChild.innerHTML)
+    console.log(
+      e.target.parentNode.parentNode.children[2].firstChild.innerHTML
+    );
+    setCurrentPostText(
+      e.target.parentNode.parentNode.children[2].firstChild.innerHTML
+    );
     const modal = document.getElementById("edit-modal");
 
     // display modal
     modal.style.display = "block";
   };
 
-  const handlePostTextChange = e =>{
-    setCurrentPostText(e.target.value)
-  }
+  const handlePostTextChange = (e) => {
+    setCurrentPostText(e.target.value);
+  };
 
-  const handlePostEdit = e =>{
-    e.preventDefault()
+  const handlePostEdit = (e) => {
+    e.preventDefault();
 
     let updatedPost = {
       postId: targetPostid,
@@ -100,7 +102,7 @@ export default function PostCard(props) {
         console.log(updatedPost);
       })
       .catch((err) => console.error(err.res.data));
-  }
+  };
   const copy = (e) => {
     e.preventDefault();
 
@@ -153,7 +155,6 @@ export default function PostCard(props) {
         .then(console.log("worked"))
         .catch((err) => console.log(err));
     }
-    
 
     let updatedPost = {
       postId: currentPost._id,
@@ -170,24 +171,24 @@ export default function PostCard(props) {
 
   // comment actions
 
-  const commentButtonClick = e =>{
-    e.preventDefault()
-    if(commentActive !== null){
-      
-      document.getElementById(commentActive).style.display='none'
-    }
-    
-    let currentPostCommentSection = document.getElementById(e.target.parentNode.parentNode.parentNode.parentNode.children[1].id)
-    setCommentActive(e.target.parentNode.parentNode.parentNode.parentNode.children[1].id)
-    if(currentPostCommentSection.style.display !== 'flex'){
-      currentPostCommentSection.style.display = 'flex'
-    }else{
-      currentPostCommentSection.style.display = 'none'
-
+  const commentButtonClick = (e) => {
+    e.preventDefault();
+    if (commentActive !== null) {
+      document.getElementById(commentActive).style.display = "none";
     }
 
-    
-  }
+    let currentPostCommentSection = document.getElementById(
+      e.target.parentNode.parentNode.parentNode.parentNode.children[1].id
+    );
+    setCommentActive(
+      e.target.parentNode.parentNode.parentNode.parentNode.children[1].id
+    );
+    if (currentPostCommentSection.style.display !== "flex") {
+      currentPostCommentSection.style.display = "flex";
+    } else {
+      currentPostCommentSection.style.display = "none";
+    }
+  };
 
   const onCommentChange = (e) => {
     e.preventDefault();
@@ -203,114 +204,103 @@ export default function PostCard(props) {
       return obj._id === e.target.id;
     });
 
-
-
-
     let updatedPost = {
       postId: currentPost._id,
       comment: comment,
       commentAuthor: {
         id: currentUser._id,
-        username: currentUser.username
-      }
+        username: currentUser.username,
+      },
     };
 
     axios
       .put("/postComments", updatedPost)
       .then(window.location.reload(false))
       .catch((err) => console.log(err));
-  
 
+    let notification = {
+      postAuthor: currentPost.author,
+      notificationType: "comment",
+      mssg: "commented on your post!",
+      whoRang: currentUser.username,
+      link: "/post/" + currentPost._id,
+    };
 
-  let notification = {
-    postAuthor: currentPost.author,
-    notificationType: "comment",
-    mssg: "commented on your post!",
-    whoRang: currentUser.username,
-    link: "/post/" + currentPost._id,
+    axios
+      .put("/notifications", notification)
+      .then(console.log("comment notification"))
+      .catch((err) => console.log(err));
   };
-
-  axios
-    .put("/notifications", notification)
-    .then(console.log("comment notification"))
-    .catch((err) => console.log(err));
-}
 
   return (
     <div className="post-card-container">
       {posts.map((post) => {
-        {
-          /* If post is by the CURRENT USER */
-        }
+        /* If post is by the CURRENT USER */
+
         if (post.username === currentUser.username) {
           return (
             <div className="post-card" key={post._id}>
-            <Link to={{ pathname: "/post/" + post._id }}>
-              <div key={post._id}>
-                <div className="editing-icons">
-                <i
-                  className="material-icons edit-button"
-                  id={post._id}
-                  text={post.text}
-                  onClick={(e) => {
-                    showEditModal(e);
-                  }}
-                >
-                  edit
-                </i>
-                  <i
-                  className="material-icons delete-button"
-                  id={post._id}
-                  onClick={(e) => {
-                    showDeleteModal(e);
-                  }}
-                >
-                  delete
-                </i>
+              <Link to={{ pathname: "/post/" + post._id }}>
+                <div key={post._id}>
+                  <div className="editing-icons">
+                    <i
+                      className="material-icons edit-button"
+                      id={post._id}
+                      text={post.text}
+                      onClick={(e) => {
+                        showEditModal(e);
+                      }}
+                    >
+                      edit
+                    </i>
+                    <i
+                      className="material-icons delete-button"
+                      id={post._id}
+                      onClick={(e) => {
+                        showDeleteModal(e);
+                      }}
+                    >
+                      delete
+                    </i>
+                  </div>
 
-                
-                </div>
-                
-                <div className="basic-info">
-                  <i className="material-icons">account_circle</i>
-                  <Link to={"/profile/" + post.username}>
-                    <h5>{post.username}</h5>
-                  </Link>
-                </div>
-                <div className="content">
-                  <pre>{post.text}</pre>
-                </div>
-                <div className="action-icons">
-                <i
+                  <div className="basic-info">
+                    <i className="material-icons">account_circle</i>
+                    <Link to={"/profile/" + post.username}>
+                      <h5>{post.username}</h5>
+                    </Link>
+                  </div>
+                  <div className="content">
+                    <pre>{post.text}</pre>
+                  </div>
+                  <div className="action-icons">
+                    <i
                       className="material-icons"
-                      onClick={
-                        e => commentButtonClick(e)
-                      }
+                      onClick={(e) => commentButtonClick(e)}
                     >
                       message
                     </i>
-                  <div
-                    className="likes"
-                    id={post._id}
-                    onClick={(e) => e.preventDefault()}
-                  >
-                    <i className="material-icons">favorite</i> {post.likes}
+                    <div
+                      className="likes"
+                      id={post._id}
+                      onClick={(e) => e.preventDefault()}
+                    >
+                      <i className="material-icons">favorite</i> {post.likes}
+                    </div>
+                    <i className="material-icons">cached</i>
+                    <i
+                      className="material-icons"
+                      link={"feed-social-media.herokuapp.com/post/" + post._id}
+                      onClick={(e) => {
+                        copy(e);
+                      }}
+                    >
+                      share
+                    </i>
                   </div>
-                  <i className="material-icons">cached</i>
-                  <i
-                    className="material-icons"
-                    link={"feed-social-media.herokuapp.com/post/" + post._id}
-                    onClick={(e) => {
-                      copy(e);
-                    }}
-                  >
-                    share
-                  </i>
                 </div>
-              </div>
-            </Link>
-            <div className="comment-container" id={'comment_' + post._id}>
-
+              </Link>
+              <div className="comment-container" id={"comment_" + post._id}>
                 <input
                   placeholder="Comment"
                   type="comment"
@@ -327,7 +317,7 @@ export default function PostCard(props) {
                   send
                 </i>
               </div>
-              </div>
+            </div>
           );
         } else {
           return (
@@ -342,14 +332,12 @@ export default function PostCard(props) {
                     </Link>
                   </div>
                   <div className="content">
-                  <pre>{post.text}</pre>
+                    <pre>{post.text}</pre>
                   </div>
                   <div className="action-icons">
                     <i
                       className="material-icons"
-                      onClick={
-                        e => commentButtonClick(e)
-                      }
+                      onClick={(e) => commentButtonClick(e)}
                     >
                       message
                     </i>
@@ -409,8 +397,7 @@ export default function PostCard(props) {
                   </div>
                 </div>
               </Link>
-              <div className="comment-container" id={'comment_' + post._id}>
-
+              <div className="comment-container" id={"comment_" + post._id}>
                 <input
                   placeholder="Comment"
                   type="comment"
@@ -450,16 +437,26 @@ export default function PostCard(props) {
             Cancel
           </h5>
         </div>
-
-      
       </div>
       <div id="edit-modal" className="hidden">
-      <p>Edit Post</p>
-      <form className="post-form" onSubmit={(e)=>{handlePostEdit(e)}}>
-                <textarea name="post" id="post-form-text" value={currentPostText} onChange={(e)=>{handlePostTextChange(e)}}></textarea>
-                <button type="submit">Post</button>
-                </form>
-        </div>
+        <p>Edit Post</p>
+        <form
+          className="post-form"
+          onSubmit={(e) => {
+            handlePostEdit(e);
+          }}
+        >
+          <textarea
+            name="post"
+            id="post-form-text"
+            value={currentPostText}
+            onChange={(e) => {
+              handlePostTextChange(e);
+            }}
+          ></textarea>
+          <button type="submit">Post</button>
+        </form>
+      </div>
       {/* <div id="copy-modal" className="hidden">
          <p>The link to this post has been copied to your clipboard!</p>
          <h5>

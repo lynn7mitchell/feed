@@ -49,7 +49,7 @@ export default function DesktopNavbar(user) {
   };
   const refresh = (e) => {
     // console.log(e.target)
-    window.location.href = e.target.href;
+    window.location.reload(false);
   };
   const onClick = (e) => {
     if (allUsers.length === 0) {
@@ -64,7 +64,7 @@ export default function DesktopNavbar(user) {
   };
   const handleLogout = (e) => {
     localStorage.removeItem("example-app");
-    window.location.href = window.location.href;
+    window.location.reload(false);
   };
 
   const toggleNotifications = (e) => {

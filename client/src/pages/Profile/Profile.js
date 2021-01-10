@@ -83,7 +83,7 @@ export default function Profile() {
         setLoading(false);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [id]);
 
   const onFollow = (e) => {
     e.preventDefault();

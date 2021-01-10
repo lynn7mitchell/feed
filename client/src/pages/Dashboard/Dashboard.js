@@ -12,7 +12,7 @@ export class Dashboard extends Component {
     user: {},
     posts: "",
   };
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const token = localStorage.getItem("example-app");
     // const thisUser = {};
     if (token) {

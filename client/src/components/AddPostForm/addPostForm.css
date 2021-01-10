@@ -25,7 +25,7 @@
     @media (max-width: 576px) {
       .form-container .post-form i {
         font-size: 32px !important; } }
-    .form-container .post-form #post-form-text {
+    .form-container .post-form #new-post-form-text {
       margin-top: 1%;
       background: transparent;
       height: 115px;
@@ -35,7 +35,7 @@
       resize: none;
       color: #e6e6e6; }
       @media (max-width: 576px) {
-        .form-container .post-form #post-form-text {
+        .form-container .post-form #new-post-form-text {
           margin-left: 5px;
           margin-right: 5px;
           font-size: 18px; } }
@@ -54,4 +54,4 @@
           height: 44px;
           font-size: 18px; } }
 
-/*# sourceMappingURL=AddPostForm.css.map */
+/*# sourceMappingURL=addPostForm.css.map */

@@ -52,13 +52,13 @@ export default function Post() {
         setLoading(false);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [id]);
 
   // DELETE COMMENT
 
   const onDeleteComment = (e) => {
     e.preventDefault();
-    console.log(e);
+    // console.log(e);
     setTargetCommentId(e.target.id);
     const modal = document.getElementById("delete-comment-modal");
     modal.style.display = "block";
@@ -82,7 +82,7 @@ export default function Post() {
     let updatedComments = post.comments.filter(
       (comment) => comment._id !== targetCommentId
     );
-    console.log(updatedComments);
+    // console.log(updatedComments);
 
     let updatedPost = {
       postId: post._id,
@@ -99,9 +99,9 @@ export default function Post() {
   const showEditCommentModal = (e) => {
     e.preventDefault();
     setTargetCommentId(e.target.id);
-    console.log(
-      e.target.parentNode.parentNode.children[2].firstChild.innerHTML
-    );
+    // console.log(
+    //   e.target.parentNode.parentNode.children[2].firstChild.innerHTML
+    // );
     setCurrentCommentText(
       e.target.parentNode.parentNode.children[2].firstChild.innerHTML
     );
@@ -127,11 +127,11 @@ export default function Post() {
     let newCommentArray = post.comments.filter(
       (comment) => comment._id !== targetCommentId
     );
-    console.log(newCommentArray);
+    // console.log(newCommentArray);
 
     newCommentArray.push(commentEdit[0]);
 
-    console.log(newCommentArray);
+    // console.log(newCommentArray);
 
     let updatedPost = {
       postId: post._id,
@@ -158,7 +158,7 @@ export default function Post() {
   //   const nav = <DesktopNavbar user={currentUser} />;
   // }
 
-  console.log(post.comments);
+  // console.log(post.comments);
   if (loading) {
     return (
       <div className="loading">

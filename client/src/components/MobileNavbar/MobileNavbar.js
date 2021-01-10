@@ -58,7 +58,7 @@ export default function MobileNavbar(user) {
 
   const refresh = (e) => {
     // console.log(e.target)
-    window.location.href = e.target.href;
+    window.location.reload(false);
   };
 
   const deleteNotification = (e) => {
@@ -71,7 +71,7 @@ export default function MobileNavbar(user) {
 
     axios
       .put("/deleteNotification", newNotifications)
-      .then((window.location.href = window.location.href))
+      .then(window.location.reload(false))
       .catch((err) => console.error(err));
   };
 
@@ -219,7 +219,7 @@ export default function MobileNavbar(user) {
           <div className="notifications">
             {currentUser.notifications.map((notification) => {
               return (
-                <Link to={notification.link} key={notification._id}> 
+                <Link to={notification.link} key={notification._id}>
                   <div className="notification">
                     <span>
                       {notification.whoRang + " " + notification.mssg}
