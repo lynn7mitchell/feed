@@ -68,10 +68,15 @@ nav {
     width: 20%;
     max-height: 150px;
     display: none;
-    overflow-y: scroll;
-    /* width */ }
+    overflow-y: scroll; }
     nav .notifications .notification {
       margin: 0 5px 10px 5px; }
+  nav .notifications::-webkit-scrollbar {
+    width: 2px;
+    height: 10px; }
+  nav .notifications::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #fc466b 0%, #3f5efb 100%);
+    outline: 1px solid slategrey; }
   nav .logout-button {
     display: none; }
     @media (max-width: 576px) {
