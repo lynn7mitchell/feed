@@ -16,7 +16,7 @@ export default function Profile() {
   const [currentUser, setCurrentUser] = useState({});
   const [currentUserFollowing, setCurrentUserFollowing] = useState([]);
   const [profileUser, setProfileUser] = useState({});
-  const [profileUserFollowers, setProfileUserFollowers] = useState([])
+  const [profileUserFollowers, setProfileUserFollowers] = useState([]);
   // const [errors, setErrors] = useState({});
   // const [isProfileOwner, setIsProfileOwner] = useState(false);
   const [followingCount, setFollowingCount] = useState(0);
@@ -39,7 +39,7 @@ export default function Profile() {
       .get("/api/user")
       .then((res) => {
         setCurrentUser(res.data);
-       
+
         setCurrentUserFollowing(res.data.following);
 
         const thisUser = res.data;
@@ -54,10 +54,10 @@ export default function Profile() {
           })
           .then((res) => {
             setProfileUser(res.data);
-            console.log(res.data.followers)
-        setFollowerCount(res.data.followers.length);
-        setFollowingCount(res.data.following.length);
-        setProfileUserFollowers(res.data.followers)
+            console.log(res.data.followers);
+            setFollowerCount(res.data.followers.length);
+            setFollowingCount(res.data.following.length);
+            setProfileUserFollowers(res.data.followers);
             // get /postsById grabs only the posts that belong to the user that was grabbed by /api/notCurrentUser
             axios
               .get("/postsById", {
@@ -100,8 +100,7 @@ export default function Profile() {
       );
       setProfileUserFollowers(
         profileUserFollowers.push(currentUser._id.toString())
-      )
-      
+      );
 
       console.log(profileUserFollowers);
 
@@ -111,8 +110,8 @@ export default function Profile() {
 
       let updatedProfileUser = {
         id: profileUser._id,
-        followers: profileUserFollowers
-      }
+        followers: profileUserFollowers,
+      };
       axios
         .put("/api/user", updatedUser)
         .then((res) => {
@@ -120,85 +119,81 @@ export default function Profile() {
         })
         .catch((err) => console.error(err.res.data));
 
+      axios
+        .put("/api/follow", updatedProfileUser)
+        .then((res) => {
+          console.log(updatedProfileUser);
+        })
+        .catch((err) => console.error(err.res.data));
+
+      let notification = {
+        postAuthor: profileUser._id,
+        notificationType: "follow",
+        mssg: "followed you!",
+        whoRang: currentUser.username,
+        link: "/profile/" + currentUser.username,
+      };
 
       axios
-      .put('/api/follow', updatedProfileUser)
-      .then((res) =>{
-        console.log(updatedProfileUser)
-      })
-      .catch((err) => console.error(err.res.data));
-
-        let notification = {
-          postAuthor: profileUser._id,
-          notificationType:'follow',
-          mssg: 'followed you!',
-          whoRang:currentUser.username,
-          link:"/profile/" + currentUser.username
-        }
-  
-        axios.put('/notifications', notification)
-        .then(console.log('worked'))
+        .put("/notifications", notification)
+        .then(console.log("worked"))
         .catch((err) => console.log(err));
 
-        window.location.reload(false);
-
+      window.location.reload(false);
     } else {
       console.log("Don't follow yourself");
     }
   };
 
-  const onUnfollow = e =>{
+  const onUnfollow = (e) => {
     e.preventDefault();
 
-    const following = currentUser.following
+    const following = currentUser.following;
 
-    console.log(following)
+    console.log(following);
 
-    for(let i = following.length; i--;){
-      if (following[i] === profileUser._id){
+    for (let i = following.length; i--; ) {
+      if (following[i] === profileUser._id) {
         following.splice(i, 1);
 
-        setCurrentUserFollowing(following)
+        setCurrentUserFollowing(following);
       }
     }
-    
-    const profileUserFollowers = profileUser.followers
-    console.log(profileUserFollowers)
 
-    for(let i = profileUserFollowers.length; i--;){
-      if (profileUserFollowers[i] === currentUser._id){
+    const profileUserFollowers = profileUser.followers;
+    console.log(profileUserFollowers);
+
+    for (let i = profileUserFollowers.length; i--; ) {
+      if (profileUserFollowers[i] === currentUser._id) {
         profileUserFollowers.splice(i, 1);
       }
     }
 
-    
-    console.log(following)
-    let updatedUser ={
-      following : following
-    }
+    console.log(following);
+    let updatedUser = {
+      following: following,
+    };
 
     let updatedProfileUser = {
-      followers: profileUserFollowers
-    }
+      followers: profileUserFollowers,
+    };
 
     axios
-    .put("/api/user", updatedUser)
-    .then((res) => {
-      console.log(updatedUser);
-    })
-    .catch((err) => console.error(err.res.data));
+      .put("/api/user", updatedUser)
+      .then((res) => {
+        console.log(updatedUser);
+      })
+      .catch((err) => console.error(err.res.data));
 
     axios
-    .put("/api/user", updatedProfileUser)
-    .then((res) => {
-      console.log(updatedProfileUser);
-    })
-    .catch((err) => console.error(err.res.data));
+      .put("/api/user", updatedProfileUser)
+      .then((res) => {
+        console.log(updatedProfileUser);
+      })
+      .catch((err) => console.error(err.res.data));
 
     window.location.reload(false);
-
-
-  }
+  };
 
   //Switch case to handle the content grabbed for the profile tabs (media, favorites, and tagged)
   const handleTabContent = (e) => {
@@ -226,6 +221,27 @@ export default function Profile() {
     }
   };
 
+  let profilePicture = (
+    <div className="user-image">
+      <i className="material-icons">account_circle</i>
+    </div>
+  );
+
+  if (profileUser.image) {
+    profilePicture = (
+      <div
+        className="user-image"
+        style={{
+          background: `url(${profileUser.image})`,
+          borderWidth: "5px",
+          borderRadius: "50%",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      ></div>
+    );
+  }
+
   // loading screen (temporary design)
   if (loading) {
     return (
@@ -242,23 +258,22 @@ export default function Profile() {
         <DesktopNavbar user={currentUser} />
         <div className="profile">
           <div className="header">
-            <div className="user-image">
-              <i className="material-icons">account_circle</i>
-            </div>
+            {profilePicture}
             <div className="name">
               <h4>{profileUser.username}</h4>
               {currentUser._id === profileUser._id ? (
                 console.log("true")
-              ) : (
-                currentUser.following.includes(profileUser._id) ? (
-                  <button className="unfollow-button" onClick={(e) => onUnfollow(e)}>
+              ) : currentUser.following.includes(profileUser._id) ? (
+                <button
+                  className="unfollow-button"
+                  onClick={(e) => onUnfollow(e)}
+                >
                   Unfollow
                 </button>
-                ) : (
+              ) : (
                 <button className="follow-button" onClick={(e) => onFollow(e)}>
                   Follow
                 </button>
-                )
               )}
             </div>
             <div className="follow">

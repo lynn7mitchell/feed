@@ -6,11 +6,13 @@ import axios from "axios";
 import Switch from "react-switch";
 import DesktopNavbar from "../../components/DesktopNavbar/DesktopNavbar";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
+import { v4 as uuidv4 } from "uuid";
 
 export default function Settings() {
   const [currentUser, setCurrentUser] = useState({});
   const [politicsFilter, setPoliticsFilter] = useState(false);
   const [bio, setBio] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
   // const [errors, setError] = useState({});
   useEffect(() => {
     // gets the bearer token to validate the user that is logged in
@@ -53,6 +55,25 @@ export default function Settings() {
       );
   };
 
+  const handleImageUpload = (e) => {
+    e.preventDefault();
+    setSelectedFile(e.target.files[0]);
+  };
+
+  const onImageSubmit = (e) => {
+    e.preventDefault();
+    const extension = "." + selectedFile.name.split(".").pop();
+    const newName = uuidv4() + extension;
+    const data = new FormData();
+    data.append("file", selectedFile, newName);
+    axios
+      .post("/upload", data)
+      .then((res) => {
+        console.log("worked");
+      })
+      .catch((err) => console.log(data, err.response));
+  };
+
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -71,7 +92,7 @@ export default function Settings() {
       <DesktopNavbar user={currentUser} />
       <h2>Settings</h2>
       <div className="buttons">
-      <h4>Politics Filter</h4>
+        <h4>Politics Filter</h4>
 
         <Switch
           onChange={(e) => handleChange(e)}
@@ -81,6 +102,29 @@ export default function Settings() {
           checkedIcon={false}
         />
       </div>
+
+      <form
+        method="post"
+        encType="multipart/form-data"
+        onSubmit={(e) => onImageSubmit(e)}
+      >
+        <p>
+          {/* <input type="text" name="title"   placeholder="optional title" /> */}
+        </p>
+
+        <p>
+          <input
+            type="file"
+            accept="image/*"
+            name="file"
+            onChange={(e) => handleImageUpload(e)}
+          />
+        </p>
+
+        <p>
+          <input type="submit" />
+        </p>
+      </form>
 
       <div className="settings-bio">
         <h4>Change Bio</h4>
@@ -104,9 +148,9 @@ export default function Settings() {
             </h6>
           </div>
           <div className="submit-button">
-          <button type="submit" name="action">
-            Submit
-          </button>
+            <button type="submit" name="action">
+              Submit
+            </button>
           </div>
         </form>
       </div>

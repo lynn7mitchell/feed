@@ -31,10 +31,14 @@
         margin-left: 10%; } }
     .profile .header .user-image {
       grid-area: user-image;
-      justify-self: center; }
+      justify-self: center;
+      width: 200px;
+      height: 200px; }
       @media (max-width: 576px) {
         .profile .header .user-image {
-          justify-self: left; } }
+          justify-self: left;
+          width: 100px;
+          height: 100px; } }
       .profile .header .user-image .material-icons {
         font-size: 145px; }
         @media (max-width: 576px) {

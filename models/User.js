@@ -19,6 +19,9 @@ var UserSchema = new Schema({
     type: String,
     required: true,
   },
+  image:{
+    type: String,
+  },
   bio: {
     type: String,
   },

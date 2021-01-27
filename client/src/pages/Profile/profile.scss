@@ -93,8 +93,12 @@ $screen-xl-min: 1200px;
     .user-image {
       grid-area: user-image;
       justify-self: center;
+      width: 200px;
+      height: 200px;
       @include sm {
         justify-self: left;
+        width: 100px;
+      height: 100px;
       }
       .material-icons {
         font-size: 145px;

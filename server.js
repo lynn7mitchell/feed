@@ -18,7 +18,9 @@ var db = require("./models");
 // Configure middleware
 
 // Parse request body as JSON
-app.use(express.urlencoded({ extended: true }));
+app.use(
+  express.urlencoded({ parameterLimit: 100000, limit: "50mb", extended: true })
+);
 app.use(express.json());
 // Make public a static folder
 app.use(express.static("public"));

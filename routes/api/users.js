@@ -6,19 +6,57 @@ module.exports = function (app) {
   const keys = require("../../config/keys");
   require("dotenv").config();
 
-  // const multer = require("multer");
-  // var multerS3 = require('multer-s3')
-  // const aws = require('aws-sdk'); //"^2.2.41"
-  // Test Routes
+  // AWS S3 bucket image upload
+  const multer = require("multer");
+  var multerS3 = require("multer-s3");
+  const aws = require("aws-sdk"); //"^2.2.41"
+
+  aws.config.update({
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    region: process.env.AWS_REGION,
+  });
+
+  const s3 = new aws.S3();
+
+  const upload = multer({
+    storage: multerS3({
+      s3: s3,
+      acl: "public-read",
+      bucket: process.env.AWS_BUCKET_NAME,
+      key: function (req, file, cb) {
+        // console.log(req)
+        console.log(file);
+        cb(null, file.originalname); //use Date.now() for unique file keys
+      },
+    }),
+  });
+
+  // used by upload form
+  app.post(
+    "/upload",
+    passport.authenticate("jwt", { session: false }),
+    upload.any("file"),
+    (req, res, next) => {
+      db.User.findByIdAndUpdate(req.user._id, {
+        $set: { image: 'https://project-file-test.s3-us-west-2.amazonaws.com/' +  req.files[0].originalname},
+      })
+        .then((user) => {
+          res.status(200).json({
+            message: "post updated.",
+            // userCreated: true,
+          });
+        })
+        .catch((err) => console.log(err));
+      res.send("Uploaded!");
+    }
+  );
+  
   app.get("/users/noAuthTest", (req, res) => {
     res.json({
       msg: "Users route works (no auth)",
     });
   });
-
-
-
-
 
   app.get(
     "/users/test",
@@ -50,8 +88,8 @@ module.exports = function (app) {
     "/api/notCurrentUser",
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
-      console.log(req.query.username)
-      db.User.findOne({username: req.query.username})
+      // console.log(req.query.username);
+      db.User.findOne({ username: req.query.username })
         .then((user) => {
           if (user) {
             res.status(200).json(user);
@@ -66,16 +104,18 @@ module.exports = function (app) {
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
       db.User.find({})
-      .then((users) => {
-        res.status(200).json(users)
-      })
-      .catch((err) => console.log(err));
+        .then((users) => {
+          res.status(200).json(users);
+        })
+        .catch((err) => console.log(err));
     }
   );
   //Create new user POST ROUTE
 
   app.post("/api/user", (req, res) => {
-    db.User.findOne({$or:[{email: req.body.email },{ username: req.body.username }]}).then((user) => {
+    db.User.findOne({
+      $or: [{ email: req.body.email }, { username: req.body.username }],
+    }).then((user) => {
       if (user) {
         return res.status(400).json({
           email: "This email or username already exists",
@@ -92,7 +132,7 @@ module.exports = function (app) {
           following: req.body.following,
           followers: req.body.followers,
         };
-        console.log(newUser);
+        // console.log(newUser);
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(newUser.password, salt, (err, hash) => {
             if (err) throw err;
@@ -116,7 +156,7 @@ module.exports = function (app) {
 
   app.post("/api/user/login", (req, res) => {
     const { email, password } = req.body;
-    console.log(email);
+    // console.log(email);
     db.User.findOne({ email: email })
       .then((user) => {
         // console.log("********************",user)
@@ -171,7 +211,7 @@ module.exports = function (app) {
     "/api/user",
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
-      console.log("put route", req.body);
+      // console.log("put route", req.body);
       db.User.findByIdAndUpdate(req.user.id, { $set: req.body })
         .then((user) => {
           res.status(200).json({
@@ -187,7 +227,7 @@ module.exports = function (app) {
     "/api/follow",
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
-      console.log("put route", req.body);
+      // console.log("put route", req.body);
       db.User.findByIdAndUpdate(req.body.id, { $set: req.body })
         .then((user) => {
           res.status(200).json({
@@ -203,8 +243,10 @@ module.exports = function (app) {
     "/notifications",
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
-      console.log("put route", req.body);
-      db.User.findByIdAndUpdate(req.body.postAuthor, { $push: {notifications : req.body} })
+      // console.log("put route", req.body);
+      db.User.findByIdAndUpdate(req.body.postAuthor, {
+        $push: { notifications: req.body },
+      })
         .then((user) => {
           res.status(200).json({
             message: "User account updated.",
@@ -215,52 +257,54 @@ module.exports = function (app) {
     }
   );
 
-  app.put("/deleteNotification",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    console.log("put route", req.body);
-    db.User.findByIdAndUpdate(req.user._id, { $set: {notifications : req.body} })
-      .then((user) => {
-        res.status(200).json({
-          message: "User account updated.",
-          // userCreated: true,
-        });
+  app.put(
+    "/deleteNotification",
+    passport.authenticate("jwt", { session: false }),
+    (req, res) => {
+      // console.log("put route", req.body);
+      db.User.findByIdAndUpdate(req.user._id, {
+        $set: { notifications: req.body },
       })
-      .catch((err) => console.log(err));
-  })
+        .then((user) => {
+          res.status(200).json({
+            message: "User account updated.",
+            // userCreated: true,
+          });
+        })
+        .catch((err) => console.log(err));
+    }
+  );
 
+  //   // S3
 
-//   // S3
+  //   aws.config.update({
+  //     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  //     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  //     region: process.env.AWS_REGION
+  // });
+  //   const s3 = new aws.S3();
 
+  //   const upload = multer({
+  //     storage: multerS3({
+  //         s3: s3,
+  //         acl: 'public-read',
+  //         bucket: process.env.AWS_BUCKET_NAME,
+  //         key: function (req, file, cb) {
+  //           // console.log(req)
+  //             console.log(file);
+  //             cb(null, file.originalname); //use Date.now() for unique file keys
+  //         }
+  //     })
+  // })
 
-//   aws.config.update({
-//     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-//     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-//     region: process.env.AWS_REGION
-// });
-//   const s3 = new aws.S3();
+  // // app.get('/getFromS3', (req,res)=>{
+  // //   console.log(s3)
+  // // })
 
-//   const upload = multer({
-//     storage: multerS3({
-//         s3: s3,
-//         acl: 'public-read',
-//         bucket: process.env.AWS_BUCKET_NAME,
-//         key: function (req, file, cb) {
-//           // console.log(req)
-//             console.log(file);
-//             cb(null, file.originalname); //use Date.now() for unique file keys
-//         }
-//     })
-// })
-
-// // app.get('/getFromS3', (req,res)=>{
-// //   console.log(s3)
-// // })
-
-// //used by upload form
-// app.post('/upload', upload.any('file'), (req, res, next) => {
-//   res.send("Uploaded!");
-// });
+  // //used by upload form
+  // app.post('/upload', upload.any('file'), (req, res, next) => {
+  //   res.send("Uploaded!");
+  // });
 
   // end
 };
