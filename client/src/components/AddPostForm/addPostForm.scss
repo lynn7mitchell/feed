@@ -68,7 +68,11 @@ $screen-xl-min: 1200px;
       padding-left: 5px;
       padding-right: 5px;
     }
+    .post-form-profile-image{
+      width: 28px;
+      height: 28px;
 
+    }
     i{
       @include sm{
         font-size: 32px !important;

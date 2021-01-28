@@ -6,6 +6,7 @@ import axios from "axios";
 export default function PostCard(props) {
   const [posts, setPosts] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
+  const [allUsers, setAllUsers] = useState([]);
   const [targetPostid, setTargetPostId] = useState("");
   // const [loading, setLoading] = useState(true);
   const [commentActive, setCommentActive] = useState(null);
@@ -26,6 +27,12 @@ export default function PostCard(props) {
     const allPosts = props.userPosts.reverse();
     // console.log(allPosts);
     // console.log(user);
+    axios
+      .get("/api/allUsers")
+      .then((res) => {
+        setAllUsers(res.data);
+      })
+      .catch((err) => console.log(err));
 
     if (Object.keys(user).length !== 0) {
       const followingPosts = allPosts.filter(
@@ -37,6 +44,7 @@ export default function PostCard(props) {
     } else {
       setPosts(allPosts);
     }
+
     // setLoading(false)
   }, [props]);
 
@@ -235,8 +243,29 @@ export default function PostCard(props) {
   return (
     <div className="post-card-container">
       {posts.map((post) => {
+        let profilePicture;
+        for (let i = 0; i < allUsers.length; i++) {
+          if (allUsers[i]._id === post.author) {
+            if (allUsers[i].image) {
+              profilePicture = (
+                <div
+                  className="post-card-profile-image"
+                  style={{
+                    background: `url(${allUsers[i].image})`,
+                    borderWidth: "5px",
+                    borderRadius: "50%",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }}
+                ></div>
+              );
+            } else {
+              profilePicture = <i className="material-icons">account_circle</i>;
+            }
+            console.log(profilePicture)
+          }
+        }
         /* If post is by the CURRENT USER */
-
         if (post.username === currentUser.username) {
           return (
             <div className="post-card" key={post._id}>
@@ -265,7 +294,7 @@ export default function PostCard(props) {
                   </div>
 
                   <div className="basic-info">
-                    <i className="material-icons">account_circle</i>
+                    {profilePicture}
                     <Link to={"/profile/" + post.username}>
                       <h5>{post.username}</h5>
                     </Link>
@@ -326,7 +355,9 @@ export default function PostCard(props) {
                 {/* If post is by the DIFFERENT USER */}
                 <div key={post._id}>
                   <div className="basic-info">
-                    <i className="material-icons">account_circle</i>
+                  {profilePicture}
+
+
                     <Link to={"/profile/" + post.username}>
                       <h5>{post.username}</h5>
                     </Link>

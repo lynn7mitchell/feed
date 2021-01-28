@@ -92,6 +92,26 @@ export default function DesktopNavbar(user) {
         "none";
     }, 500);
   }
+  let profilePicture = (
+    
+      <i className="material-icons">account_circle</i>
+  );
+  if (currentUser.image) {
+    profilePicture = (
+      <div
+        className="desktopNavbar-profile-image"
+        style={{
+          background: `url(${currentUser.image})`,
+          borderWidth: "5px",
+          borderRadius: "50%",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      ></div>
+    );
+  }
+
+
   if (loading) {
     return (
       <div className="loading">
@@ -140,7 +160,7 @@ export default function DesktopNavbar(user) {
               (window.location.href = "/profile/" + user.user.username)
             }
           >
-            <i className="material-icons">account_circle</i>
+            {profilePicture}
           </Link>
           <div className="notification-box">
             <i

@@ -29,6 +29,9 @@
   .post-card .basic-info {
     display: flex;
     align-items: center; }
+    .post-card .basic-info .post-card-profile-image {
+      width: 25px;
+      height: 25px; }
     .post-card .basic-info h5 {
       padding-left: 5px; }
   .post-card .content {
