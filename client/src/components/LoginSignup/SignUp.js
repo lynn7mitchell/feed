@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 import setAuthToken from "../../utils/setAuthtoken";
 import axios from "axios";
 import "./login-signup.css";
+import { v4 as uuidv4 } from "uuid";
 
 export class SignUp extends Component {
   constructor() {
@@ -14,8 +15,11 @@ export class SignUp extends Component {
       confirmPassword: "",
       errors: {},
       bio: '',
+      user: {},
       isLoggedIn: false,
       redirect: false,
+      profilePicture: false,
+      selectedFile: null,
 
     };
   }
@@ -71,6 +75,7 @@ export class SignUp extends Component {
           setAuthToken(token);
         }
         this.setState({
+          user: response.data,
           isLoggedIn: true,
           errors: {},
         });
@@ -105,7 +110,7 @@ export class SignUp extends Component {
     .put('/api/user', updatedUser)
     .then((response) =>{
       this.setState({
-        redirect: true
+        profilePicture: true
       })
     })
     .catch((err) =>
@@ -114,7 +119,36 @@ export class SignUp extends Component {
         })
       );
   }
-
+  handleSelectedFile = (e) => {
+    e.preventDefault();
+    this.setState({
+      // description: e.target.value,
+      selectedFile: e.target.files[0],
+    });
+  };
+  onImageSubmit = e =>{
+    e.preventDefault()
+    const selectedFile = this.state.selectedFile
+    const extension = '.' + selectedFile.name.split('.').pop()
+    const newName = uuidv4() + extension
+    // selectedFile.name = newName
+    console.log(selectedFile)
+    const data = new FormData();
+    data.append("file", selectedFile, newName);
+    console.log(data)
+    const newUser = {
+      profile: this.state.user._id
+    }
+    axios
+    .post('/upload', data)
+    .then(res =>{
+      this.setState({
+        redirect: true
+      })
+     
+    })
+    .catch((err) => console.log(data, err.response));
+  }
   render() {
     const styles = {
       logo: {
@@ -135,12 +169,34 @@ export class SignUp extends Component {
       return <Redirect to="/dashboard" />;
     }
 
-    if(this.state.isLoggedIn){
+    if(this.state.profilePicture){
+      return(
+         <div style={styles.main}>
+        <div className="container">
+          <div>
+            <h3>Add A Profile Picture</h3>
+            <form method="post" encType="multipart/form-data" onSubmit={this.onImageSubmit}>
+         
+
+          <p>
+            <input type="file" accept="image/*" name="file" onChange={this.handleSelectedFile}/>
+          </p>
+
+          <p>
+            <input type="submit" />
+          </p>
+        </form>
+          </div>
+        </div>
+      </div>
+      )
+    }
+    if(this.state.isLoggedIn && !this.state.profilePicture){
       return(
         <div style={styles.main}>
         <div className="container">
           <div>
-            <h3>Enter a Bio</h3>
+            <h3>Enter A Bio</h3>
             <form onSubmit={this.onBioSubmit}>
                {errors.bio && <div className='error'>{errors.bio}</div>}
               <div>
