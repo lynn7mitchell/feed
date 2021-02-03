@@ -13,6 +13,8 @@ export default function Settings() {
   const [politicsFilter, setPoliticsFilter] = useState(false);
   const [bio, setBio] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
+  const [imageOkay, setImageOkay] = useState(false)
+  const [errors, setErrors] = useState({})
   // const [errors, setError] = useState({});
   useEffect(() => {
     // gets the bearer token to validate the user that is logged in
@@ -55,9 +57,20 @@ export default function Settings() {
       );
   };
 
+  let ImageSubmitButton;
+
+  if(!imageOkay){
+  ImageSubmitButton = <input type="submit" disabled/>
+  }
+
   const handleImageUpload = (e) => {
     e.preventDefault();
     setSelectedFile(e.target.files[0]);
+    const extension = "." + e.target.files[0].name.split(".").pop();
+    if(extension !== 'png' || 'jpg' || 'jpeg'){
+      setImageOkay(false)
+      setErrors({image: 'The image must be a png, jpg, jpeg'})
+          }
   };
 
   const onImageSubmit = (e) => {
@@ -104,25 +117,25 @@ export default function Settings() {
       </div>
 
       <form
+      className="image-upload"
         method="post"
         encType="multipart/form-data"
         onSubmit={(e) => onImageSubmit(e)}
       >
-        <p>
-          {/* <input type="text" name="title"   placeholder="optional title" /> */}
-        </p>
-
+      <h4>Update Your Profile Picture</h4>
+      <p>{errors.image}</p>
         <p>
           <input
             type="file"
             accept="image/*"
             name="file"
             onChange={(e) => handleImageUpload(e)}
+            accept=",.png,.jpg.jpeg" 
           />
         </p>
 
         <p>
-          <input type="submit" />
+          {ImageSubmitButton}
         </p>
       </form>
 
