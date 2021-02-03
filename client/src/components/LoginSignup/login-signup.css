@@ -26,6 +26,23 @@ h3 {
     h3 {
       display: none; } }
 
+.image-upload input[type=submit]:disabled {
+  background: #333;
+  color: #121212; }
+.image-upload input[type=submit] {
+  background: #a451ad;
+  border: 0;
+  border-radius: 10px;
+  height: 5vh;
+  width: 5vw;
+  color: #e6e6e6;
+  font-family: "Lato";
+  font-weight: 700; }
+  @media (max-width: 576px) {
+    .image-upload input[type=submit] {
+      background: rgba(65, 96, 251, 0.85);
+      height: 35px; } }
+
 @media (max-width: 576px) {
   form {
     margin: 0 auto; } }

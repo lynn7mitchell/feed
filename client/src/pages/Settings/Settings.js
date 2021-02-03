@@ -61,16 +61,15 @@ export default function Settings() {
 
   if(!imageOkay){
   ImageSubmitButton = <input type="submit" disabled/>
+  }else{
+    ImageSubmitButton = <input type="submit"/>
   }
 
   const handleImageUpload = (e) => {
     e.preventDefault();
     setSelectedFile(e.target.files[0]);
     const extension = "." + e.target.files[0].name.split(".").pop();
-    if(extension !== 'png' || 'jpg' || 'jpeg'){
-      setImageOkay(false)
-      setErrors({image: 'The image must be a png, jpg, jpeg'})
-          }
+    setImageOkay(true)
   };
 
   const onImageSubmit = (e) => {
@@ -121,6 +120,7 @@ export default function Settings() {
         method="post"
         encType="multipart/form-data"
         onSubmit={(e) => onImageSubmit(e)}
+
       >
       <h4>Update Your Profile Picture</h4>
       <p>{errors.image}</p>

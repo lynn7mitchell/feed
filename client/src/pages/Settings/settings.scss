@@ -69,7 +69,24 @@ $screen-xl-min: 1200px;
       margin-left: 3vw;
       margin-top: 3%;
       margin-bottom: 3%;
-
+      input[type = submit]:disabled{
+        background: #333;
+        color: #121212;
+      }
+      input[type = submit] {
+        background: #a451ad;
+        border: 0;
+        border-radius: 10px;
+        height: 5vh;
+        width: 5vw;
+        color: #e6e6e6;
+        font-family: "Lato";
+        font-weight: 700;
+        @include sm {
+          background: rgba(65, 96, 251, 0.85);
+          height: 35px;
+        }
+      }
     }
     .settings-bio{
       width: 30%;
