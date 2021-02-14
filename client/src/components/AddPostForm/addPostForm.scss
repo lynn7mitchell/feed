@@ -70,8 +70,12 @@ $screen-xl-min: 1200px;
     }
     .post-form-profile-image{
       width: 50px;
-      height: 28px;
-
+      height: 50px;
+      // height: 28px;
+      @include sm{
+        width: 50px;
+        height: 28px;
+      }
     }
     i{
       @include sm{

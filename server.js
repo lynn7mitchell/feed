@@ -1,12 +1,16 @@
 var express = require("express");
 var path = require("path")
+// Initialize Express
+var app = express();
+const http = require("http").createServer(app);
 var mongoose = require("mongoose");
 const passport = require('passport')
+const cors = require("cors");
+
 // .env
 require('dotenv').config()
 
-// Initialize Express
-var app = express();
+
 var PORT = process.env.PORT || 3001;
 
 
@@ -25,6 +29,14 @@ app.use(express.json());
 // Make public a static folder
 app.use(express.static("public"));
 
+// CORS
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
+  next();
+});
 
 // passport middleware
 app.use(passport.initialize());
