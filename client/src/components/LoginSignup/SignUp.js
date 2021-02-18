@@ -42,7 +42,7 @@ export class SignUp extends Component {
       this.setState({
         errors: {
           password:
-            "Password must be 8 characters and have at least 1 uppercase, 1 lowercase, 1 number, and 1 special character",
+            "Password must be at least 8 characters and have at least 1 uppercase, 1 lowercase, 1 number, and 1 special character",
         },
       });
       return this.state.errors;
