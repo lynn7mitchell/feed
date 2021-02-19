@@ -20,7 +20,7 @@ export class App extends Component {
             <Route exact path="/" component={Home} />
             <PrivateRoute exact path="/dashboard" component={Dashboard} />
             <PrivateRoute exact path="/profile/:id" component={Profile} />
-            <PrivateRoute exact path="/chat/:id" component={Profile} />
+            <PrivateRoute exact path="/chat/:id" component={Chat} />
             <PrivateRoute exact path="/settings" component={Settings} />
             <Route exact path="/post/:id" component={Post} />
             <Route exact component={NoMatch} />

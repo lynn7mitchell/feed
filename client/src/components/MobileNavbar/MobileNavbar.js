@@ -6,38 +6,60 @@ import axios from "axios";
 export default function MobileNavbar(user) {
   const [users, setUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
-  const [currentUserNotifcations, setCurrentUserNotifcations] = useState([]);
+  const [currentUserNotifcations, setCurrentUserNotifications] = useState([]);
   const [searchIsOpen, setSearchIsOpen] = useState(false);
   const [searchSuggestions, setSearchSuggestions] = useState([]);
   const [notificationsAreOpen, setNotificationsAreOpen] = useState(false);
+  const [chatIsOpen, setChatIsOpen] = useState(false);
+  const [allChatRooms, setAllChatRooms] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // authorization
     const token = localStorage.getItem("example-app");
 
     if (token) {
       setAuthToken(token);
     }
+    // get current user
     axios
       .get("/api/user")
       .then((res) => {
         setCurrentUser(res.data);
-        setCurrentUserNotifcations(res.data.notifications);
+        setCurrentUserNotifications(res.data.notifications);
         setLoading(false);
       })
+
       .catch((err) => console.log(err));
+
+    // get all users
     axios
       .get("/api/allUsers")
       .then((res) => {
         setUsers(res.data);
       })
       .catch((err) => console.log(err));
+
+    // get all chatrooms
+
+    axios
+      .get("/chat")
+      .then((res) => {
+        setAllChatRooms(res.data);
+      })
+      .catch((err) => console.log(err));
   }, []);
+
+  // REFRESH
+  const refresh = (e) => {
+    window.location.reload(false);
+  };
+
+  // SEARCH
   const onChange = (e) => {
     // because this variable is set to have nothing in it on every onChange
     // you do not have to loop through the searchSuggestions to get rid of suggestions
     // that do not include e.target.value
-    console.log(e.target.value);
     let newSuggestions = [];
     for (let i = 0; i < users.length; i++) {
       if (
@@ -56,11 +78,7 @@ export default function MobileNavbar(user) {
     }
   };
 
-  const refresh = (e) => {
-    // console.log(e.target)
-    window.location.reload(false);
-  };
-
+  // NOTIFICATIONS
   const deleteNotification = (e) => {
     e.preventDefault();
 
@@ -110,8 +128,12 @@ export default function MobileNavbar(user) {
       <i className="material-icons">account_circle</i>
     </Link>
   );
-
-  if (searchIsOpen || notificationsAreOpen) {
+  let chatButton = (
+    <i className="material-icons" onClick={(e) => openMobileChat(e)}>
+      sms
+    </i>
+  );
+  if (searchIsOpen || notificationsAreOpen || chatIsOpen) {
     document.getElementsByClassName("mobile-navbar")[0].style.background =
       "#121212";
     if (window.location.href.includes("dashboard")) {
@@ -150,25 +172,51 @@ export default function MobileNavbar(user) {
         notifications
       </i>
     );
+
+    chatButton = (
+      <i
+        className="material-icons"
+        onClick={(e) => {
+          exitMobileChat(e);
+        }}
+      >
+        sms
+      </i>
+    );
   }
 
   const openMobileSearch = (e) => {
-    document.getElementById("mobile-search").style.display = "block";
+    exitMobileNotifications();
+    exitMobileChat();
     setSearchIsOpen(true);
+    document.getElementById("mobile-search").style.display = "block";
   };
 
   const exitSearch = (e) => {
-    document.getElementById("mobile-search").style.display = "none";
     setSearchIsOpen(false);
+    document.getElementById("mobile-search").style.display = "none";
   };
 
   const openMobileNotifications = (e) => {
-    document.getElementById("notifications-container").style.display = "block";
     setNotificationsAreOpen(true);
+    exitSearch();
+    exitMobileChat();
+    document.getElementById("notifications-container").style.display = "block";
   };
   const exitMobileNotifications = (e) => {
-    document.getElementById("notifications-container").style.display = "none";
     setNotificationsAreOpen(false);
+    document.getElementById("notifications-container").style.display = "none";
+  };
+
+  const openMobileChat = (e) => {
+    exitMobileNotifications();
+    setChatIsOpen(true);
+    exitSearch();
+    document.getElementById("chat-container").style.display = "block";
+  };
+  const exitMobileChat = (e) => {
+    setChatIsOpen(false);
+    document.getElementById("chat-container").style.display = "none";
   };
 
   if (loading) {
@@ -212,7 +260,46 @@ export default function MobileNavbar(user) {
         {homeButton}
         {searchButton}
         {profileButton}
-        <i className="material-icons">sms</i>
+        {chatButton}
+        <div id="chat-container">
+          <h4>Chat</h4>
+          <div className="chat">
+            {/* {users.map((user) => {
+              if (
+                currentUser.following.includes(user._id) &&
+                user.following.includes(currentUser._id)
+              ) {
+                return (
+                  <Link>
+                    <div>{user.username}</div>
+                  </Link>
+                );
+              }
+            })} */}
+            {allChatRooms.map((chatRoom) => {
+              let allOtherUsers = users.filter(
+                (user) => user._id !== currentUser._id
+              );
+              let otherUser = chatRoom.users.filter(
+                (user) => user !== currentUser._id
+              );
+              let otherUserName = allOtherUsers.filter(
+                (user) => user._id === otherUser[0]
+              );
+              console.log(otherUserName);
+              return (
+                <Link
+                  to={{ pathname: "/chat/" + chatRoom._id }}
+                  onClick={(e) =>
+                    (window.location.href = "/chat/" + chatRoom._id)
+                  }
+                >
+                  <div>{otherUserName[0].username}</div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
         {notificationButton}
         <div id="notifications-container">
           <h4>Notifications</h4>

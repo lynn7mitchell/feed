@@ -262,7 +262,6 @@ export default function PostCard(props) {
             } else {
               profilePicture = <i className="material-icons">account_circle</i>;
             }
-            console.log(profilePicture)
           }
         }
         /* If post is by the CURRENT USER */

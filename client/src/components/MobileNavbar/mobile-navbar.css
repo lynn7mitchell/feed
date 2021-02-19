@@ -50,7 +50,7 @@
             margin-top: 16vh;
             margin: 0 auto;
             overflow: scroll; }
-      .mobile-navbar #notifications-container {
+      .mobile-navbar #notifications-container, .mobile-navbar #chat-container {
         z-index: -1;
         background: #121212;
         display: none;
@@ -58,13 +58,13 @@
         height: 200vh;
         width: 100%;
         margin-top: 60%; }
-        .mobile-navbar #notifications-container h4 {
+        .mobile-navbar #notifications-container h4, .mobile-navbar #chat-container h4 {
           font-size: 25px;
           margin-left: 10px; }
-        .mobile-navbar #notifications-container .notifications {
+        .mobile-navbar #notifications-container .notifications, .mobile-navbar #chat-container .notifications {
           height: 60vh;
           overflow-y: scroll; }
-        .mobile-navbar #notifications-container .notification {
+        .mobile-navbar #notifications-container .notification, .mobile-navbar #chat-container .notification {
           display: flex;
           justify-content: space-between;
           color: #fefefe;
@@ -73,7 +73,7 @@
           width: 100%;
           margin: 0 auto;
           position: relative; }
-          .mobile-navbar #notifications-container .notification .delete-button {
+          .mobile-navbar #notifications-container .notification .delete-button, .mobile-navbar #chat-container .notification .delete-button {
             font-size: 20px;
             justify-self: flex-end;
             align-self: flex-end; } }

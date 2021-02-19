@@ -102,7 +102,7 @@ $screen-xl-min: 1200px;
       }
      
     }
-    #notifications-container{
+    #notifications-container, #chat-container{
       z-index: -1;
     background: #121212;
     display: none;

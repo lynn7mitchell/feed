@@ -9,6 +9,14 @@ module.exports = function(app){
     });
   });
 
+  app.get("/chat",(req,res) =>{
+    db.Chat.find({})
+    .then((chats) => {
+      res.status(200).json(chats);
+    })
+    .catch((err) => console.log(err));
+  })
+
   app.post("/chat",  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const newChat = {
