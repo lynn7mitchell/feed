@@ -98,43 +98,67 @@ $screen-xl-min: 1200px;
           margin: 0 auto;
           overflow: scroll;
         }
-        
       }
-     
     }
-    #notifications-container, #chat-container{
+    #notifications-container,
+    #chat-container {
       z-index: -1;
-    background: #121212;
-    display: none;
-    position: absolute;
-    height: 200vh;
-    width: 100%;
-    margin-top: 60%;
-    h4{
-      font-size: 25px;
-      margin-left: 10px;
-    }
-    .notifications{
-      height: 60vh;
-      overflow-y: scroll;
-
-    }
-    .notification{
-      display: flex;
-      justify-content: space-between;
-      color:#fefefe;
-      background: #1f1f1f;
-      padding: 20px 10px 20px 10px;
+      background: #121212;
+      display: none;
+      position: absolute;
+      height: 200vh;
       width: 100%;
-      margin: 0 auto;
-      position: relative;
+      margin-top: 60%;
+      h4 {
+        font-size: 25px;
+        margin-left: 10px;
+      }
+      .notifications {
+        height: 60vh;
+        overflow-y: scroll;
+      }
+      .notification {
+        display: flex;
+        justify-content: space-between;
+        color: #fefefe;
+        background: #1f1f1f;
+        padding: 20px 10px 20px 10px;
+        width: 100%;
+        margin: 0 auto;
+        position: relative;
+
+        .delete-button {
+          font-size: 20px;
+          justify-self: flex-end;
+          align-self: flex-end;
+        }
+      }
+
+      .chat-card {
+        background: #1f1f1f;
+        padding: 0px 10px 10px 10px;
+        border-radius: 10px;
+
+        h5{
+          font-size: 20px;
+        }
+
+      }
       
-      .delete-button{
-    font-size: 20px;
-    justify-self: flex-end;
-    align-self: flex-end;
-  }
-    }
+      button{
+        background: #7657d1;
+        position: absolute;
+        right: 10px;
+        top: 35%;
+        border: 0;
+        border-radius: 10px;
+        width: 6rem;
+        height: 3rem;
+        color: #e6e6e6;
+        font-family: "Lato";
+        font-weight: 700;
+        font-size: 16px;
+      }
     }
     // .loading{
     //   position: absolute;
@@ -144,5 +168,4 @@ $screen-xl-min: 1200px;
     //   text-align: center;
     // }
   }
-  
 }

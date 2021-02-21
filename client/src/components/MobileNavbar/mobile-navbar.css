@@ -50,7 +50,8 @@
             margin-top: 16vh;
             margin: 0 auto;
             overflow: scroll; }
-      .mobile-navbar #notifications-container, .mobile-navbar #chat-container {
+      .mobile-navbar #notifications-container,
+      .mobile-navbar #chat-container {
         z-index: -1;
         background: #121212;
         display: none;
@@ -58,13 +59,16 @@
         height: 200vh;
         width: 100%;
         margin-top: 60%; }
-        .mobile-navbar #notifications-container h4, .mobile-navbar #chat-container h4 {
+        .mobile-navbar #notifications-container h4,
+        .mobile-navbar #chat-container h4 {
           font-size: 25px;
           margin-left: 10px; }
-        .mobile-navbar #notifications-container .notifications, .mobile-navbar #chat-container .notifications {
+        .mobile-navbar #notifications-container .notifications,
+        .mobile-navbar #chat-container .notifications {
           height: 60vh;
           overflow-y: scroll; }
-        .mobile-navbar #notifications-container .notification, .mobile-navbar #chat-container .notification {
+        .mobile-navbar #notifications-container .notification,
+        .mobile-navbar #chat-container .notification {
           display: flex;
           justify-content: space-between;
           color: #fefefe;
@@ -73,9 +77,32 @@
           width: 100%;
           margin: 0 auto;
           position: relative; }
-          .mobile-navbar #notifications-container .notification .delete-button, .mobile-navbar #chat-container .notification .delete-button {
+          .mobile-navbar #notifications-container .notification .delete-button,
+          .mobile-navbar #chat-container .notification .delete-button {
             font-size: 20px;
             justify-self: flex-end;
-            align-self: flex-end; } }
+            align-self: flex-end; }
+        .mobile-navbar #notifications-container .chat-card,
+        .mobile-navbar #chat-container .chat-card {
+          background: #1f1f1f;
+          padding: 0px 10px 10px 10px;
+          border-radius: 10px; }
+          .mobile-navbar #notifications-container .chat-card h5,
+          .mobile-navbar #chat-container .chat-card h5 {
+            font-size: 20px; }
+        .mobile-navbar #notifications-container button,
+        .mobile-navbar #chat-container button {
+          background: #7657d1;
+          position: absolute;
+          right: 10px;
+          top: 35%;
+          border: 0;
+          border-radius: 10px;
+          width: 6rem;
+          height: 3rem;
+          color: #e6e6e6;
+          font-family: "Lato";
+          font-weight: 700;
+          font-size: 16px; } }
 
 /*# sourceMappingURL=mobile-navbar.css.map */

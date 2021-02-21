@@ -294,10 +294,12 @@ export default function MobileNavbar(user) {
                     (window.location.href = "/chat/" + chatRoom._id)
                   }
                 >
-                  <div>{otherUserName[0].username}</div>
+                  <div className='chat-card'><h5>{otherUserName[0].username}</h5></div>
                 </Link>
               );
             })}
+
+            <button>New Chat</button>
           </div>
         </div>
         {notificationButton}
