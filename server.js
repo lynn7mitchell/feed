@@ -5,8 +5,14 @@ var app = express();
 const http = require("http").createServer(app);
 var mongoose = require("mongoose");
 const passport = require('passport')
-const cors = require("cors");
 
+const io = require("socket.io")(http, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
+});
+const cors = require("cors");
 // .env
 require('dotenv').config()
 
@@ -29,6 +35,37 @@ app.use(express.json());
 // Make public a static folder
 app.use(express.static("public"));
 
+
+
+// Socket.io
+io.sockets.on('connection', function(socket) {
+  console.log('a user has connected')
+  // once a client has connected, we expect to get a ping from them saying what room they want to join
+  socket.on('room', function(room) {
+    console.log(room)
+
+    socket.join(room);
+
+    // io.sockets.in(room).emit('message', 'You are in room ' + room);
+
+   io.sockets.in(room).emit('message', 'A user has joined the chat')
+
+   
+  });
+
+  socket.on('chat message', (msg) => {
+    console.log('message: ' + msg);
+    io.emit('chat message', msg);
+
+  });
+
+  
+
+  socket.on('disconnect', ()=>{
+    io.emit('message', 'A user has left the chat');
+  })
+  
+});
 // CORS
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -37,6 +74,8 @@ app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
   next();
 });
+
+
 
 // passport middleware
 app.use(passport.initialize());
@@ -64,6 +103,6 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 // Start the server
-app.listen(PORT, function() {
-  console.log("App running on port " + PORT + "!");
+http.listen(PORT, function () {
+  console.log(`listening on ${PORT}`);
 });
