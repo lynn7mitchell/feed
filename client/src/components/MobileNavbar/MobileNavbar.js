@@ -93,97 +93,9 @@ export default function MobileNavbar(user) {
       .catch((err) => console.error(err));
   };
 
-  let homeButton = (
-    <Link to={"/dashboard"}>
-      <i className="material-icons">home</i>
-    </Link>
-  );
 
-  let searchButton = (
-    <i
-      className="material-icons"
-      onClick={(e) => {
-        openMobileSearch(e);
-      }}
-    >
-      search
-    </i>
-  );
 
-  let notificationButton = (
-    <i
-      className="material-icons"
-      onClick={(e) => {
-        openMobileNotifications(e);
-      }}
-    >
-      notifications
-    </i>
-  );
-  let profileButton = (
-    <Link
-      to={{ pathname: "/profile/" + user.user.username }}
-      onClick={(e) => (window.location.href = "/profile/" + user.user.username)}
-    >
-      <i className="material-icons">account_circle</i>
-    </Link>
-  );
-  let chatButton = (
-    <i className="material-icons" onClick={(e) => openMobileChat(e)}>
-      sms
-    </i>
-  );
-  if (searchIsOpen || notificationsAreOpen || chatIsOpen) {
-    document.getElementsByClassName("mobile-navbar")[0].style.background =
-      "#121212";
-    if (window.location.href.includes("dashboard")) {
-      homeButton = (
-        <i className="material-icons" onClick={(e) => exitSearch(e)}>
-          home
-        </i>
-      );
-    }
-
-    if (window.location.href.includes("profile")) {
-      profileButton = (
-        <i className="material-icons" onClick={(e) => exitSearch(e)}>
-          account_circle
-        </i>
-      );
-    }
-    searchButton = (
-      <i
-        className="material-icons"
-        onClick={(e) => {
-          exitSearch(e);
-        }}
-      >
-        search
-      </i>
-    );
-
-    notificationButton = (
-      <i
-        className="material-icons"
-        onClick={(e) => {
-          exitMobileNotifications(e);
-        }}
-      >
-        notifications
-      </i>
-    );
-
-    chatButton = (
-      <i
-        className="material-icons"
-        onClick={(e) => {
-          exitMobileChat(e);
-        }}
-      >
-        sms
-      </i>
-    );
-  }
+  // TOGGLES
 
   const openMobileSearch = (e) => {
     exitMobileNotifications();
@@ -218,6 +130,184 @@ export default function MobileNavbar(user) {
     setChatIsOpen(false);
     document.getElementById("chat-container").style.display = "none";
   };
+
+  const exitAll = (e) =>{
+    document.getElementById("chat-container").style.display = "none";
+    document.getElementById("notifications-container").style.display = "none";
+    document.getElementById("mobile-search").style.display = "none";
+    setSearchIsOpen(false)
+    setNotificationsAreOpen(false)
+    setChatIsOpen(false)
+
+  }
+
+  let homeButton = (
+    <Link to={"/dashboard"}>
+      <i className="material-icons">home</i>
+    </Link>
+  );
+
+  let searchButton = (
+    <i
+      className="material-icons"
+      onClick={(e) => {
+        openMobileSearch(e);
+      }}
+    >
+      search
+    </i>
+  );
+
+  let notificationButton = (
+    <i
+      className="material-icons"
+      onClick={(e) => {
+        openMobileNotifications(e);
+      }}
+    >
+      notifications
+    </i>
+  );
+
+  let profileButton = (
+    <Link
+      to={{ pathname: "/profile/" + user.user.username }}
+      onClick={(e) => (window.location.href = "/profile/" + user.user.username)}
+    >
+      <i className="material-icons">account_circle</i>
+    </Link>
+  );
+
+  let chatButton = (
+    <i className="material-icons" onClick={(e) => openMobileChat(e)}>
+      sms
+    </i>
+  );
+
+  if (searchIsOpen || notificationsAreOpen || chatIsOpen) {
+    document.getElementsByClassName("mobile-navbar")[0].style.background =
+      "#121212";
+    if (window.location.href.includes("dashboard")) {
+      homeButton = (
+        <i className="material-icons" onClick={(e) => exitAll(e)}>
+          home
+        </i>
+      );
+    }
+
+    if (window.location.href.includes("profile")) {
+      profileButton = (
+        <i className="material-icons" onClick={(e) => exitAll(e)}>
+          account_circle
+        </i>
+      );
+    }
+   
+  }
+ 
+  if(searchIsOpen){
+    searchButton = (
+      <i
+        className="material-icons"
+        onClick={(e) => {
+          exitSearch(e);
+        }}
+      >
+        search
+      </i>
+    );
+  
+    notificationButton = (
+      <i
+        className="material-icons"
+        onClick={(e) => {
+          openMobileNotifications(e);
+        }}
+      >
+        notifications
+      </i>
+    );
+  
+    chatButton = (
+      <i
+        className="material-icons"
+        onClick={(e) => {
+          openMobileChat(e);
+        }}
+      >
+        sms
+      </i>
+    );
+  }
+    if(chatIsOpen){
+      searchButton = (
+        <i
+          className="material-icons"
+          onClick={(e) => {
+            openMobileSearch(e);
+          }}
+        >
+          search
+        </i>
+      );
+    
+      notificationButton = (
+        <i
+          className="material-icons"
+          onClick={(e) => {
+            openMobileNotifications(e);
+          }}
+        >
+          notifications
+        </i>
+      );
+    
+      chatButton = (
+        <i
+          className="material-icons"
+          onClick={(e) => {
+            exitMobileChat(e);
+          }}
+        >
+          sms
+        </i>
+      );
+    }
+if(notificationsAreOpen){
+  searchButton = (
+    <i
+      className="material-icons"
+      onClick={(e) => {
+        openMobileSearch(e);
+      }}
+    >
+      search
+    </i>
+  );
+
+  notificationButton = (
+    <i
+      className="material-icons"
+      onClick={(e) => {
+        exitMobileNotifications(e);
+      }}
+    >
+      notifications
+    </i>
+  );
+
+  chatButton = (
+    <i
+      className="material-icons"
+      onClick={(e) => {
+        openMobileChat(e);
+      }}
+    >
+      sms
+    </i>
+  );
+}
+
 
   if (loading) {
     return (
