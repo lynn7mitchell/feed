@@ -5,13 +5,16 @@ import setAuthToken from "../../utils/setAuthtoken";
 import axios from "axios";
 export default function MobileNavbar(user) {
   const [users, setUsers] = useState([]);
+  const [usernames, setUsernames] = useState([])
   const [currentUser, setCurrentUser] = useState({});
   const [currentUserNotifcations, setCurrentUserNotifications] = useState([]);
   const [searchIsOpen, setSearchIsOpen] = useState(false);
   const [searchSuggestions, setSearchSuggestions] = useState([]);
   const [notificationsAreOpen, setNotificationsAreOpen] = useState(false);
   const [chatIsOpen, setChatIsOpen] = useState(false);
+  const [newChat, setNewChatIsOpen] = useState(false);
   const [allChatRooms, setAllChatRooms] = useState([]);
+  const [chatRoomsUsers, setChatRoomsUsers] = useState([])
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -37,6 +40,12 @@ export default function MobileNavbar(user) {
       .get("/api/allUsers")
       .then((res) => {
         setUsers(res.data);
+        let usernames = []
+        for(let i = 0; i < res.data.length; i++){
+          usernames.push({username: res.data[i].username, id: res.data[i]._id})
+          
+        }
+        setUsernames(usernames)
       })
       .catch((err) => console.log(err));
 
@@ -46,6 +55,16 @@ export default function MobileNavbar(user) {
       .get("/chat")
       .then((res) => {
         setAllChatRooms(res.data);
+        let userIds = []
+        for(let i = 0; i < res.data.length; i++){
+          for(let j = 0; j < res.data[i].users.length; j++){
+            console.log([res.data[i].users[j]])
+            userIds.push(res.data[i].users[j])
+          }
+          
+          
+        }
+        setChatRoomsUsers(userIds)
       })
       .catch((err) => console.log(err));
   }, []);
@@ -93,7 +112,17 @@ export default function MobileNavbar(user) {
       .catch((err) => console.error(err));
   };
 
+  // CHAT
+  const NewChatButton = document.getElementById("new-chat-button");
 
+  const createNewChat = (e, id) => {
+    console.log(id);
+
+    const chat = {users:[currentUser._id, id]}
+    axios.post('/chat', chat)
+    .then(window.location.reload(false))
+    .catch((err) => console.error(err));
+  };
 
   // TOGGLES
 
@@ -131,15 +160,30 @@ export default function MobileNavbar(user) {
     document.getElementById("chat-container").style.display = "none";
   };
 
-  const exitAll = (e) =>{
+  const openNewMobileChat = e =>{
+    exitMobileNotifications();
+    exitSearch();
+    // exitMobileChat();
+
+    setNewChatIsOpen(true)
+    document.getElementById("new-chat-container").style.display = "block";
+
+  }
+
+  const exitNewMMobileChat = (e) => {
+    setNewChatIsOpen(false);
+    document.getElementById("new-chat-container").style.display = "none";
+  };
+  const exitAll = (e) => {
     document.getElementById("chat-container").style.display = "none";
     document.getElementById("notifications-container").style.display = "none";
     document.getElementById("mobile-search").style.display = "none";
-    setSearchIsOpen(false)
-    setNotificationsAreOpen(false)
-    setChatIsOpen(false)
+    setSearchIsOpen(false);
+    setNotificationsAreOpen(false);
+    setChatIsOpen(false);
+    setNewChatIsOpen(false);
 
-  }
+  };
 
   let homeButton = (
     <Link to={"/dashboard"}>
@@ -202,10 +246,9 @@ export default function MobileNavbar(user) {
         </i>
       );
     }
-   
   }
- 
-  if(searchIsOpen){
+
+  if (searchIsOpen) {
     searchButton = (
       <i
         className="material-icons"
@@ -216,7 +259,7 @@ export default function MobileNavbar(user) {
         search
       </i>
     );
-  
+
     notificationButton = (
       <i
         className="material-icons"
@@ -227,7 +270,7 @@ export default function MobileNavbar(user) {
         notifications
       </i>
     );
-  
+
     chatButton = (
       <i
         className="material-icons"
@@ -239,74 +282,77 @@ export default function MobileNavbar(user) {
       </i>
     );
   }
-    if(chatIsOpen){
-      searchButton = (
-        <i
-          className="material-icons"
-          onClick={(e) => {
-            openMobileSearch(e);
-          }}
-        >
-          search
-        </i>
-      );
-    
-      notificationButton = (
-        <i
-          className="material-icons"
-          onClick={(e) => {
-            openMobileNotifications(e);
-          }}
-        >
-          notifications
-        </i>
-      );
-    
-      chatButton = (
-        <i
-          className="material-icons"
-          onClick={(e) => {
-            exitMobileChat(e);
-          }}
-        >
-          sms
-        </i>
-      );
-    }
-if(notificationsAreOpen){
-  searchButton = (
-    <i
-      className="material-icons"
-      onClick={(e) => {
-        openMobileSearch(e);
-      }}
-    >
-      search
-    </i>
-  );
+  if (chatIsOpen) {
+    searchButton = (
+      <i
+        className="material-icons"
+        onClick={(e) => {
+          openMobileSearch(e);
+        }}
+      >
+        search
+      </i>
+    );
 
-  notificationButton = (
-    <i
-      className="material-icons"
-      onClick={(e) => {
-        exitMobileNotifications(e);
-      }}
-    >
-      notifications
-    </i>
-  );
+    notificationButton = (
+      <i
+        className="material-icons"
+        onClick={(e) => {
+          openMobileNotifications(e);
+        }}
+      >
+        notifications
+      </i>
+    );
 
-  chatButton = (
-    <i
-      className="material-icons"
-      onClick={(e) => {
-        openMobileChat(e);
-      }}
-    >
-      sms
-    </i>
-  );
-}
+    chatButton = (
+      <i
+        className="material-icons"
+        onClick={(e) => {
+          exitMobileChat(e);
+        }}
+      >
+        sms
+      </i>
+    );
+  }
+  if (notificationsAreOpen) {
+    searchButton = (
+      <i
+        className="material-icons"
+        onClick={(e) => {
+          openMobileSearch(e);
+        }}
+      >
+        search
+      </i>
+    );
+
+    notificationButton = (
+      <i
+        className="material-icons"
+        onClick={(e) => {
+          exitMobileNotifications(e);
+        }}
+      >
+        notifications
+      </i>
+    );
+
+    chatButton = (
+      <i
+        className="material-icons"
+        onClick={(e) => {
+          openMobileChat(e);
+        }}
+      >
+        sms
+      </i>
+    );
+  }
+
+  
+
 
 
   if (loading) {
@@ -322,6 +368,8 @@ if(notificationsAreOpen){
     return (
       <div className="mobile-navbar">
         <div id="mobile-search">
+          {/* Search Container */}
+
           <div className="search-box">
             <input
               type="text"
@@ -351,21 +399,10 @@ if(notificationsAreOpen){
         {searchButton}
         {profileButton}
         {chatButton}
+        {/* Chat Container */}
         <div id="chat-container">
           <h4>Chat</h4>
           <div className="chat">
-            {/* {users.map((user) => {
-              if (
-                currentUser.following.includes(user._id) &&
-                user.following.includes(currentUser._id)
-              ) {
-                return (
-                  <Link>
-                    <div>{user.username}</div>
-                  </Link>
-                );
-              }
-            })} */}
             {allChatRooms.map((chatRoom) => {
               let allOtherUsers = users.filter(
                 (user) => user._id !== currentUser._id
@@ -384,15 +421,40 @@ if(notificationsAreOpen){
                     (window.location.href = "/chat/" + chatRoom._id)
                   }
                 >
-                  <div className='chat-card'><h5>{otherUserName[0].username}</h5></div>
+                  <div className="chat-card">
+                    <h5>{otherUserName[0].username}</h5>
+                  </div>
                 </Link>
               );
             })}
 
-            <button>New Chat</button>
+            <button
+              id="new-chat-button"
+              onClick={(e) => {
+                openNewMobileChat(e);
+              }}
+            >
+              New Chat
+            </button>
+            <div id="new-chat-container">
+              <h4>New Chat</h4>
+            { usernames.map((username) =>{
+               console.log(username)
+               if(!chatRoomsUsers.includes(username.id) && username._id !== currentUser._id){
+                 return(
+                  <div className="chat-card" onClick={(e) =>{createNewChat(e, username.id)}}>
+                    <h5>{username.username}</h5>
+                  </div>
+                 )
+               }
+             })}
+              
+            </div>
+            
           </div>
         </div>
         {notificationButton}
+        {/* Notification Container */}
         <div id="notifications-container">
           <h4>Notifications</h4>
           <div className="notifications">

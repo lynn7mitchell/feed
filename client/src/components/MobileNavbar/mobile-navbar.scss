@@ -101,14 +101,14 @@ $screen-xl-min: 1200px;
       }
     }
     #notifications-container,
-    #chat-container {
+    #chat-container, #new-chat-container {
       z-index: -1;
       background: #121212;
       display: none;
       position: absolute;
       height: 200vh;
       width: 100%;
-      margin-top: 60%;
+      margin-top: 45%;
       h4 {
         font-size: 25px;
         margin-left: 10px;
