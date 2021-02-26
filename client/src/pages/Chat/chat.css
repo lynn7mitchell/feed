@@ -1,0 +1,28 @@
+#chat {
+  color: #e6e6e6;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background: #121212; }
+  #chat form {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 4rem;
+    width: 100%; }
+    #chat form input {
+      width: 90vw;
+      color: #e6e6e6;
+      font-size: 16px;
+      border: 0;
+      background: transparent;
+      border-bottom: 1px solid #e6e6e6;
+      width: 90%;
+      margin-left: 20px; }
+    #chat form button {
+      background-color: transparent;
+      width: 4rem;
+      align-self: baseline; }
+
+/*# sourceMappingURL=chat.css.map */
