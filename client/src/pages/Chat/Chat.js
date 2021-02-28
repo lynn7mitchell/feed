@@ -29,15 +29,21 @@ export default function Chat() {
       })
       .catch((err) => console.error(err));
 
-    let room = id;
+    
     const socket = io("localhost:3001");
     socket.on("connect", function () {
+      let room = {
+        id,
+        user: currentUser.username
+      };
       // Connected, let's sign-up for to receive messages for this room
       socket.emit("room", room);
+      
     });
     socket.on("message", (data) => {
       console.log("Incoming message:", data);
     });
+    
 
     return () => {
       socket.close();
@@ -49,14 +55,18 @@ export default function Chat() {
   const onSubmit = (e) => {
     e.preventDefault();
     if (e.target.input.value) {
-      socket.emit("chat message", e.target.input.value);
+      socket.emit("chat message", {
+        message: e.target.input.value,
+        user: currentUser.username,
+      });
+      console.log(currentUser.username)
       e.target.input.value = "";
     }
   };
 
   socket.on("chat message", function (msg) {
     var item = document.createElement("li");
-    item.textContent = msg;
+    item.textContent = msg.user + ' ' + msg.message;
     document.getElementById("messages").appendChild(item);
     window.scrollTo(0, document.body.scrollHeight);
   });

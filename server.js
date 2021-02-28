@@ -41,20 +41,20 @@ app.use(express.static("public"));
 io.sockets.on('connection', function(socket) {
   console.log('a user has connected')
   // once a client has connected, we expect to get a ping from them saying what room they want to join
-  socket.on('room', function(room) {
-    console.log(room)
-
-    socket.join(room);
+  socket.once('room', function(room) {
+    console.log(room.id)
+    
+    socket.join(room.id);
 
     // io.sockets.in(room).emit('message', 'You are in room ' + room);
 
-   io.sockets.in(room).emit('message', 'A user has joined the chat')
-
+   io.to(room.id).emit('message', room.user + ' has joined the chat')
    
   });
 
   socket.on('chat message', (msg) => {
-    console.log('message: ' + msg);
+    // console.log('message: ' + msg.message, '/n user:' + msg.user);
+    console.log(msg.message)
     io.emit('chat message', msg);
 
   });
