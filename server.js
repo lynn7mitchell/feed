@@ -56,6 +56,7 @@ io.sockets.on('connection', function(socket) {
     // console.log('message: ' + msg.message, '/n user:' + msg.user);
     console.log(msg.message)
     io.emit('chat message', msg);
+    
 
   });
 
@@ -63,6 +64,8 @@ io.sockets.on('connection', function(socket) {
 
   socket.on('disconnect', ()=>{
     io.emit('message', 'A user has left the chat');
+    socket.removeAllListeners();
+
   })
   
 });

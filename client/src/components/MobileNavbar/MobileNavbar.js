@@ -398,7 +398,7 @@ export default function MobileNavbar(user) {
         {homeButton}
         {searchButton}
         {profileButton}
-        {chatButton}
+        {/* {chatButton} */}
         {/* Chat Container */}
         <div id="chat-container">
           <h4>Chat</h4>

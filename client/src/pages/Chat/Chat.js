@@ -14,7 +14,7 @@ export default function Chat() {
   const { id } = useParams();
   const [currentUser, setCurrentUser] = useState({});
   const [loading, setLoading] = useState(true);
-
+  
   useEffect(() => {
     const token = localStorage.getItem("example-app");
 
@@ -29,25 +29,26 @@ export default function Chat() {
       })
       .catch((err) => console.error(err));
 
-    
-    const socket = io("localhost:3001");
-    socket.on("connect", function () {
+
+      // SOCKET
       let room = {
         id,
         user: currentUser.username
       };
-      // Connected, let's sign-up for to receive messages for this room
-      socket.emit("room", room);
-      
-    });
-    socket.on("message", (data) => {
-      console.log("Incoming message:", data);
-    });
+      const socket = io("localhost:3001");
+      socket.on("connect", function () {
+        // Connected, let's sign-up for to receive messages for this room
+        socket.emit("room", room);
+      });
+      socket.on("message", (data) => {
+        console.log("Incoming message:", data);
+      });
+  
+      return ()=>{
+        socket.close();
+      }
     
-
-    return () => {
-      socket.close();
-    };
+  
   }, []);
 
   var socket = io();

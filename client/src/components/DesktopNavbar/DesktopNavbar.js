@@ -181,7 +181,7 @@ export default function DesktopNavbar(user) {
               })}
             </div>
           </div>
-          <i className="material-icons">sms</i>
+          {/* <i className="material-icons">sms</i> */}
           <Link to="/settings">
             <i className="material-icons">settings</i>
           </Link>
