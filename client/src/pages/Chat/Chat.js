@@ -31,19 +31,26 @@ export default function Chat() {
 
 
       // SOCKET
-      let room = {
-        id,
-        user: currentUser.username
-      };
+      let room = id;
       const socket = io("localhost:3001");
+
       socket.on("connect", function () {
-        // Connected, let's sign-up for to receive messages for this room
-        socket.emit("room", room);
+        console.log('socket.id')
       });
+      socket.emit("join server", currentUser.username)
+      socket.emit("join room", room)
       socket.on("message", (data) => {
         console.log("Incoming message:", data);
       });
-  
+      socket.on("chat", function (payload) {
+        console.log('here')
+        console.log(payload)
+        var item = document.createElement("li");
+        item.textContent = payload.sender + ' ' + payload.content;
+        document.getElementById("messages").appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight);
+      });
+    
       return ()=>{
         socket.close();
       }
@@ -56,22 +63,18 @@ export default function Chat() {
   const onSubmit = (e) => {
     e.preventDefault();
     if (e.target.input.value) {
-      socket.emit("chat message", {
-        message: e.target.input.value,
-        user: currentUser.username,
+      socket.emit("message", {
+        content: e.target.input.value,
+        sender: currentUser.username,
+        room: id,
+
       });
       console.log(currentUser.username)
       e.target.input.value = "";
     }
   };
 
-  socket.on("chat message", function (msg) {
-    var item = document.createElement("li");
-    item.textContent = msg.user + ' ' + msg.message;
-    document.getElementById("messages").appendChild(item);
-    window.scrollTo(0, document.body.scrollHeight);
-  });
-
+  
   if (loading) {
     return (
       <div className="loading">

@@ -36,35 +36,48 @@ app.use(express.json());
 app.use(express.static("public"));
 
 
-
+let socketUsers = []
 // Socket.io
-io.sockets.on('connection', function(socket) {
+io.on('connection', socket => {
   console.log('a user has connected')
+
+  socket.on("join server", (user) =>{
+    console.log('join server')
+    const socketUser={
+      ...user,
+      id: socket.id
+    }
+    socketUsers.push(socketUser)
+  })
   // once a client has connected, we expect to get a ping from them saying what room they want to join
-  socket.once('room', function(room) {
-    console.log(room.id)
-    
-    socket.join(room.id);
+  socket.on('join room', room => {
+    console.log('join room')
 
-    // io.sockets.in(room).emit('message', 'You are in room ' + room);
+    socket.join(room);
 
-   io.to(room.id).emit('message', room.user + ' has joined the chat')
+    io.to(room).emit('message', 'you joined room ' + room)
+    console.log(socketUsers, "socketUsers")
+    console.log(io.sockets.adapter.rooms.get(room), 'adapter')
    
   });
 
-  socket.on('chat message', (msg) => {
-    // console.log('message: ' + msg.message, '/n user:' + msg.user);
-    console.log(msg.message)
-    io.emit('chat message', msg);
-    
-
+  socket.on('message', ({content, to, sender, room}) => {
+   
+    const payload = {
+      content,
+      room,
+      sender
+    };
+    console.log(payload)
+    console.log(room)
+   io.to(room).emit('chat',payload)
   });
 
   
 
   socket.on('disconnect', ()=>{
-    io.emit('message', 'A user has left the chat');
-    socket.removeAllListeners();
+    socketUsers = socketUsers.filter(u => u.id !== socket.id);
+   io.emit("new user", socketUsers)
 
   })
   
