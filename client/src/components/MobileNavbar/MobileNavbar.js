@@ -416,7 +416,7 @@ export default function MobileNavbar(user) {
               console.log(otherUserName);
               return (
                 <Link
-                  to={{ pathname: "/chat/" + chatRoom._id }}
+                  to={{ pathname: "/chat/" + chatRoom._id, state:{otherUserName} }}
                   onClick={(e) =>
                     (window.location.href = "/chat/" + chatRoom._id)
                   }

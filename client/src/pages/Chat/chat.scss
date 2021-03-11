@@ -1,3 +1,44 @@
+// MEDIA QUERY MIXINS
+
+// Small tablets and large smartphones (landscape view)
+$screen-sm-min: 576px;
+
+// Small tablets (portrait view)
+$screen-md-min: 768px;
+
+// Tablets and small desktops
+$screen-lg-min: 992px;
+
+// Large tablets and desktops
+$screen-xl-min: 1200px;
+
+// Small devices
+@mixin sm {
+  @media (max-width: #{$screen-sm-min}) {
+    @content;
+  }
+}
+
+// Medium devices
+@mixin md {
+  @media (max-width: #{$screen-md-min}) {
+    @content;
+  }
+}
+
+// Large devices
+@mixin lg {
+  @media (max-width: #{$screen-lg-min}) {
+    @content;
+  }
+}
+
+// Extra large devices
+@mixin xl {
+  @media (max-width: #{$screen-xl-min}) {
+    @content;
+  }
+}
 #chat {
   color: #e6e6e6;
   position: absolute;
@@ -5,11 +46,67 @@
   width: 100%;
   height: 100vh;
   background: #121212;
+  ul {
+    list-style-type: none;
+    color: #fff;
+    width: 40%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background: #121212;
+    height: 75vh;
+    overflow: scroll;
+    @include sm {
+      width: 100vw;
+      margin: 0;
+      margin-top: 10vh;
+      padding: 10px;
+    }
+  }
+  li {
+    max-width: 50%;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 20px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  .other-user-name{
+    position: fixed;
+    top: 8vh;
+    width: 100vw;
+    background: #121212;
+    padding: 20px 0;
+    margin-left: 0;
+  }
+  .me {
+    // background: linear-gradient(
+    //   90deg,
+    //   rgba(252, 70, 107, 1) 0%,
+    //   rgba(63, 94, 251, 1) 100%
+    // );
+    background: #c74d94;
+    border-radius: 10px 10px 10px 0;
+    align-self: flex-start;
+  }
+
+  .you {
+    // background: linear-gradient(
+    //    90deg,
+    //    rgba(63, 94, 251, 1) 0%,
+    //    rgba(252, 70, 107, 1) 100%
+    //  );
+    background: #7358d4;
+    border-radius: 10px 10px 0px 10px;
+    align-self: flex-end;
+  }
 
   form {
     display: flex;
     align-items: center;
-    position: absolute;
+    position: fixed;
+    background: #121212;
     bottom: 4rem;
     width: 100%;
 

@@ -10,14 +10,15 @@ import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 import DesktopNavbar from "../../components/DesktopNavbar/DesktopNavbar";
 
 import "./chat.css";
-export default function Chat() {
+export default function Chat(props) {
   const { id } = useParams();
   const [currentUser, setCurrentUser] = useState({});
   const [loading, setLoading] = useState(true);
-  
+  const [otherUser, setOtherUser] = useState('')
   useEffect(() => {
     const token = localStorage.getItem("example-app");
-
+    let currentUsername;
+    setOtherUser(props.location.state.otherUserName[0])
     if (token) {
       setAuthToken(token);
     }
@@ -25,37 +26,41 @@ export default function Chat() {
       .get("/api/user")
       .then((res) => {
         setCurrentUser(res.data);
+        currentUsername = res.data.username;
         setLoading(false);
       })
       .catch((err) => console.error(err));
 
+    // SOCKET
+    let room = id;
+    const socket = io("localhost:3001");
 
-      // SOCKET
-      let room = id;
-      const socket = io("localhost:3001");
+    socket.on("connect", function () {
+      console.log("socket.id");
+    });
+    socket.emit("join server", currentUser.username);
+    socket.emit("join room", room);
+    socket.on("message", (data) => {
+      console.log("Incoming message:", data);
+    });
+    socket.on("chat", function (payload) {
+      console.log("here");
+      console.log(payload);
+      var item = document.createElement("li");
+      console.log(currentUser);
+      payload.sender === currentUsername
+        ? item.classList.add("me")
+        : item.classList.add("you");
+      console.log(item);
+      item.textContent = payload.sender + " " + payload.content;
+      let messageContainer = document.getElementById("messages")
+      messageContainer.appendChild(item);
+      messageContainer.scrollTop= messageContainer.scrollHeight;
+    });
 
-      socket.on("connect", function () {
-        console.log('socket.id')
-      });
-      socket.emit("join server", currentUser.username)
-      socket.emit("join room", room)
-      socket.on("message", (data) => {
-        console.log("Incoming message:", data);
-      });
-      socket.on("chat", function (payload) {
-        console.log('here')
-        console.log(payload)
-        var item = document.createElement("li");
-        item.textContent = payload.sender + ' ' + payload.content;
-        document.getElementById("messages").appendChild(item);
-        window.scrollTo(0, document.body.scrollHeight);
-      });
-    
-      return ()=>{
-        socket.close();
-      }
-    
-  
+    return () => {
+      socket.close();
+    };
   }, []);
 
   var socket = io();
@@ -67,14 +72,12 @@ export default function Chat() {
         content: e.target.input.value,
         sender: currentUser.username,
         room: id,
-
       });
-      console.log(currentUser.username)
+      console.log(currentUser.username);
       e.target.input.value = "";
     }
   };
 
-  
   if (loading) {
     return (
       <div className="loading">
@@ -89,8 +92,9 @@ export default function Chat() {
       <div id="chat">
         <DesktopNavbar user={currentUser} />
 
-        <h1>Chat</h1>
-        <ul id="messages"></ul>
+        <ul id="messages">
+          <li class="other-user-name">Chatting with: {otherUser.username}</li>
+        </ul>
         <form id="form" onSubmit={(e) => onSubmit(e)}>
           <input id="input" autoComplete="off" />
           <button type="submit">
