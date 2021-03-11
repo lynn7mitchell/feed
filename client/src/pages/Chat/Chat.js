@@ -14,11 +14,11 @@ export default function Chat(props) {
   const { id } = useParams();
   const [currentUser, setCurrentUser] = useState({});
   const [loading, setLoading] = useState(true);
-  const [otherUser, setOtherUser] = useState('')
+  const [otherUser, setOtherUser] = useState("");
   useEffect(() => {
     const token = localStorage.getItem("example-app");
     let currentUsername;
-    setOtherUser(props.location.state.otherUserName[0])
+    setOtherUser(props.location.state.otherUserName[0]);
     if (token) {
       setAuthToken(token);
     }
@@ -33,7 +33,14 @@ export default function Chat(props) {
 
     // SOCKET
     let room = id;
-    const socket = io("localhost:3001");
+
+    
+    const socketURL =
+      process.env.NODE_ENV === "production"
+        ? window.location.hostname
+        : "localhost:3001";
+
+    const socket = io(socketURL);
 
     socket.on("connect", function () {
       console.log("socket.id");
@@ -53,9 +60,9 @@ export default function Chat(props) {
         : item.classList.add("you");
       console.log(item);
       item.textContent = payload.sender + " " + payload.content;
-      let messageContainer = document.getElementById("messages")
+      let messageContainer = document.getElementById("messages");
       messageContainer.appendChild(item);
-      messageContainer.scrollTop= messageContainer.scrollHeight;
+      messageContainer.scrollTop = messageContainer.scrollHeight;
     });
 
     return () => {
