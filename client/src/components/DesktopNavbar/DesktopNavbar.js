@@ -145,7 +145,7 @@ export default function DesktopNavbar(user) {
                   }}
                   style={{ display: "block", marginBottom: 5 }}
                   key={searchSuggestion._id}
-                  onClick={(e) => refresh(e)}
+                  // onClick={(e) => refresh(e)}
                 >
                   {searchSuggestion.username}
                 </Link>

@@ -386,7 +386,7 @@ export default function MobileNavbar(user) {
                     }}
                     style={{ display: "block" }}
                     key={searchSuggestion._id}
-                    onClick={(e) => refresh(e)}
+                    // onClick={(e) => refresh(e)}
                   >
                     {searchSuggestion.username}
                   </Link>
