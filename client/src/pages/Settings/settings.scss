@@ -72,6 +72,15 @@ $screen-xl-min: 1200px;
       input[type = submit]:disabled{
         background: #333;
         color: #121212;
+        border: 0;
+        border-radius: 10px;
+        height: 5vh;
+        width: 5vw;
+        font-family: "Lato";
+        font-weight: 700;
+        @include sm {
+          height: 35px;
+        }
       }
       input[type = submit] {
         background: #a451ad;

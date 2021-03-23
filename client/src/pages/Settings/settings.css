@@ -23,7 +23,16 @@
     margin-bottom: 3%; }
     .settings .image-upload input[type=submit]:disabled {
       background: #333;
-      color: #121212; }
+      color: #121212;
+      border: 0;
+      border-radius: 10px;
+      height: 5vh;
+      width: 5vw;
+      font-family: "Lato";
+      font-weight: 700; }
+      @media (max-width: 576px) {
+        .settings .image-upload input[type=submit]:disabled {
+          height: 35px; } }
     .settings .image-upload input[type=submit] {
       background: #a451ad;
       border: 0;
