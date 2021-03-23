@@ -128,8 +128,8 @@ export class SignUp extends Component {
       selectedFile: e.target.files[0],
     });
     this.setState({
-      imageOkay: true
-    })
+      imageOkay: true,
+    });
   };
 
   onImageSubmit = (e) => {
@@ -154,6 +154,12 @@ export class SignUp extends Component {
       })
       .catch((err) => console.log(data, err.response));
   };
+  skipImageUpload = e =>{
+    e.preventDefault()
+    this.setState({
+      redirect: true,
+    });
+  }
   render() {
     const styles = {
       logo: {
@@ -188,7 +194,7 @@ export class SignUp extends Component {
             <div>
               <h3>Add A Profile Picture</h3>
               <form
-              className="image-upload"
+                className="image-upload"
                 method="post"
                 encType="multipart/form-data"
                 onSubmit={this.onImageSubmit}
@@ -203,7 +209,14 @@ export class SignUp extends Component {
                   />
                 </p>
 
-                <p>{ImageSubmitButton}</p>
+                <div className="image-button-container">{ImageSubmitButton}<button className='image-skip'
+                  onClick={
+                   this.skipImageUpload
+                  }
+                >
+                  Skip
+                </button></div>
+                
               </form>
             </div>
           </div>

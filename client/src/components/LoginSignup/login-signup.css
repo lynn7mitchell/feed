@@ -26,10 +26,29 @@ h3 {
     h3 {
       display: none; } }
 
+.image-upload .image-button-container {
+  width: 50%;
+  margin: 0 auto;
+  margin-top: 10%;
+  display: flex;
+  justify-content: space-around; }
+  @media (max-width: 576px) {
+    .image-upload .image-button-container {
+      width: 100%; } }
 .image-upload input[type=submit]:disabled {
   background: #333;
-  color: #121212; }
-.image-upload input[type=submit] {
+  color: #121212;
+  border: 0;
+  border-radius: 10px;
+  height: 5vh;
+  width: 5vw;
+  font-family: "Lato";
+  font-weight: 700; }
+  @media (max-width: 576px) {
+    .image-upload input[type=submit]:disabled {
+      height: 35px;
+      width: 80px; } }
+.image-upload input[type=submit], .image-upload .image-skip {
   background: #a451ad;
   border: 0;
   border-radius: 10px;
@@ -39,9 +58,10 @@ h3 {
   font-family: "Lato";
   font-weight: 700; }
   @media (max-width: 576px) {
-    .image-upload input[type=submit] {
+    .image-upload input[type=submit], .image-upload .image-skip {
       background: rgba(65, 96, 251, 0.85);
-      height: 35px; } }
+      height: 35px;
+      width: 80px; } }
 
 @media (max-width: 576px) {
   form {

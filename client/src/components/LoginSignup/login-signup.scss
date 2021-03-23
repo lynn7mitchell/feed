@@ -68,12 +68,32 @@ h3 {
   }
 }
 .image-upload{
-    
+  .image-button-container{
+   
+    width: 50%;
+    @include sm{
+      width: 100%;
+    }
+    margin: 0 auto;
+    margin-top: 10%;
+    display: flex;
+    justify-content: space-around;
+  }
   input[type = submit]:disabled{
     background: #333;
     color: #121212;
+    border: 0;
+    border-radius: 10px;
+    height: 5vh;
+    width: 5vw;
+    font-family: "Lato";
+    font-weight: 700;
+    @include sm {
+      height: 35px;
+      width: 80px;
+    }
   }
-  input[type = submit] {
+  input[type = submit], .image-skip  {
     background: #a451ad;
     border: 0;
     border-radius: 10px;
@@ -85,6 +105,7 @@ h3 {
     @include sm {
       background: rgba(65, 96, 251, 0.85);
       height: 35px;
+      width: 80px;
     }
   }
 }

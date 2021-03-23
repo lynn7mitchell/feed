@@ -32,7 +32,8 @@
       font-weight: 700; }
       @media (max-width: 576px) {
         .settings .image-upload input[type=submit]:disabled {
-          height: 35px; } }
+          height: 35px;
+          width: 80px; } }
     .settings .image-upload input[type=submit] {
       background: #a451ad;
       border: 0;
