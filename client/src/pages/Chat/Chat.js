@@ -34,7 +34,6 @@ export default function Chat(props) {
     // SOCKET
     let room = id;
 
-    
     const socketURL =
       process.env.NODE_ENV === "production"
         ? window.location.hostname
@@ -56,13 +55,13 @@ export default function Chat(props) {
       var item = document.createElement("li");
       console.log(currentUser);
       payload.sender === currentUsername
-        ? item.classList.add("me")
-        : item.classList.add("you");
+        ? item.classList.add("you")
+        : item.classList.add("me");
       console.log(item);
-      item.textContent = payload.sender + " " + payload.content;
+      item.textContent = payload.content;
       let messageContainer = document.getElementById("messages");
       messageContainer.appendChild(item);
-      messageContainer.scrollTop = messageContainer.scrollHeight;
+      // messageContainer.scrollTop = messageContainer.scrollHeight;
     });
 
     return () => {
@@ -97,18 +96,20 @@ export default function Chat(props) {
   } else
     return (
       <div id="chat">
-        <DesktopNavbar user={currentUser} />
-
-        <ul id="messages">
-          <li class="other-user-name">Chatting with: {otherUser.username}</li>
-        </ul>
-        <form id="form" onSubmit={(e) => onSubmit(e)}>
-          <input id="input" autoComplete="off" />
-          <button type="submit">
-            <i className="material-icons">send</i>
-          </button>
-        </form>
-        <MobileNavbar user={currentUser} />
+       
+          <DesktopNavbar user={currentUser} />
+ <div className="chat-container">
+          <ul id="messages">
+            <li class="other-user-name">Chatting with: {otherUser.username}</li>
+          </ul>
+          <form id="form" onSubmit={(e) => onSubmit(e)}>
+            <input id="input" autoComplete="off" />
+            <button type="submit">
+              <i className="material-icons">send</i>
+            </button>
+          </form>
+          <MobileNavbar user={currentUser} />
+        </div>
       </div>
     );
 }
