@@ -315,7 +315,7 @@ export default function PostCard(props) {
                     >
                       <i className="material-icons">favorite</i> {post.likes}
                     </div>
-                    <i className="material-icons">cached</i>
+                    {/* <i className="material-icons">cached</i> */}
                     <i
                       className="material-icons"
                       link={"feed-social-media.herokuapp.com/post/" + post._id}
@@ -401,7 +401,7 @@ export default function PostCard(props) {
                       </i>
                       {post.likes}
                     </div>
-                    <i
+                    {/* <i
                       className="material-icons"
                       onClick={
                         currentUser === {}
@@ -414,7 +414,7 @@ export default function PostCard(props) {
                       }
                     >
                       cached
-                    </i>
+                    </i> */}
                     <i
                       className="material-icons"
                       link={"feed-social-media.herokuapp.com/post/" + post._id}

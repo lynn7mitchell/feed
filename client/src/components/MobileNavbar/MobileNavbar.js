@@ -67,7 +67,7 @@ export default function MobileNavbar(user) {
         setChatRoomsUsers(userIds)
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [window.location]);
 
   // REFRESH
   const refresh = (e) => {
@@ -386,7 +386,7 @@ export default function MobileNavbar(user) {
                     }}
                     style={{ display: "block" }}
                     key={searchSuggestion._id}
-                    // onClick={(e) => refresh(e)}
+                     onClick={(e) => window.location.href.includes("profile") ? window.location.assign("/profile/" + searchSuggestion.username) : null}
                   >
                     {searchSuggestion.username}
                   </Link>

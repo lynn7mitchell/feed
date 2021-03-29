@@ -91,7 +91,7 @@
       padding-right: 5%; }
   .profile .content-headers {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     padding-top: 5vh;
     margin-bottom: 0;
     padding-bottom: 0; }

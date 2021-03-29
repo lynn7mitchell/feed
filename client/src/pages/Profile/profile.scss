@@ -198,7 +198,9 @@ $screen-xl-min: 1200px;
 
   .content-headers {
     display: flex;
-    justify-content: space-evenly;
+    // justify-content: space-evenly;
+    // when there are more than 1 tab space-evenly
+    justify-content: flex-start;
     padding-top: 5vh;
     margin-bottom: 0;
     padding-bottom: 0;

@@ -307,7 +307,7 @@ export default function Profile() {
               >
                 POSTS
               </h5>
-              <h5
+              {/* <h5
                 id="media"
                 onClick={(e) => {
                   handleTabContent(e);
@@ -330,7 +330,7 @@ export default function Profile() {
                 }}
               >
                 TAGGED
-              </h5>
+              </h5> */}
             </div>
             <hr />
           </div>
