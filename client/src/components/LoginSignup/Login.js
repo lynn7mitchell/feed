@@ -133,11 +133,11 @@ export class Login extends Component {
                   Click here to sign up!
                 </span>
               </p>
-              {/* <div className="row">
+              <div className="row">
                 <p>Demo Login:</p>
-                <p>Email: test@gmail.com</p>
-                <p>Password: test</p>
-              </div> */}
+                <p>Email: code7sandbox@gmail.com</p>
+                <p>Password: Thisisatest#1</p>
+              </div>
             </form>
           </div>
         </div>
