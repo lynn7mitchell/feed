@@ -70,6 +70,7 @@ nav {
       font-size: 30px;
     }
   }
+ 
   // .search-box{
   //   position: relative;
   //   overflow: visible;
@@ -139,6 +140,9 @@ nav {
       margin: 0 5px 10px 5px;
     }
   
+    .chat-heading{
+      color: rgba(63, 94, 251, 1)
+    }
 
   }
   .notifications::-webkit-scrollbar, .chats::-webkit-scrollbar {

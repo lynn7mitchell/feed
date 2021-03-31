@@ -27,24 +27,27 @@ export default function DesktopNavbar(user) {
       .get("/api/user")
       .then((res) => {
         setCurrentUser(res.data);
-        setLoading(false);
-      })
-      .catch((err) => console.log(err));
-    // get all users
+
+       // get all users
     axios
-      .get("/api/allUsers")
-      .then((res) => {
-        setUsers(res.data);
-        let usernames = [];
-        for (let i = 0; i < res.data.length; i++) {
-          usernames.push({
-            username: res.data[i].username,
-            id: res.data[i]._id,
-          });
-        }
-        setUsernames(usernames);
+    .get("/api/allUsers")
+    .then((res) => {
+      // setLoading(true);
+      setUsers(res.data);
+      let usernames = [];
+      for (let i = 0; i < res.data.length; i++) {
+        usernames.push({
+          username: res.data[i].username,
+          id: res.data[i]._id,
+        });
+      }
+      setUsernames(usernames);
+      setLoading(false);
+    })
+    .catch((err) => {window.location = window.location; console.log(err)});
       })
       .catch((err) => console.log(err));
+    
 
     // get all chatrooms
 
@@ -104,6 +107,23 @@ export default function DesktopNavbar(user) {
     localStorage.removeItem("example-app");
     window.location.reload(false);
   };
+// CHAT
+const NewChatButton = document.getElementById("new-chat-button");
+
+const createNewChat = (e, id) => {
+  console.log(id);
+
+  const chat = {users:[currentUser._id, id]}
+  axios.post('/chat', chat)
+  .then(window.location.reload(false))
+  .catch((err) => console.error(err));
+};
+
+const openNewChat = e =>{
+ 
+  document.getElementById("new-chat-container").style.display = "block";
+
+}
 
   const toggleNotifications = (e) => {
     console.log("toggle");
@@ -230,6 +250,7 @@ export default function DesktopNavbar(user) {
               sms
             </i>
             <div className="chats">
+            <h5 className="chat-heading">Open Chat Rooms</h5>
               {allChatRooms.map((chatRoom) => {
                 let allOtherUsers = users.filter(
                   (user) => user._id !== currentUser._id
@@ -257,6 +278,21 @@ export default function DesktopNavbar(user) {
                   </Link>
                 );
               })}
+             
+            <div id="new-chat-container">
+              <h5 className="chat-heading">Start A New Chat Room</h5>
+            { usernames.map((username) =>{
+               console.log(username)
+               if(!chatRoomsUsers.includes(username.id) && username._id !== currentUser._id){
+                 return(
+                  <div className="chat-card" onClick={(e) =>{createNewChat(e, username.id)}}>
+                    <h5>{username.username}</h5>
+                  </div>
+                 )
+               }
+             })}
+              
+            </div>
             </div>
           </div>
           <Link to="/settings">

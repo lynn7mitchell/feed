@@ -74,6 +74,8 @@ nav {
     overflow-y: scroll; }
     nav .notifications .notification, nav .notifications .chat, nav .chats .notification, nav .chats .chat {
       margin: 0 5px 10px 5px; }
+    nav .notifications .chat-heading, nav .chats .chat-heading {
+      color: #3f5efb; }
   nav .notifications::-webkit-scrollbar, nav .chats::-webkit-scrollbar {
     width: 2px;
     height: 10px; }
