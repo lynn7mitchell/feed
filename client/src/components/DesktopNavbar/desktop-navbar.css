@@ -62,7 +62,7 @@ nav {
   nav .desktopNavbar-profile-image {
     width: 25px;
     height: 25px; }
-  nav .notifications {
+  nav .notifications, nav .chats {
     background: #1f1f1f;
     border-radius: 5px;
     position: absolute;
@@ -72,12 +72,12 @@ nav {
     max-height: 150px;
     display: none;
     overflow-y: scroll; }
-    nav .notifications .notification {
+    nav .notifications .notification, nav .notifications .chat, nav .chats .notification, nav .chats .chat {
       margin: 0 5px 10px 5px; }
-  nav .notifications::-webkit-scrollbar {
+  nav .notifications::-webkit-scrollbar, nav .chats::-webkit-scrollbar {
     width: 2px;
     height: 10px; }
-  nav .notifications::-webkit-scrollbar-thumb {
+  nav .notifications::-webkit-scrollbar-thumb, nav .chats::-webkit-scrollbar-thumb {
     background: linear-gradient(180deg, #fc466b 0%, #3f5efb 100%);
     outline: 1px solid slategrey; }
   nav .logout-button {

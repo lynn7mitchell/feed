@@ -6,9 +6,15 @@ import axios from "axios";
 
 export default function DesktopNavbar(user) {
   const [currentUser, setCurrentUser] = useState({});
+  const [users, setUsers] = useState([]);
+  const [usernames, setUsernames] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
   const [searchSuggestions, setSearchSuggestions] = useState([]);
   const [notificationToggle, setNotificationToggle] = useState(false);
+  const [chatToggle, setChatToggle] = useState(false);
+  const [allChatRooms, setAllChatRooms] = useState([]);
+  const [chatRoomsUsers, setChatRoomsUsers] = useState([]);
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -22,6 +28,38 @@ export default function DesktopNavbar(user) {
       .then((res) => {
         setCurrentUser(res.data);
         setLoading(false);
+      })
+      .catch((err) => console.log(err));
+    // get all users
+    axios
+      .get("/api/allUsers")
+      .then((res) => {
+        setUsers(res.data);
+        let usernames = [];
+        for (let i = 0; i < res.data.length; i++) {
+          usernames.push({
+            username: res.data[i].username,
+            id: res.data[i]._id,
+          });
+        }
+        setUsernames(usernames);
+      })
+      .catch((err) => console.log(err));
+
+    // get all chatrooms
+
+    axios
+      .get("/chat")
+      .then((res) => {
+        setAllChatRooms(res.data);
+        let userIds = [];
+        for (let i = 0; i < res.data.length; i++) {
+          for (let j = 0; j < res.data[i].users.length; j++) {
+            console.log([res.data[i].users[j]]);
+            userIds.push(res.data[i].users[j]);
+          }
+        }
+        setChatRoomsUsers(userIds);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -80,7 +118,17 @@ export default function DesktopNavbar(user) {
       setNotificationToggle(false);
     }
   };
-
+  const toggleChat = (e) => {
+    console.log("toggle");
+    if (chatToggle === false) {
+      console.log("false");
+      document.getElementsByClassName("chats")[0].style.display = "block";
+      setChatToggle(true);
+    } else {
+      document.getElementsByClassName("chats")[0].style.display = "none";
+      setChatToggle(false);
+    }
+  };
   if (searchSuggestions.length !== 0) {
     document.getElementsByClassName("search-suggestions")[0].style.display =
       "block";
@@ -92,10 +140,7 @@ export default function DesktopNavbar(user) {
         "none";
     }, 500);
   }
-  let profilePicture = (
-    
-      <i className="material-icons">account_circle</i>
-  );
+  let profilePicture = <i className="material-icons">account_circle</i>;
   if (currentUser.image) {
     profilePicture = (
       <div
@@ -110,7 +155,6 @@ export default function DesktopNavbar(user) {
       ></div>
     );
   }
-
 
   if (loading) {
     return (
@@ -181,7 +225,40 @@ export default function DesktopNavbar(user) {
               })}
             </div>
           </div>
-          {/* <i className="material-icons">sms</i> */}
+          <div className="chat-box">
+            <i className="material-icons" onClick={(e) => toggleChat(e)}>
+              sms
+            </i>
+            <div className="chats">
+              {allChatRooms.map((chatRoom) => {
+                let allOtherUsers = users.filter(
+                  (user) => user._id !== currentUser._id
+                );
+                let otherUser = chatRoom.users.filter(
+                  (user) => user !== currentUser._id
+                );
+                let otherUserName = allOtherUsers.filter(
+                  (user) => user._id === otherUser[0]
+                );
+                console.log(otherUserName);
+                return (
+                  <Link
+                    to={{
+                      pathname: "/chat/" + chatRoom._id,
+                      state: { otherUserName },
+                    }}
+                    onClick={(e) =>
+                      (window.location.href = "/chat/" + chatRoom._id)
+                    }
+                  >
+                    <div className="chat-card">
+                      <h5>{otherUserName[0].username}</h5>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
           <Link to="/settings">
             <i className="material-icons">settings</i>
           </Link>
