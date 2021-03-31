@@ -103,7 +103,7 @@ export default function Settings() {
     <div className="settings">
       <DesktopNavbar user={currentUser} />
       <h2>Settings</h2>
-      <div className="buttons">
+      {/* <div className="buttons">
         <h4>Politics Filter</h4>
 
         <Switch
@@ -113,7 +113,7 @@ export default function Settings() {
           uncheckedIcon={false}
           checkedIcon={false}
         />
-      </div>
+      </div> */}
 
       <form
       className="image-upload"
