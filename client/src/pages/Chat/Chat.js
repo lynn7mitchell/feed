@@ -100,7 +100,7 @@ export default function Chat(props) {
           <DesktopNavbar user={currentUser} />
  <div className="chat-container">
           <ul id="messages">
-            <li class="other-user-name">Chatting with: {otherUser.username}</li>
+            <li class="other-user-name"><p>Chatting with: {otherUser.username} <br/> This is a live chatroom where both users have to be on at the same time</p></li>
           </ul>
           <form id="form" onSubmit={(e) => onSubmit(e)}>
             <input id="input" autoComplete="off" />

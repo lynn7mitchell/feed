@@ -102,6 +102,10 @@ margin: 0 auto;
     background: #121212;
     padding: 20px 0;
     margin-left: 0;
+    max-width: 100%;
+    @include sm{
+      font-size: 18px;
+    }
   }
   .me {
     // background: linear-gradient(

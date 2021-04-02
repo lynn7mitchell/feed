@@ -50,7 +50,11 @@
     width: 100vw;
     background: #121212;
     padding: 20px 0;
-    margin-left: 0; }
+    margin-left: 0;
+    max-width: 100%; }
+    @media (max-width: 576px) {
+      #chat .other-user-name {
+        font-size: 18px; } }
   #chat .me {
     background: #c74d94;
     border-radius: 10px 10px 10px 0;
