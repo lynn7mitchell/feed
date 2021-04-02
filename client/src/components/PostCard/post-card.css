@@ -94,7 +94,9 @@
     outline: none;
     resize: none;
     color: #e6e6e6;
-    margin-bottom: 10px; }
+    margin-bottom: 10px;
+    height: 4rem;
+    width: 14rem; }
   #delete-modal button,
   #edit-modal button {
     background: #b44fa2; }
