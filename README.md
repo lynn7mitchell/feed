@@ -15,10 +15,10 @@ Live Link: http://feed-social-media.herokuapp.com/
 ## What's it look like?
 
 ### Home
-<img src="./client/src/img/feed-home.png" width="30%">
+<img src="./client/src/img/feed-home.png" width="50%">
 
 ### Dashboard
-<img src="./client/src/img/feed-dashboard.png" width="30%">
+<img src="./client/src/img/feed-dashboard.png" width="50%">
 
 ### Profile Page
-<img src="./client/src/img/feed-profile.png" width="30%">
+<img src="./client/src/img/feed-profile.png" width="50%">
