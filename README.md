@@ -1,5 +1,24 @@
 # Feed (Working Title)
-Feed is a social network app. I wanted to start this project because it is something I can always continue to work on and add more features. I also wanted to create a social media app that combines all the features that the others use.
+Feed is a social network app. I wanted to start this project because it is something I can always continue to work on and add more features. I also wanted to create a social media app that combines all the features that the others use. This project has pushed me to learn new things more than any other project has.
 
-Live Link: http://feed-social-media.herokuapp.com/ (NOT FINISHED but feel free to create a user and send feedback to lynn7mitchell@gmail.com)
+Live Link: http://feed-social-media.herokuapp.com/
 
+## Built Using
+
+- React.js
+- SASS
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose ODM
+
+## What's it look like?
+
+### Home
+<img src="./client/src/img/feed-home.png" width="30%">
+
+### Dashboard
+<img src="./client/src/img/feed-dashboard.png" width="30%">
+
+### Profile Page
+<img src="./client/src/img/feed-profile.png" width="30%">
