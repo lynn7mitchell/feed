@@ -46,7 +46,7 @@ export default function DesktopNavbar(user) {
     })
     .catch((err) => {window.location = window.location; console.log(err)});
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {window.location = window.location; console.log(err)});
     
 
     // get all chatrooms

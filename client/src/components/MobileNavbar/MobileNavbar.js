@@ -33,7 +33,7 @@ export default function MobileNavbar(user) {
         setLoading(false);
       })
 
-      .catch((err) => console.log(err));
+      .catch((err) => {window.location = window.location; console.log(err)});
 
     // get all users
     axios
@@ -47,7 +47,7 @@ export default function MobileNavbar(user) {
         }
         setUsernames(usernames)
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {window.location = window.location; console.log(err)});
 
     // get all chatrooms
 
